@@ -83,7 +83,7 @@ app.get('/posts/title/:title', PostController.getOneByTitle)
 app.get('/posts/category/:category', PostController.getCategory);
 app.patch('/posts/like/:id', handleValidationErrors, PostController.like)
 app.post('/posts', checkAuth, postCreateValidation, handleValidationErrors, PostController.create)
-app.patch('/posts/:id', checkAuth, postCreateValidation, handleValidationErrors, PostController.update)
+app.put('/posts/:id', checkAuth, postCreateValidation, handleValidationErrors, PostController.update)
 app.delete('/posts/:id', checkAuth, PostController.remove);
 
 app.listen(4444, (err)=> {

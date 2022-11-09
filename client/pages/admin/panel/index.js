@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import {formatRuDate} from "../../../core/utils";
 import Link from "next/link";
 import {SettingOutlined} from "@ant-design/icons";
+import axios from "axios";
 
 
 function AdminPanel() {
@@ -22,14 +23,21 @@ function AdminPanel() {
             .then(res => res.json())
             .then(data => {
                 setDataSource(data.docs.map(p => ({...p, createdAt: formatRuDate(p.createdAt)})))
-                setTableParams({
-                    ...tableParams, pagination: {
-                        ...tableParams.pagination, total: data.totalDocs,
-                    },
-                });
+                if (data.totalPages === 1) {
+                    setTableParams({
+                        ...tableParams, pagination: false,
+                    });
+                } else {
+                    setTableParams({
+                        ...tableParams, pagination: {
+                            ...tableParams.pagination,
+                            current: data.page, total: data.totalDocs,
+                        },
+                    });
+                }
                 setLoading(false)
             })
-    }, [JSON.stringify(tableParams)])
+    }, [JSON.stringify(tableParams), JSON.stringify(dataSource)])
 
     const handleTableChange = (pagination, filters, sorter) => {
         setTableParams({
@@ -52,7 +60,15 @@ function AdminPanel() {
             {
                 key: '2',
                 danger: true,
-                label: 'Удалить',
+                label: (
+                    <div onClick={() => {
+                        axios.delete(`/api/posts/${id}`).then(r => {
+                            setDataSource(dataSource.filter((item) => item._id !== id))
+                        })
+                    }}>
+                        Удалить статью
+                    </div>
+                ),
             },
         ]
     }

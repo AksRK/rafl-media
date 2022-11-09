@@ -41,8 +41,13 @@ function NewPost() {
                     "634ae06fc43506a1e371d7ba"
                 ], userId: '633ad4e026be25c7184a194f'
             },
+            {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                }
+            }
         ).then((response) => {
-            console.log(response.status)
+            // alert('success')
         }).catch((error) => {
             console.log(error)
         })

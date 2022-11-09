@@ -16,6 +16,7 @@ export const Category = [
         value: 'community'
     },
 ]
+
 export const ruMonths = [
     "Января",
     "Февраля",

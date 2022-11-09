@@ -140,7 +140,6 @@ export const getOneByTitle = async (req, res) => {
 }
 
 export const remove = async (req, res) => {
-
     try {
         const postId = req.params.id
 
@@ -183,7 +182,7 @@ export const create = async (req, res) => {
             imageUrl: req.body.imageUrl,
             content: req.body.content,
             readAlso: req.body.readAlso,
-            user: req.body.userId,
+            user: req.userId,
 
         })
 
@@ -210,7 +209,7 @@ export const update = async (req, res) => {
             imageUrl: req.body.imageUrl,
             content: req.body.content,
             readAlso: req.body.readAlso,
-            user: req.body.userId,
+            user: req.userId,
             likes: req.body.likes,
             viewsCount: req.body.viewsCount
         })

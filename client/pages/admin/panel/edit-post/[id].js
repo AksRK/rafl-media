@@ -34,6 +34,24 @@ function EditPost({id}) {
         event.preventDefault()
         console.log(title, description, postBody, titleImage)
         // setFullPost({...data, post: postBody, titleImg: titleImage})
+        axios.put(
+            `/api/posts/${id}`,
+            {
+                title, description, content: postBody, imageUrl: titleImage, readAlso: [
+                    "634adfc0b3152bd7eb481f06",
+                    "634ae06fc43506a1e371d7ba"
+                ]
+            },
+            {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                }
+            }
+        ).then((response) => {
+            // alert('success')
+        }).catch((error) => {
+            console.log(error)
+        })
     }
 
     const imgUpload = (event) => {
