@@ -26,7 +26,7 @@ function EditPost({id}) {
                 setTitle(data.title)
                 setDescription(data.description)
                 setContent(data.content)
-                // setTitleImage(data.imageUrl)
+                setTitleImage(data.imageUrl)
             })
     }, [])
 

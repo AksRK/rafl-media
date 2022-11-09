@@ -174,6 +174,8 @@ export const remove = async (req, res) => {
 export const create = async (req, res) => {
 
     try {
+        console.log(req.userId)
+
         const doc = new PostModel({
             category: req.body.category,
             title: req.body.title,
@@ -181,7 +183,7 @@ export const create = async (req, res) => {
             imageUrl: req.body.imageUrl,
             content: req.body.content,
             readAlso: req.body.readAlso,
-            user: req.userId,
+            user: req.body.userId,
 
         })
 

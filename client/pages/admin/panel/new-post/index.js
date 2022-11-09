@@ -16,6 +16,7 @@ function NewPost() {
     const [postBody, setPostBody] = useState('')
     const imageRef = useRef()
     const [titleImage, setTitleImage] = useState('')
+    const [category, setCategory] = useState('')
     const [previewState, setPreviewState] = useState(false)
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
@@ -31,8 +32,20 @@ function NewPost() {
     }, [previewState])
 
     const onSubmit = (data) => {
-        console.log({...data, post: postBody, titleImg: titleImage})
         setFullPost({...data, post: postBody, titleImg: titleImage})
+        axios.post(
+            '/api/posts',
+            {
+                ...data, content: postBody, imageUrl: titleImage, category, readAlso: [
+                    "634adfc0b3152bd7eb481f06",
+                    "634ae06fc43506a1e371d7ba"
+                ], userId: '633ad4e026be25c7184a194f'
+            },
+        ).then((response) => {
+            console.log(response.status)
+        }).catch((error) => {
+            console.log(error)
+        })
     }
 
     const imgUpload = (event) => {
@@ -53,7 +66,7 @@ function NewPost() {
     }
 
     const onChange = (value) => {
-        console.log(`selected ${value}`);
+        setCategory(value)
     };
 
     return (
