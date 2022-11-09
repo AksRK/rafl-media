@@ -205,7 +205,6 @@ export const update = async (req, res) => {
         await PostModel.updateOne({
             _id: postId,
         }, {
-            category: req.body.category,
             title: req.body.title,
             description: req.body.description,
             imageUrl: req.body.imageUrl,

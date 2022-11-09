@@ -138,7 +138,6 @@ export const create = async (req, res) => {
 
     try {
         const doc = new CreatorPostModel({
-            creator: req.body.creator,
             title: req.body.title,
             description: req.body.description,
             imageUrl: req.body.imageUrl,
