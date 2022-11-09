@@ -110,6 +110,7 @@ function AdminPanel() {
                    loading={loading}
                    onChange={handleTableChange}
                    rowKey="_id"
+                   scroll={{ x: true }}
             />
         </AdminPanelLayout>
     )
