@@ -1,0 +1,21 @@
+.contacts {
+
+  &__wrp {
+    margin-top: 41px;
+    display: flex;
+    flex-direction: column;
+    gap: 35px 0;
+    font-family: "Source Serif Pro";
+  }
+
+  &__el {
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 32px;
+    color: #000000;
+
+    & a {
+      margin-left: 5px;
+    }
+  }
+}

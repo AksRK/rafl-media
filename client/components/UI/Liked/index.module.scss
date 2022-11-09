@@ -1,0 +1,143 @@
+.like {
+  position: relative;
+  overflow: hidden;
+  width: 121px;
+  height: 44px;
+  background: #ffffff;
+  border: 1px solid #F1F1F1;
+  border-radius: 37px;
+  color: #000000;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+  cursor: pointer;
+  display: flex;
+  padding-left: 20px;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0 12px;
+
+  transition: all 0.1s ease-in-out;
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:disabled {
+    background: #717171;
+    color: #ffffff;
+
+    &:active {
+      transform: scale(1);
+    }
+
+    & span {
+      &:first-child {
+        background-image: url("hand-silver.svg");
+      }
+    }
+
+    &:hover {
+      background-color: #717171;
+      & span {
+        &:first-child {
+          background-image: url("hand-silver.svg");
+        }
+      }
+    }
+  }
+
+  & span {
+    transition: all 0.1s ease-in-out;
+
+    &:first-child {
+      display: inline-block;
+      width: 33px;
+      height: 29px;
+      background-image: url("hand-black.svg");
+      background-size: 100%;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+  }
+
+  &:hover {
+    background: #000000;
+    border: 1px solid #F1F1F1;
+    color: #ffffff;
+
+    & span {
+      &:first-child {
+        background-image: url("hand-white.svg");
+      }
+    }
+  }
+
+  &__count {
+    animation: 0.5s new-like both;
+  }
+
+  &__total {
+    animation: 0.5s total-thx both;
+  }
+
+
+  &__boxThx {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 1.5s ease-in-out;
+    animation: 2s close-thx both;
+    animation-delay: 1s;
+  }
+
+  &__thxText {
+    animation: 0.5s move-text ease-in-out;
+  }
+}
+
+@keyframes scale-like-box {
+}
+
+@keyframes new-like {
+  from {
+    transform: scale(0.4);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes total-thx {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100%;
+  }
+}
+
+@keyframes move-text {
+  from {
+    transform: translateX(90px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes close-thx {
+  0% {
+    opacity: 100%;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

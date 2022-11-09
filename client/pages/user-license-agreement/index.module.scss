@@ -1,0 +1,26 @@
+.license {
+  max-width: 876px;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 32px;
+  color: #000000;
+
+  &__subtitle {
+    font-weight: 800;
+    font-size: 30px;
+    line-height: 32px;
+    color: #000000;
+  }
+}
+
+@media (max-width: 479px) {
+  .license {
+    font-size: 18px;
+    line-height: 28px;
+
+    &__subtitle {
+      font-size: 26px;
+      line-height: 30px;
+    }
+  }
+}

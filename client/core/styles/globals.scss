@@ -1,0 +1,217 @@
+@import "../../assets/fonts/Inter/Inter";
+@import "../../assets/fonts/SourceSerifPro/SourceSerifPro";
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background: #000000;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    color: #000000;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  width: 1633px;
+  margin: 0 auto;
+  padding-bottom: 1px;
+}
+
+
+.container-admin {
+  max-width: 1215px;
+  margin: 0 auto;
+}
+
+.link {
+  width: fit-content;
+  position: relative;
+  font-weight: 500;
+  line-height: 22px;
+  color: #717171;
+  transition: color 0.3s ease-in-out;
+
+  & span {
+    width: fit-content;
+    position: relative;
+
+
+    &::before {
+      content: '';
+      width: 100%;
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      border-bottom: 1px dashed #717171;
+      transition: border-bottom-color 0.3s ease-in-out;
+    }
+  }
+
+  &:hover {
+    color: #ffffff;
+
+    & span {
+      &::before {
+        border-bottom-color: #ffffff;
+      }
+    }
+  }
+
+  &_active {
+    color: #ffffff;
+
+    & span {
+      &::before {
+        opacity: 0;
+      }
+    }
+  }
+
+  &_column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px 0;
+  }
+
+  &_white {
+    color: #ffffff;
+
+    & span {
+      &::before {
+        border-bottom-color: #ffffff;
+      }
+    }
+
+    &:hover {
+      color: #717171;
+
+      & span {
+        border-bottom-color: #717171;
+      }
+    }
+  }
+
+  &_hover_black {
+    &:hover {
+      color: #000000;
+
+      & span {
+        &::before {
+          border-bottom-color: #000000;
+        }
+      }
+    }
+  }
+}
+
+.btn {
+  max-width: fit-content;
+  position: relative;
+  display: block;
+  border: none;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+  color: #FFFFFF;
+  background-color: #000000;
+  transition: background-color 0.4s ease-in-out;
+  cursor: pointer;
+  padding: 13px 32.5px;
+  //margin: 0 auto 0 auto;
+  border-radius: 37px;
+
+  &:hover {
+    background-color: #717171;
+  }
+
+  &_tag {
+    position: absolute;
+    top: -65px;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 0 12px;
+    padding: 13px 17px;
+    margin: 0;
+  }
+
+  &_disabled {
+    background-color: #696969;
+  }
+}
+
+.page-title {
+  margin: 0;
+  font-weight: 900;
+  font-size: 60px;
+  line-height: 62px;
+  color: #000000;
+  max-width: 720px;
+
+
+}
+
+@media (max-width: 1633px) {
+  .container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 932px) {
+  .btn_tag {
+    top: 0;
+  }
+}
+
+@media (max-width: 678px) {
+  .page-title {
+    &--full-post {
+      font-size: 45px;
+      line-height: 45px;
+      max-width: 336px;
+    }
+  }
+}
+
+@media (max-width: 479px) {
+  .btn_tag {
+    font-size: 10px;
+    padding: 5px 10px;
+    gap: 0 4px;
+
+    & svg {
+      width: 18px;
+    }
+  }
+
+  .page-title {
+    &--full-post {
+      font-size: 30px;
+      line-height: 34px;
+      max-width: 336px;
+    }
+  }
+}
+
+
+/*@media (prefers-color-scheme: dark) {*/
+/*  html {*/
+/*    color-scheme: dark;*/
+/*  }*/
+/*  body {*/
+/*    color: white;*/
+/*    background: black;*/
+/*  }*/
+/*}*/
