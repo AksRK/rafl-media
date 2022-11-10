@@ -1,46 +1,45 @@
-import AdminPanelLayout from "../../../../layouts/AdminPanelLayout";
+import AdminPanelLayout from "../../../../../layouts/AdminPanelLayout";
+import {useForm} from 'react-hook-form';
 import styles from "./index.module.scss";
 import Image from 'next/image'
-import plusImg from '../../../../public/plus.png'
-import Editor from "../../../../components/Editor";
+import plusImg from '../../../../../public/plus.png'
+import Editor from "../../../../../components/Editor";
 import {useEffect, useRef, useState} from "react";
 import axios from "axios";
-import PostPreview from "../../../../components/PostPreview";
+import PostPreview from "../../../../../components/PostPreview";
+import {Category} from "../../../../../core/mock";
+import {Select} from "antd";
 
 
-function EditPost({id}) {
+function NewCreator() {
     const [fullPost, setFullPost] = useState(null)
     const [postBody, setPostBody] = useState('')
     const imageRef = useRef()
     const [titleImage, setTitleImage] = useState('')
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
-    const [content, setContent] = useState('')
+    const [category, setCategory] = useState('')
     const [previewState, setPreviewState] = useState(false)
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        defaultValues: {
+            title: '',
+            description:'',
+            titleImag: titleImage,
+            post:''
+        }
+    });
 
     useEffect(() => {
-        console.log(id)
-        fetch(`/api/posts/${id}`)
-            .then(res => res.json())
-            .then(data => {
-                setTitle(data.title)
-                setDescription(data.description)
-                setContent(data.content)
-                setTitleImage(data.imageUrl)
-            })
-    }, [])
+        scrollTo(top)
+    }, [previewState])
 
-    const onSubmit = (event, data) => {
-        event.preventDefault()
-        console.log(title, description, postBody, titleImage)
-        // setFullPost({...data, post: postBody, titleImg: titleImage})
-        axios.put(
-            `/api/posts/${id}`,
+    const onSubmit = (data) => {
+        setFullPost({...data, post: postBody, titleImg: titleImage})
+        axios.post(
+            '/api/posts',
             {
-                title, description, content: postBody, imageUrl: titleImage, readAlso: [
+                ...data, content: postBody, imageUrl: titleImage, category, readAlso: [
                     "634adfc0b3152bd7eb481f06",
                     "634ae06fc43506a1e371d7ba"
-                ]
+                ], userId: '633ad4e026be25c7184a194f'
             },
             {
                 headers: {
@@ -58,7 +57,7 @@ function EditPost({id}) {
         const Data = new FormData()
         Data.append('image', event.target.files[0])
         axios.post(
-            '/api/uploads',
+            'http://localhost:4444/uploads',
             Data,
             {
                 headers: {
@@ -71,11 +70,22 @@ function EditPost({id}) {
         })
     }
 
+    const onChange = (value) => {
+        setCategory(value)
+    };
+
     return (
         <AdminPanelLayout>
             <div className="container-admin">
-                <h1>Редактировать статью</h1>
-                <form onSubmit={onSubmit}>
+                <h1>Новая статья</h1>
+                <Select
+                    placeholder="Выберите категорию"
+                    optionFilterProp="children"
+                    onChange={onChange}
+                    options={Category}
+                />
+                <br/><br/>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={styles.newPostFormWrp}>
                         <div className={styles.addImg}>
                             <input
@@ -116,8 +126,8 @@ function EditPost({id}) {
                                     placeholder={'Заголовок статьи'}
                                     name={'title'}
                                     id={'title'}
-                                    value={title}
-                                    onChange={(e) => setTitle(e.target.value)}
+                                    {...register("title",
+                                        {required: true, minLength: 5, maxLength: 80})}
                                 />
                             </div>
                             <div className={styles.newPostForm__controller}>
@@ -131,8 +141,8 @@ function EditPost({id}) {
                                     placeholder={'Описание статьи'}
                                     name={'description'}
                                     id={'description'}
-                                    value={description}
-                                    onChange={(e) => setDescription(e.target.value)}
+                                    {...register("description",
+                                        {required: true, minLength: 5, maxLength: 200})}
                                 />
                             </div>
                         </div>
@@ -144,32 +154,26 @@ function EditPost({id}) {
                         </label>
                         <br/>
                         <br/>
-                        <Editor initialContent={content} onChange={(data) => setPostBody(data)}/>
+                        <Editor onChange={(data) => setPostBody(data)}/>
                     </div>
 
-                    <div style={previewState ? {position: 'fixed'} : {}} className={styles.newPostForm__wrpBtn}>
-                        <input className={'btn'} type={'submit'} value={'Сохранить'}/>
-                        <div onClick={() => setPreviewState(!previewState)}
+                    <div style={previewState?{position:'fixed'}:{}} className={styles.newPostForm__wrpBtn}>
+                        <input className={'btn'} type={'submit'} value={'Опубликовать'}/>
+                        <div onClick={()=>setPreviewState(!previewState)}
                              className={'btn'}>
                             {
-                                previewState ? 'Редактировать' : 'Предпросмотр'
+                                previewState?'Редактировать':'Предпросмотр'
                             }
                         </div>
                     </div>
-                    <div style={{height: '100px'}}></div>
+                    <div style={{height:'100px'}}></div>
                 </form>
                 {
-                    previewState ? <PostPreview data={fullPost}/> : ''
+                    previewState?<PostPreview data={fullPost}/>:''
                 }
             </div>
         </AdminPanelLayout>
     )
 }
 
-export async function getServerSideProps(context) {
-    return {
-        props: {id: context.params.id}, // will be passed to the page component as props
-    }
-}
-
-export default EditPost;
+export default NewCreator;

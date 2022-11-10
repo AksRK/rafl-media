@@ -3,7 +3,8 @@ import Header from "../../components/Header";
 
 const privateRoutes = [
     {link: '/admin/panel', name: 'Главная'},
-    {link: '/admin/panel/new-post', name: 'Создать статью'},
+    {link: '/admin/panel/posts', name: 'Статьи'},
+    {link: '/admin/panel/creators', name: 'Креаторы'},
     {link: '/', name: 'Выход'},
 ]
 
