@@ -1,6 +1,9 @@
 import styles from './index.module.scss'
 import {useForm} from 'react-hook-form';
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import axios from "axios";
+import router from 'next/router'
+import {baseUrl} from "../../../core/mock";
 
 function Auth() {
     const [isAuth, setIsAuth] = useState(false)
@@ -11,9 +14,43 @@ function Auth() {
         }
     });
 
-    const onSubmit = () => {
+    const onSubmit = async (data) => {
         setIsAuth(true)
+        console.log(data)
+        await axios.post(`${baseUrl}/auth/login`, {
+            ...data
+        })
+            .then(function (response) {
+                console.log(response);
+                console.log(response.status)
+                if (response.status === 200) {
+                    window.localStorage.setItem('token', response.data.token)
+                    setIsAuth(true)
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
+
+    useEffect(() => {
+        if (isAuth) {
+            router.push('/admin/panel')
+        }
+    }, [isAuth])
+
+
+    useEffect(() => {
+        axios.get(`${baseUrl}/auth/me`, {
+            headers: {Authorization: localStorage.getItem('token')}
+        })
+            .then(function (response) {
+                setIsAuth(true)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, [])
 
     return (
         <section className={styles.auth}>
