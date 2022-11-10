@@ -3,7 +3,6 @@ import {useForm} from 'react-hook-form';
 import {useEffect, useState} from "react";
 import axios from "axios";
 import router from 'next/router'
-import {baseUrl} from "../../../core/mock";
 
 function Auth() {
     const [isAuth, setIsAuth] = useState(false)
@@ -17,7 +16,7 @@ function Auth() {
     const onSubmit = async (data) => {
         setIsAuth(true)
         console.log(data)
-        await axios.post(`${baseUrl}/auth/login`, {
+        await axios.post(`/api/auth/login`, {
             ...data
         })
             .then(function (response) {
@@ -41,7 +40,7 @@ function Auth() {
 
 
     useEffect(() => {
-        axios.get(`${baseUrl}/auth/me`, {
+        axios.get(`/api/auth/me`, {
             headers: {Authorization: localStorage.getItem('token')}
         })
             .then(function (response) {

@@ -1,5 +1,8 @@
 import styles from './styles.module.scss'
 import Header from "../../components/Header";
+import {CheckAuth} from "../../core/utils";
+import router from "next/router";
+import {useEffect} from "react";
 
 const privateRoutes = [
     {link: '/admin/panel', name: 'Главная'},
@@ -9,6 +12,7 @@ const privateRoutes = [
 ]
 
 function AdminPanelLayout({children}) {
+
     return (
         <div className={'container'}>
             <div className={styles.adminP}>
