@@ -2,10 +2,14 @@ import styles from './index.module.scss'
 import {useForm} from 'react-hook-form';
 import {useEffect, useState} from "react";
 import axios from "axios";
-import router from 'next/router'
+import {useRouter} from "next/router";
+import Header from "../../../components/Header";
+import {publicRoutes} from "../../../layouts/DefaultLayout";
+import {AuthProvider} from "../../../components/AuthProvider";
 
 function Auth() {
-    const [isAuth, setIsAuth] = useState(false)
+    const router = useRouter()
+    const {signIn} = AuthProvider()
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             email: 'test2@test.com',
@@ -14,17 +18,14 @@ function Auth() {
     });
 
     const onSubmit = async (data) => {
-        setIsAuth(true)
-        console.log(data)
         await axios.post(`/api/auth/login`, {
             ...data
         })
             .then(function (response) {
-                console.log(response);
-                console.log(response.status)
                 if (response.status === 200) {
-                    window.localStorage.setItem('token', response.data.token)
-                    setIsAuth(true)
+                    signIn()
+                    localStorage.setItem('token', response.data.token)
+                    router.push('/admin/panel')
                 }
             })
             .catch(function (error) {
@@ -32,19 +33,13 @@ function Auth() {
             });
     }
 
-    useEffect(() => {
-        if (isAuth) {
-            router.push('/admin/panel')
-        }
-    }, [isAuth])
-
 
     useEffect(() => {
         axios.get(`/api/auth/me`, {
             headers: {Authorization: localStorage.getItem('token')}
         })
             .then(function (response) {
-                setIsAuth(true)
+                router.push('/admin/panel')
             })
             .catch(function (error) {
                 console.log(error);
@@ -52,33 +47,37 @@ function Auth() {
     }, [])
 
     return (
-        <section className={styles.auth}>
-            <form onSubmit={handleSubmit(onSubmit)} className={styles.authForm}>
-                <h2 className={styles.authForm__title}>Вход</h2>
+        <>
+            <Header routes={publicRoutes}/>
+            <section className={styles.auth}>
 
-                <div className={styles.authForm__control}>
-                    <input type="text"
-                           name={'email'}
-                           id={'email'}
-                           placeholder={'Почта'}
-                           {...register("email",
-                               {required: true, minLength: 5, maxLength: 80})}
-                           className={styles.authForm__input}
-                           style={errors.email?{borderColor:'red', background:'#ffc8c8'}:{}}
-                    />
-                    <input type="password"
-                           name={'password'}
-                           id={'password'}
-                           placeholder={'Пароль'}
-                           {...register("password",
-                               {required: true, minLength: 5, maxLength: 80})}
-                           className={styles.authForm__input}
-                           style={errors.password?{borderColor:'red', background:'#ffc8c8'}:{}}
-                    />
-                </div>
-                <input className={styles.authForm__button} type={'submit'} value={'Войти'}/>
-            </form>
-        </section>
+                <form onSubmit={handleSubmit(onSubmit)} className={styles.authForm}>
+                    <h2 className={styles.authForm__title}>Вход</h2>
+
+                    <div className={styles.authForm__control}>
+                        <input type="text"
+                               name={'email'}
+                               id={'email'}
+                               placeholder={'Почта'}
+                               {...register("email",
+                                   {required: true, minLength: 5, maxLength: 80})}
+                               className={styles.authForm__input}
+                               style={errors.email?{borderColor:'red', background:'#ffc8c8'}:{}}
+                        />
+                        <input type="password"
+                               name={'password'}
+                               id={'password'}
+                               placeholder={'Пароль'}
+                               {...register("password",
+                                   {required: true, minLength: 5, maxLength: 80})}
+                               className={styles.authForm__input}
+                               style={errors.password?{borderColor:'red', background:'#ffc8c8'}:{}}
+                        />
+                    </div>
+                    <input className={styles.authForm__button} type={'submit'} value={'Войти'}/>
+                </form>
+            </section>
+        </>
     )
 }
 

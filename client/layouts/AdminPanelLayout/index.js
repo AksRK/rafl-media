@@ -1,8 +1,7 @@
 import styles from './styles.module.scss'
 import Header from "../../components/Header";
-import {CheckAuth} from "../../core/utils";
-import router from "next/router";
-import {useEffect} from "react";
+import {useContext} from "react";
+import AuthContext from "../../components/AuthProvider";
 
 const privateRoutes = [
     {link: '/admin/panel', name: 'Главная'},
@@ -12,15 +11,10 @@ const privateRoutes = [
 ]
 
 function AdminPanelLayout({children}) {
-    const auth = CheckAuth()
-    console.log(auth)
-
-    useEffect(() => {
-        if (!auth) {
-            router.push('/admin/auth')
-        }
-    }, [])
-
+    const isAuth = useContext(AuthContext)
+    if (!isAuth) {
+        return  <></>
+    }
     return (
         <div className={'container'}>
             <div className={styles.adminP}>
