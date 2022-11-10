@@ -12,6 +12,14 @@ const privateRoutes = [
 ]
 
 function AdminPanelLayout({children}) {
+    const auth = CheckAuth()
+    console.log(auth)
+
+    useEffect(() => {
+        if (!auth) {
+            router.push('/admin/auth')
+        }
+    }, [])
 
     return (
         <div className={'container'}>
