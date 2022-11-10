@@ -122,7 +122,16 @@ function AdminPanel() {
     ];
     return (
         <AdminPanelLayout>
-            <h1>Креаторы</h1>
+            <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+            }}>
+                <h1>Креаторы</h1>
+                <Link href={'/admin/panel/creators/create'} className={'btn'}>
+                    Создать креатора
+                </Link>
+            </div>
             <Table dataSource={dataSource}
                    columns={columns}
                    pagination={tableParams.pagination}

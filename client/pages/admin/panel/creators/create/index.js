@@ -3,44 +3,57 @@ import {useForm} from 'react-hook-form';
 import styles from "./index.module.scss";
 import Image from 'next/image'
 import plusImg from '../../../../../public/plus.png'
-import Editor from "../../../../../components/Editor";
 import {useEffect, useRef, useState} from "react";
 import axios from "axios";
-import PostPreview from "../../../../../components/PostPreview";
-import {Category} from "../../../../../core/mock";
-import {Select} from "antd";
-
+import {Input, Tag} from "antd";
+import {PlusOutlined} from "@ant-design/icons";
 
 function NewCreator() {
-    const [fullPost, setFullPost] = useState(null)
-    const [postBody, setPostBody] = useState('')
     const imageRef = useRef()
+    const [tags, setTags] = useState([]);
     const [titleImage, setTitleImage] = useState('')
-    const [category, setCategory] = useState('')
-    const [previewState, setPreviewState] = useState(false)
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const {register, handleSubmit, formState: {errors}} = useForm({
         defaultValues: {
-            title: '',
-            description:'',
-            titleImag: titleImage,
-            post:''
+            description: '',
         }
     });
 
+    const [inputVisible, setInputVisible] = useState(false);
+    const [inputValue, setInputValue] = useState('');
+    const inputRef = useRef(null);
+    const editInputRef = useRef(null);
     useEffect(() => {
-        scrollTo(top)
-    }, [previewState])
+        if (inputVisible) {
+            inputRef.current?.focus();
+        }
+    }, [inputVisible]);
+    useEffect(() => {
+        editInputRef.current?.focus();
+    }, [inputValue]);
+    const handleClose = (removedTag) => {
+        const newTags = tags.filter((tag) => tag !== removedTag);
+        console.log(newTags);
+        setTags(newTags);
+    };
+    const showInput = () => {
+        setInputVisible(true);
+    };
+    const handleInputChange = (e) => {
+        setInputValue(e.target.value);
+    };
+    const handleInputConfirm = () => {
+        if (inputValue && tags.indexOf(inputValue) === -1) {
+            setTags([...tags, inputValue]);
+        }
+        setInputVisible(false);
+        setInputValue('');
+    };
 
     const onSubmit = (data) => {
-        setFullPost({...data, post: postBody, titleImg: titleImage})
+        console.log({...data, imageUrl: titleImage, social: tags})
         axios.post(
-            '/api/posts',
-            {
-                ...data, content: postBody, imageUrl: titleImage, category, readAlso: [
-                    "634adfc0b3152bd7eb481f06",
-                    "634ae06fc43506a1e371d7ba"
-                ], userId: '633ad4e026be25c7184a194f'
-            },
+            '/api/creator',
+            {...data, imageUrl: titleImage, social: tags},
             {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
@@ -70,21 +83,10 @@ function NewCreator() {
         })
     }
 
-    const onChange = (value) => {
-        setCategory(value)
-    };
-
     return (
         <AdminPanelLayout>
             <div className="container-admin">
-                <h1>Новая статья</h1>
-                <Select
-                    placeholder="Выберите категорию"
-                    optionFilterProp="children"
-                    onChange={onChange}
-                    options={Category}
-                />
-                <br/><br/>
+                <h1>Создать креатора</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={styles.newPostFormWrp}>
                         <div className={styles.addImg}>
@@ -118,59 +120,123 @@ function NewCreator() {
                         <div style={{flexGrow: 1}}>
                             <div className={styles.newPostForm__controller}>
                                 <label className={styles.newPostForm__label}
-                                       htmlFor={'title'}>
-                                    Заголовок статьи
+                                       htmlFor={'fullName'}>
+                                    Полное имя
                                 </label>
-                                <textarea
-                                    className={styles.newPostForm__textArea}
-                                    placeholder={'Заголовок статьи'}
-                                    name={'title'}
-                                    id={'title'}
-                                    {...register("title",
-                                        {required: true, minLength: 5, maxLength: 80})}
+                                <input type="text"
+                                       name={'fullName'}
+                                       id={'fullName'}
+                                       placeholder={'ФИО'}
+                                       {...register("fullName",
+                                           {required: true, minLength: 5, maxLength: 80})}
+                                       className={styles.newPostForm__input}
+                                       style={errors.fullName ? {borderColor: 'red', background: '#ffc8c8'} : {}}
+                                />
+                            </div>
+
+                            <div className={styles.newPostForm__controller}>
+                                <label className={styles.newPostForm__label}
+                                       htmlFor={'login'}>
+                                    Логин
+                                </label>
+                                <input type="text"
+                                       name={'login'}
+                                       id={'login'}
+                                       placeholder={'Введите логин'}
+                                       {...register("login",
+                                           {required: true, minLength: 3, maxLength: 80})}
+                                       className={styles.newPostForm__input}
+                                       style={errors.login ? {borderColor: 'red', background: '#ffc8c8'} : {}}
                                 />
                             </div>
                             <div className={styles.newPostForm__controller}>
                                 <label className={styles.newPostForm__label}
-                                       htmlFor={'description'}>
-                                    Описание
+                                       htmlFor={'about'}>
+                                    О креаторе
                                 </label>
-                                <textarea
-                                    className={styles.newPostForm__textArea}
-                                    style={{minHeight: '323px'}}
-                                    placeholder={'Описание статьи'}
-                                    name={'description'}
-                                    id={'description'}
-                                    {...register("description",
-                                        {required: true, minLength: 5, maxLength: 200})}
+                                <input type="text"
+                                       name={'about'}
+                                       id={'about'}
+                                       placeholder={'Коротко о креаторе'}
+                                       {...register("about",
+                                           {required: true, minLength: 5, maxLength: 100})}
+                                       className={styles.newPostForm__input}
+                                       style={errors.about ? {borderColor: 'red', background: '#ffc8c8'} : {}}
+                                />
+                            </div>
+                            <div className={styles.newPostForm__controller}>
+                                <label className={styles.newPostForm__label}
+                                       htmlFor={'kindActivity'}>
+                                    Вид деятельности
+                                </label>
+                                <input type="text"
+                                       name={'kindActivity'}
+                                       id={'kindActivity'}
+                                       {...register("kindActivity",
+                                           {required: true, minLength: 5, maxLength: 100})}
+                                       className={styles.newPostForm__input}
+                                       style={errors.kindActivity ? {borderColor: 'red', background: '#ffc8c8'} : {}}
                                 />
                             </div>
                         </div>
                     </div>
                     <br/>
-                    <div>
-                        <label className={styles.newPostForm__label}>
-                            Тело поста
+                    <div className={styles.newPostForm__controller}>
+                        <label className={styles.newPostForm__label}
+                               htmlFor={'description'}>
+                            Описание
                         </label>
-                        <br/>
-                        <br/>
-                        <Editor onChange={(data) => setPostBody(data)}/>
+                        <textarea
+                            className={styles.newPostForm__textArea}
+                            style={{minHeight: '103px'}}
+                            name={'description'}
+                            id={'description'}
+                            {...register("description",
+                                {required: true, minLength: 5, maxLength: 200})}
+                            // value={description}
+                            // onChange={(e) => setDescription(e.target.value)}
+                        />
                     </div>
-
-                    <div style={previewState?{position:'fixed'}:{}} className={styles.newPostForm__wrpBtn}>
-                        <input className={'btn'} type={'submit'} value={'Опубликовать'}/>
-                        <div onClick={()=>setPreviewState(!previewState)}
-                             className={'btn'}>
-                            {
-                                previewState?'Редактировать':'Предпросмотр'
-                            }
+                    <div className={styles.newPostForm__controller}>
+                        <label className={styles.newPostForm__label}
+                               htmlFor={'social'}>
+                            Cоц. сети
+                        </label>
+                        <div style={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                        }}>
+                            {tags.map((tag, index) => (
+                                <Tag
+                                    className={styles.editTag}
+                                    key={tag}
+                                    closable={true}
+                                    onClose={() => handleClose(tag)}
+                                >
+                                    {tag}
+                                </Tag>
+                            ))}
+                            <Tag className={styles.siteTagPlus} onClick={showInput}>
+                                {inputVisible
+                                    ? <Input
+                                        ref={inputRef}
+                                        type="text"
+                                        size="small"
+                                        className={styles.tagInput}
+                                        value={inputValue}
+                                        onChange={handleInputChange}
+                                        onBlur={handleInputConfirm}
+                                        onPressEnter={handleInputConfirm}
+                                    />
+                                    : <><PlusOutlined/>Добавить ссылку на соц. сеть</>
+                                }
+                            </Tag>
                         </div>
                     </div>
-                    <div style={{height:'100px'}}></div>
+                    <div className={styles.newPostForm__wrpBtn}>
+                        <input className={'btn'} type={'submit'} value={'Создать'}/>
+                    </div>
                 </form>
-                {
-                    previewState?<PostPreview data={fullPost}/>:''
-                }
             </div>
         </AdminPanelLayout>
     )
