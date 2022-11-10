@@ -98,6 +98,19 @@ export const getOne = async (req, res) => {
     }
 }
 
+export const getOneAdmin = async (req, res) => {
+    try {
+        const postId = req.params
+        const post = await PostModel.findOne(postId)
+        res.json(post)
+    }catch (err) {
+        console.log(err)
+        res.status(500).json({
+            message: 'Не удалось получить статьи',
+        })
+    }
+};
+
 export const getOneByTitle = async (req, res) => {
 
     try {
@@ -173,7 +186,10 @@ export const remove = async (req, res) => {
 export const create = async (req, res) => {
 
     try {
-        console.log(req.userId)
+
+        if (PostModel.findOne(req.body.title)) {
+            console.log(true)
+        }
 
         const doc = new PostModel({
             category: req.body.category,
@@ -190,7 +206,7 @@ export const create = async (req, res) => {
         res.json(post)
     }catch (err) {
         console.log(err)
-        res.status(500).json({
+        res.status(400).json({
             message: 'Не удалось создать статью',
         })
     }

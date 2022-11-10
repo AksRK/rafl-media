@@ -12,9 +12,18 @@ export const registerValidation = [
 ]
 
 export const postCreateValidation = [
+    body('category', 'Укажите креатора статьи').isLength({ min: 3}).isString(),
     body('title', 'Введите заголовок статьи').isLength({ min: 3}).isString(),
     body('description', 'Введите описание статьи').isLength({ min: 3}).isString(),
-    body('imageUrl', 'Неверная ссылка на изображение').isString(),
+    body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 15}).isString(),
+    body('content', 'Статья не может быть пустой..').isLength({ min: 10 }).isString(),
+    body('readAlso', 'Не указаны рекомендованные статьи').isLength({ min: 1 }).isArray(),
+]
+
+export const postUpdateValidation = [
+    body('title', 'Введите заголовок статьи').isLength({ min: 3}).isString(),
+    body('description', 'Введите описание статьи').isLength({ min: 3}).isString(),
+    body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 15}).isString(),
     body('content', 'Статья не может быть пустой..').isLength({ min: 10 }).isString(),
     body('readAlso', 'Не указаны рекомендованные статьи').isLength({ min: 1 }).isArray(),
 ]
@@ -23,7 +32,15 @@ export const creatorPostCreateValidation = [
     body('title', 'Введите заголовок статьи').isLength({ min: 3}).isString(),
     body('description', 'Введите описание статьи').isLength({ min: 3}).isString(),
     body('creator', 'Укажите креатора статьи').isLength({ min: 3}).isString(),
-    body('imageUrl', 'Неверная ссылка на изображение').isString(),
+    body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 15}).isString(),
+    body('content', 'Статья не может быть пустой..').isLength({ min: 10 }).isString(),
+    body('readAlso', 'Не указаны рекомендованные статьи').isLength({ min: 1 }).isArray(),
+]
+
+export const creatorPostUpdateValidation = [
+    body('title', 'Введите заголовок статьи').isLength({ min: 3}).isString(),
+    body('description', 'Введите описание статьи').isLength({ min: 3}).isString(),
+    body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 15}).isString(),
     body('content', 'Статья не может быть пустой..').isLength({ min: 10 }).isString(),
     body('readAlso', 'Не указаны рекомендованные статьи').isLength({ min: 1 }).isArray(),
 ]

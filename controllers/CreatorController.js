@@ -60,6 +60,19 @@ export const getOne = async (req, res) => {
     }
 }
 
+export const getOneAdmin = async (req, res) => {
+    try {
+        const creatorId = req.params
+        const creator = await CreatorModel.findOne(creatorId)
+        res.json(creator)
+    }catch (err) {
+        console.log(err)
+        res.status(500).json({
+            message: 'Не удалось получить статьи',
+        })
+    }
+};
+
 export const getOneByLogin = async (req, res) => {
 
     try {

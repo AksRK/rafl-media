@@ -1,14 +1,17 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import multer from 'multer';
+import { v4 as uuidv4 } from 'uuid';
 
 import {
     registerValidation,
     loginValidation,
     postCreateValidation,
+    postUpdateValidation,
     creatorCreateValidation,
     creatorUpdateValidation,
-    creatorPostCreateValidation} from './validations/validations.js';
+    creatorPostCreateValidation,
+    creatorPostUpdateValidation} from './validations/validations.js';
 
 import checkAuth from './utils/checkAuth.js';
 import handleValidationErrors from "./utils/handleValidationErrors.js";
@@ -32,15 +35,27 @@ const app = express();
 const baseUrl = 'http://localhost:4444/'
 
 const storage = multer.diskStorage({
-    destination: (_, __, cb) => {
+    destination: (req, file, cb) => {
         cb(null, 'uploads')
     },
-    filename: (_, file, cb) => {
-        cb(null, file.originalname)
+    filename: (req, file, cb) => {
+        cb(null, Date.now()+ '-' + uuidv4()+'-'+file.originalname)
     },
 })
 
-const upload = multer({ storage })
+const fileFilter = (req, file, cb) => {
+
+    if(file.mimetype === "image/png" ||
+        file.mimetype === "image/jpg"||
+        file.mimetype === "image/jpeg"){
+        cb(null, true);
+    }
+    else{
+        cb('Невозможно загрузить картинку');
+    }
+}
+
+const upload = multer({ fileFilter, storage, limits:{ fileSize: 5000000 }  })
 
 app.use(express.json());
 app.use('/uploads', express.static('uploads'))
@@ -63,27 +78,30 @@ app.post('/uploads',  upload.single('image'), (req, res) => {
 
 app.get('/creator', CreatorController.getAll)
 app.get('/creator/:id', CreatorController.getOne)
+app.get('/creator/edit/:id', CreatorController.getOneAdmin)
 app.get('/creator/login/:login', CreatorController.getOneByLogin)
 app.post('/creator', checkAuth, creatorCreateValidation , handleValidationErrors, CreatorController.create)
-app.patch('/creator/:id', checkAuth, creatorUpdateValidation , handleValidationErrors, CreatorController.update)
+app.put('/creator/:id', checkAuth, creatorUpdateValidation , handleValidationErrors, CreatorController.update)
 app.delete('/creator/:id', checkAuth, CreatorController.remove);
 
 app.get('/creator/posts/:id', CreatorPostController.getOne)
+app.get('/creator/posts/edit/:id', CreatorPostController.getOneAdmin)
 app.get('/creator/posts/title/:title', CreatorPostController.getOneByTitle)
 app.get('/creator/posts/login/:creator', CreatorPostController.getCreatorPosts)
 app.post('/creator/posts', checkAuth, creatorPostCreateValidation, handleValidationErrors, CreatorPostController.create)
-app.patch('/creator/posts/:id', checkAuth, creatorPostCreateValidation, handleValidationErrors, CreatorPostController.update)
-app.patch('/creator/posts/like/:id', handleValidationErrors, CreatorPostController.like)
+app.put('/creator/posts/:id', checkAuth, creatorPostUpdateValidation, handleValidationErrors, CreatorPostController.update)
+app.put('/creator/posts/like/:id', handleValidationErrors, CreatorPostController.like)
 app.delete('/creator/posts/:id', checkAuth, CreatorPostController.remove);
 
 app.get('/posts', PostController.getAll)
 app.get('/posts/banner', PostController.getBannerCards)
 app.get('/posts/:id', PostController.getOne)
+app.get('/posts/edit/:id', PostController.getOneAdmin)
 app.get('/posts/title/:title', PostController.getOneByTitle)
 app.get('/posts/category/:category', PostController.getCategory);
-app.patch('/posts/like/:id', handleValidationErrors, PostController.like)
+app.put('/posts/like/:id', handleValidationErrors, PostController.like)
 app.post('/posts', checkAuth, postCreateValidation, handleValidationErrors, PostController.create)
-app.put('/posts/:id', checkAuth, postCreateValidation, handleValidationErrors, PostController.update)
+app.put('/posts/:id', checkAuth, postUpdateValidation, handleValidationErrors, PostController.update)
 app.delete('/posts/:id', checkAuth, PostController.remove);
 
 app.listen(4444, (err)=> {
