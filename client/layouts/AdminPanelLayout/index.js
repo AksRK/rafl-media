@@ -1,7 +1,7 @@
 import styles from './styles.module.scss'
 import Header from "../../components/Header";
 import {useContext} from "react";
-import AuthContext from "../../components/AuthProvider";
+import {AuthContext} from "../../pages/_app";
 
 const privateRoutes = [
     {link: '/admin/panel', name: 'Главная'},
@@ -11,7 +11,7 @@ const privateRoutes = [
 ]
 
 function AdminPanelLayout({children}) {
-    const isAuth = useContext(AuthContext)
+    const { isAuth } = useContext(AuthContext)
     if (!isAuth) {
         return  <></>
     }

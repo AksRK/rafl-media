@@ -1,15 +1,15 @@
 import styles from './index.module.scss'
 import {useForm} from 'react-hook-form';
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import {useRouter} from "next/router";
 import Header from "../../../components/Header";
 import {publicRoutes} from "../../../layouts/DefaultLayout";
-import {AuthProvider} from "../../../components/AuthProvider";
+import {AuthContext} from "../../_app";
 
 function Auth() {
     const router = useRouter()
-    const {signIn} = AuthProvider()
+    const { setIsAuth } = useContext(AuthContext)
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             email: 'test2@test.com',
@@ -23,8 +23,8 @@ function Auth() {
         })
             .then(function (response) {
                 if (response.status === 200) {
-                    signIn()
                     localStorage.setItem('token', response.data.token)
+                    setIsAuth(true)
                     router.push('/admin/panel')
                 }
             })

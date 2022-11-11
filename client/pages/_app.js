@@ -9,14 +9,16 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import '../core/styles/swiper-custom.scss'
 import PreLoader from "../components/UI/PreLoader";
-import {useEffect, useState} from "react";
+import {createContext, useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import {AuthProvider} from "../components/AuthProvider";
+import axios from "axios";
 
-function MyApp({ Component, pageProps }) {
+export const AuthContext = createContext();
+
+function MyApp({Component, pageProps}) {
   const [loading, setLoading] = useState(false);
+  const [isAuth, setIsAuth] = useState(false)
   const router = useRouter();
-  const {renderProvider} = AuthProvider()
   useEffect(() => {
     console.log(router)
     // Обработка начала загрузки
@@ -27,17 +29,26 @@ function MyApp({ Component, pageProps }) {
     router.events.on("routeChangeComplete", () => {
       setLoading(false);
     });
+    if (router.pathname.includes('admin')) {
+      axios.get(`/api/auth/me`, {
+        headers: {Authorization: localStorage.getItem('token')}
+      })
+          .then((r) => {
+            setIsAuth(true)
+          })
+          .catch(function (error) {
+            router.push('/admin/auth')
+          });
+    }
   }, [])
+
 
   return (
       <>
-        {loading && <PreLoader />}
-        {
-          renderProvider(<Component {...pageProps} />)
-        }
-        {/*<AuthProvider>*/}
-        {/*  <Component {...pageProps} />*/}
-        {/*</AuthProvider>*/}
+        {loading && <PreLoader/>}
+        <AuthContext.Provider value={{isAuth, setIsAuth}}>
+          <Component {...pageProps} />
+        </AuthContext.Provider>
       </>
   )
 }
