@@ -4,7 +4,7 @@ import mongoosePaginate from "mongoose-paginate-v2";
 const CreatorSchema = new mongoose.Schema({
 
     imageUrl: {
-        type: String,
+        type: Object,
         required: true,
     },
     fullName: {

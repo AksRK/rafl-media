@@ -12,7 +12,7 @@ const CreatorPostSchema = new mongoose.Schema({
         required: true,
     },
     imageUrl: {
-        type: String,
+        type: Object,
         required: true,
     },
     content: {
