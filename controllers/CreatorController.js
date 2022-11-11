@@ -61,6 +61,26 @@ export const getOne = async (req, res) => {
     }
 }
 
+export const findAll = async (req, res) => {
+    try {
+        const {findParams} = req.params
+        const creatorsLogin = await CreatorModel.find({login: {'$regex': findParams, '$options': 'i'}})
+        const creatorsFullName = await CreatorModel.find({fullName: {'$regex': findParams, '$options': 'i'}})
+        const result = {...creatorsLogin, ...creatorsFullName}
+        if (Object.keys(result).length == 0) {
+            return res.status(404).json({
+                message: 'Ничего не найдено'
+            })
+        }
+        res.json({...creatorsLogin, ...creatorsFullName})
+    }catch (err) {
+        console.log(err)
+        res.status(500).json({
+            message: 'Не удалось получить статьи',
+        })
+    }
+};
+
 export const getOneAdmin = async (req, res) => {
     try {
         const creatorId = req.params

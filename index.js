@@ -90,6 +90,7 @@ app.delete('/uploads/:name', async (req, res) => {
 
 app.get('/creator', CreatorController.getAll)
 app.get('/creator/:id', CreatorController.getOne)
+app.get('/creator/find/:findParams', CreatorController.findAll)
 app.get('/creator/edit/:id', CreatorController.getOneAdmin)
 app.get('/creator/login/:login', CreatorController.getOneByLogin)
 app.post('/creator', checkAuth, creatorCreateValidation , handleValidationErrors, CreatorController.create)
