@@ -17,7 +17,7 @@ function EditCreator({id, creator}) {
             fullName: creator?.fullName,
             description: creator?.description,
             about: creator?.about,
-            login: creator?.login,
+            // login: creator?.login,
             kindActivity: creator?.kindActivity,
             viewsCount: creator?.viewsCount,
         }
@@ -102,7 +102,7 @@ function EditCreator({id, creator}) {
     return (
         <AdminPanelLayout>
             <div className="container-admin">
-                <h1>Создать креатора</h1>
+                <h1>Изменения данных креатора</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={styles.newPostFormWrp}>
                         <div className={styles.addImg}>
@@ -151,21 +151,21 @@ function EditCreator({id, creator}) {
                                 />
                             </div>
 
-                            <div className={styles.newPostForm__controller}>
-                                <label className={styles.newPostForm__label}
-                                       htmlFor={'login'}>
-                                    Логин
-                                </label>
-                                <input type="text"
-                                       name={'login'}
-                                       id={'login'}
-                                       placeholder={'Введите логин'}
-                                       {...register("login",
-                                           {required: true, minLength: 3, maxLength: 80})}
-                                       className={styles.newPostForm__input}
-                                       style={errors.login ? {borderColor: 'red', background: '#ffc8c8'} : {}}
-                                />
-                            </div>
+                            {/*<div className={styles.newPostForm__controller}>*/}
+                            {/*    <label className={styles.newPostForm__label}*/}
+                            {/*           htmlFor={'login'}>*/}
+                            {/*        Логин*/}
+                            {/*    </label>*/}
+                            {/*    <input type="text"*/}
+                            {/*           name={'login'}*/}
+                            {/*           id={'login'}*/}
+                            {/*           placeholder={'Введите логин'}*/}
+                            {/*           {...register("login",*/}
+                            {/*               {required: true, minLength: 3, maxLength: 80})}*/}
+                            {/*           className={styles.newPostForm__input}*/}
+                            {/*           style={errors.login ? {borderColor: 'red', background: '#ffc8c8'} : {}}*/}
+                            {/*    />*/}
+                            {/*</div>*/}
                             <div className={styles.newPostForm__controller}>
                                 <label className={styles.newPostForm__label}
                                        htmlFor={'about'}>
@@ -265,7 +265,7 @@ function EditCreator({id, creator}) {
                         </div>
                     </div>
                     <div className={styles.newPostForm__wrpBtn}>
-                        <input className={'btn'} type={'submit'} value={'Создать'}/>
+                        <input className={'btn'} type={'submit'} value={'Сохранить'}/>
                     </div>
                 </form>
             </div>
