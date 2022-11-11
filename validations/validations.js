@@ -15,7 +15,7 @@ export const postCreateValidation = [
     body('category', 'Укажите креатора статьи').isLength({ min: 3}).isString(),
     body('title', 'Введите заголовок статьи').isLength({ min: 3}).isString(),
     body('description', 'Введите описание статьи').isLength({ min: 3}).isString(),
-    body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 15}).isString(),
+    body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 1}).isObject(),
     body('content', 'Статья не может быть пустой..').isLength({ min: 10 }).isString(),
     body('readAlso', 'Не указаны рекомендованные статьи').isLength({ min: 1 }).isArray(),
 ]
@@ -23,7 +23,7 @@ export const postCreateValidation = [
 export const postUpdateValidation = [
     body('title', 'Введите заголовок статьи').isLength({ min: 3}).isString(),
     body('description', 'Введите описание статьи').isLength({ min: 3}).isString(),
-    body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 15}).isString(),
+    body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 1}).isObject(),
     body('content', 'Статья не может быть пустой..').isLength({ min: 10 }).isString(),
     body('readAlso', 'Не указаны рекомендованные статьи').isLength({ min: 1 }).isArray(),
 ]
@@ -32,7 +32,7 @@ export const creatorPostCreateValidation = [
     body('title', 'Введите заголовок статьи').isLength({ min: 3}).isString(),
     body('description', 'Введите описание статьи').isLength({ min: 3}).isString(),
     body('creator', 'Укажите креатора статьи').isLength({ min: 3}).isString(),
-    body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 15}).isString(),
+    body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 1}).isObject(),
     body('content', 'Статья не может быть пустой..').isLength({ min: 10 }).isString(),
     body('readAlso', 'Не указаны рекомендованные статьи').isLength({ min: 1 }).isArray(),
 ]
@@ -40,7 +40,7 @@ export const creatorPostCreateValidation = [
 export const creatorPostUpdateValidation = [
     body('title', 'Введите заголовок статьи').isLength({ min: 3}).isString(),
     body('description', 'Введите описание статьи').isLength({ min: 3}).isString(),
-    body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 15}).isString(),
+    body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 1}).isObject(),
     body('content', 'Статья не может быть пустой..').isLength({ min: 10 }).isString(),
     body('readAlso', 'Не указаны рекомендованные статьи').isLength({ min: 1 }).isArray(),
 ]
@@ -51,7 +51,7 @@ export const creatorCreateValidation = [
     body('kindActivity', 'Введите направление деятельности креатора').isLength({ min: 3}).isString(),
     body('fullName', 'Введите имя креатора').isLength({ min: 3}).isString(),
     body('description', 'Введите описание креатора').isLength({ min: 3}).isString(),
-    body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 3}).isString(),
+    body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 1}).isObject(),
     body('social', 'Не указаны соц. сети креатора').isLength({ min: 1}).isArray(),
 ]
 
@@ -60,6 +60,6 @@ export const creatorUpdateValidation = [
     body('kindActivity', 'Введите направление деятельности креатора').isLength({ min: 3}).isString(),
     body('fullName', 'Введите имя креатора').isLength({ min: 3}).isString(),
     body('description', 'Введите описание креатора').isLength({ min: 3}).isString(),
-    body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 3}).isString(),
+    body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 1}).isObject(),
     body('social', 'Не указаны соц. сети креатора').isLength({ min: 1}).isArray(),
 ]
