@@ -18,17 +18,17 @@ function NewPost() {
     const [titleImage, setTitleImage] = useState('')
     const [category, setCategory] = useState('')
     const [previewState, setPreviewState] = useState(false)
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register,watch, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             title: '',
             description:'',
-            titleImag: titleImage,
-            post:''
         }
     });
+    const watchAllFields = watch();
 
     useEffect(() => {
         scrollTo(top)
+        setFullPost({...watchAllFields, post: postBody, titleImg: titleImage})
     }, [previewState])
 
     const onSubmit = (data) => {
@@ -57,15 +57,25 @@ function NewPost() {
         const Data = new FormData()
         Data.append('image', event.target.files[0])
         axios.post(
-            'http://localhost:4444/uploads',
+            '/api/uploads',
             Data,
             {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             }).then((response) => {
-            setTitleImage(response.data.fullUrl)
+            setTitleImage(response.data)
         }).catch((error) => {
+            console.log(error)
+        })
+    }
+
+    const imgRemove = () => {
+        axios.delete('/api' + titleImage.url)
+            .then((response) => {
+                // TODO сделать алерт
+            })
+            .catch((error) => {
             console.log(error)
         })
     }
@@ -102,9 +112,10 @@ function NewPost() {
                             {titleImage
                                 ? <>
                                     <div className={styles.addImg__preview}>
-                                        <Image src={titleImage} alt={123} width={500} height={500}/>
+                                        <Image src={titleImage.fullUrl} alt={123} width={500} height={500}/>
                                     </div>
                                     <div onClick={() => {
+                                        imgRemove()
                                         imageRef.current.value = ''
                                         setTitleImage(null)
                                     }}
@@ -138,13 +149,12 @@ function NewPost() {
                                 </label>
                                 <textarea
                                     className={styles.newPostForm__textArea}
-                                    style={{minHeight: '323px'}}
                                     placeholder={'Описание статьи'}
                                     name={'description'}
                                     id={'description'}
                                     {...register("description",
                                         {required: true, minLength: 5, maxLength: 200})}
-                                    style={errors.description ? {borderColor: 'red', background: '#ffc8c8'} : {}}
+                                    style={errors.description ? {borderColor: 'red', background: '#ffc8c8', minHeight: '323px'} : {minHeight: '323px'}}
                                 />
                             </div>
                         </div>

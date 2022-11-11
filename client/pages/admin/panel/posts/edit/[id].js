@@ -18,12 +18,19 @@ function EditPost({id, post}) {
     const imageRef = useRef()
     const [titleImage, setTitleImage] = useState(post?.imageUrl)
     const [previewState, setPreviewState] = useState(false)
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register,watch, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             title: post?.title,
             description: post?.description,
         }
     });
+    const watchAllFields = watch();
+
+    useEffect(() => {
+        scrollTo(top)
+        setFullPost({...watchAllFields, post: postBody, titleImg: titleImage})
+    }, [previewState])
+
     const onSubmit = (data) => {
         event.preventDefault()
         console.log({...data, post: postBody, titleImg: titleImage, category})
@@ -58,10 +65,20 @@ function EditPost({id, post}) {
                     'Content-Type': 'multipart/form-data'
                 }
             }).then((response) => {
-            setTitleImage(response.data.fullUrl)
+            setTitleImage(response.data)
         }).catch((error) => {
             console.log(error)
         })
+    }
+
+    const imgRemove = () => {
+        axios.delete('/api' + titleImage.url)
+            .then((response) => {
+                // TODO сделать алерт
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
 
     const onChange = (value) => {
@@ -97,7 +114,7 @@ function EditPost({id, post}) {
                             {titleImage
                                 ? <>
                                     <div className={styles.addImg__preview}>
-                                        <Image src={titleImage} alt={123} width={500} height={500}/>
+                                        <Image src={titleImage.fullUrl} alt={123} width={500} height={500}/>
                                     </div>
                                     <div onClick={() => {
                                         imageRef.current.value = ''

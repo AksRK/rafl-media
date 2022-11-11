@@ -70,17 +70,27 @@ function NewCreator() {
         const Data = new FormData()
         Data.append('image', event.target.files[0])
         axios.post(
-            'http://localhost:4444/uploads',
+            '/api/uploads',
             Data,
             {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             }).then((response) => {
-            setTitleImage(response.data.fullUrl)
+            setTitleImage(response.data)
         }).catch((error) => {
             console.log(error)
         })
+    }
+
+    const imgRemove = () => {
+        axios.delete('/api' + titleImage.url)
+            .then((response) => {
+                // TODO сделать алерт
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
 
     return (
@@ -104,9 +114,10 @@ function NewCreator() {
                             {titleImage
                                 ? <>
                                     <div className={styles.addImg__preview}>
-                                        <Image src={titleImage} alt={123} width={500} height={500}/>
+                                        <Image src={titleImage.fullUrl} alt={123} width={500} height={500}/>
                                     </div>
                                     <div onClick={() => {
+                                        imgRemove()
                                         imageRef.current.value = ''
                                         setTitleImage(null)
                                     }}

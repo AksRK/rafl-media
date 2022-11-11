@@ -83,10 +83,20 @@ function EditCreator({id, creator}) {
                     'Content-Type': 'multipart/form-data'
                 }
             }).then((response) => {
-            setTitleImage(response.data.fullUrl)
+            setTitleImage(response.data)
         }).catch((error) => {
             console.log(error)
         })
+    }
+
+    const imgRemove = () => {
+        axios.delete('/api' + titleImage.url)
+            .then((response) => {
+                // TODO сделать алерт
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
 
     return (
@@ -110,9 +120,10 @@ function EditCreator({id, creator}) {
                             {titleImage
                                 ? <>
                                     <div className={styles.addImg__preview}>
-                                        <Image src={titleImage} alt={123} width={500} height={500}/>
+                                        <Image src={titleImage.fullUrl} alt={123} width={500} height={500}/>
                                     </div>
                                     <div onClick={() => {
+                                        imgRemove()
                                         imageRef.current.value = ''
                                         setTitleImage(null)
                                     }}
