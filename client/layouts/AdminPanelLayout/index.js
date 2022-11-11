@@ -3,17 +3,23 @@ import Header from "../../components/Header";
 import {useContext} from "react";
 import {AuthContext} from "../../pages/_app";
 
-const privateRoutes = [
-    {link: '/admin/panel', name: 'Главная'},
-    {link: '/admin/panel/posts', name: 'Статьи'},
-    {link: '/admin/panel/creators', name: 'Креаторы'},
-    {link: '/', name: 'Выход'},
-]
-
 function AdminPanelLayout({children}) {
-    const { isAuth } = useContext(AuthContext)
+    const {isAuth, setIsAuth} = useContext(AuthContext)
+
+    const privateRoutes = [
+        {link: '/admin/panel', name: 'Главная'},
+        {link: '/admin/panel/posts', name: 'Статьи'},
+        {link: '/admin/panel/creators', name: 'Креаторы'},
+        {
+            link: '/', name: 'Выход', handleClick: () => {
+                localStorage.removeItem('token')
+                setIsAuth(false)
+            }
+        },
+    ]
+
     if (!isAuth) {
-        return  <></>
+        return <></>
     }
     return (
         <div className={'container'}>

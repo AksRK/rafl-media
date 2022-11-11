@@ -9,6 +9,7 @@ const NavBar = ({routes}) => {
                 <NavLink
                     key={r.link}
                     href={r.link}
+                    handleClick={r.handleClick}
                     myClassName={styles.headerNav__link}
                     myActiveClassName={styles.headerNav__link_active}>
                     <span>{r.name}</span>

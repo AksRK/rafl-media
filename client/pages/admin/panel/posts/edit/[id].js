@@ -6,38 +6,31 @@ import Editor from "../../../../../components/Editor";
 import {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import PostPreview from "../../../../../components/PostPreview";
+import {useForm} from "react-hook-form";
+import {Select} from "antd";
+import {Category} from "../../../../../core/mock";
 
 
-function EditPost({id}) {
+function EditPost({id, post}) {
     const [fullPost, setFullPost] = useState(null)
-    const [postBody, setPostBody] = useState('')
+    const [postBody, setPostBody] = useState(post?.content)
+    const [category, setCategory] = useState(post?.category)
     const imageRef = useRef()
-    const [titleImage, setTitleImage] = useState('')
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
-    const [content, setContent] = useState('')
+    const [titleImage, setTitleImage] = useState(post?.imageUrl)
     const [previewState, setPreviewState] = useState(false)
-
-    useEffect(() => {
-        console.log(id)
-        fetch(`/api/posts/${id}`)
-            .then(res => res.json())
-            .then(data => {
-                setTitle(data.title)
-                setDescription(data.description)
-                setContent(data.content)
-                setTitleImage(data.imageUrl)
-            })
-    }, [])
-
-    const onSubmit = (event, data) => {
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        defaultValues: {
+            title: post?.title,
+            description: post?.description,
+        }
+    });
+    const onSubmit = (data) => {
         event.preventDefault()
-        console.log(title, description, postBody, titleImage)
+        console.log({...data, post: postBody, titleImg: titleImage, category})
         // setFullPost({...data, post: postBody, titleImg: titleImage})
         axios.put(
             `/api/posts/${id}`,
-            {
-                title, description, content: postBody, imageUrl: titleImage, readAlso: [
+            {...data, post: postBody, content: postBody, imageUrl: titleImage, readAlso: [
                     "634adfc0b3152bd7eb481f06",
                     "634ae06fc43506a1e371d7ba"
                 ]
@@ -48,7 +41,7 @@ function EditPost({id}) {
                 }
             }
         ).then((response) => {
-            // alert('success')
+            // TODO сделать алерт
         }).catch((error) => {
             console.log(error)
         })
@@ -71,11 +64,23 @@ function EditPost({id}) {
         })
     }
 
+    const onChange = (value) => {
+        setCategory(value)
+    };
+
     return (
         <AdminPanelLayout>
             <div className="container-admin">
                 <h1>Редактировать статью</h1>
-                <form onSubmit={onSubmit}>
+                <Select
+                    placeholder="Выберите категорию"
+                    optionFilterProp="children"
+                    onChange={onChange}
+                    value={category}
+                    options={Category}
+                />
+                <br/><br/>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={styles.newPostFormWrp}>
                         <div className={styles.addImg}>
                             <input
@@ -116,8 +121,8 @@ function EditPost({id}) {
                                     placeholder={'Заголовок статьи'}
                                     name={'title'}
                                     id={'title'}
-                                    value={title}
-                                    onChange={(e) => setTitle(e.target.value)}
+                                    {...register("title",
+                                        {required: true, minLength: 5, maxLength: 80})}
                                 />
                             </div>
                             <div className={styles.newPostForm__controller}>
@@ -131,8 +136,8 @@ function EditPost({id}) {
                                     placeholder={'Описание статьи'}
                                     name={'description'}
                                     id={'description'}
-                                    value={description}
-                                    onChange={(e) => setDescription(e.target.value)}
+                                    {...register("description",
+                                        {required: true, minLength: 5, maxLength: 200})}
                                 />
                             </div>
                         </div>
@@ -144,11 +149,11 @@ function EditPost({id}) {
                         </label>
                         <br/>
                         <br/>
-                        <Editor initialContent={content} onChange={(data) => setPostBody(data)}/>
+                        <Editor initialContent={postBody} onChange={(data) => setPostBody(data)}/>
                     </div>
 
                     <div style={previewState ? {position: 'fixed'} : {}} className={styles.newPostForm__wrpBtn}>
-                        <input className={'btn'} type={'submit'} value={'Сохранить'}/>
+                        <input className={'btn'} type={'submit'} value={'Опубликовать'}/>
                         <div onClick={() => setPreviewState(!previewState)}
                              className={'btn'}>
                             {
@@ -167,8 +172,11 @@ function EditPost({id}) {
 }
 
 export async function getServerSideProps(context) {
+    const post = await fetch(`http://localhost:3000/api/posts/${context.params.id}`)
+        .then(res => res.json())
+
     return {
-        props: {id: context.params.id}, // will be passed to the page component as props
+        props: {id: context.params.id, post }, // will be passed to the page component as props
     }
 }
 

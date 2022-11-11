@@ -60,15 +60,17 @@ function AdminPanel() {
             {
                 key: '2',
                 danger: true,
-                label: (
-                    <div onClick={() => {
-                        axios.delete(`/api/posts/${id}`).then(r => {
-                            setDataSource(dataSource.filter((item) => item._id !== id))
-                        })
-                    }}>
-                        Удалить статью
-                    </div>
-                ),
+                onClick: () => {
+                    axios.delete(`/api/posts/${id}`, {
+                        headers: {
+                            "Authorization": `Bearer ${localStorage.getItem('token')}`
+                        }
+                    }).then(r => {
+                        // TODO сделать алерт
+                        setDataSource(dataSource.filter((item) => item._id !== id))
+                    })
+                },
+                label: 'Удалить статью',
             },
         ]
     }

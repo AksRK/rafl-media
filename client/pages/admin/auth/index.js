@@ -39,6 +39,7 @@ function Auth() {
             headers: {Authorization: localStorage.getItem('token')}
         })
             .then(function (response) {
+                setIsAuth(true)
                 router.push('/admin/panel')
             })
             .catch(function (error) {

@@ -20,7 +20,6 @@ function MyApp({Component, pageProps}) {
   const [isAuth, setIsAuth] = useState(false)
   const router = useRouter();
   useEffect(() => {
-    console.log(router)
     // Обработка начала загрузки
     router.events.on("routeChangeStart", () => {
       setLoading(true);
@@ -29,7 +28,7 @@ function MyApp({Component, pageProps}) {
     router.events.on("routeChangeComplete", () => {
       setLoading(false);
     });
-    if (router.pathname.includes('admin')) {
+    if (router.pathname.includes('/admin/panel')) {
       axios.get(`/api/auth/me`, {
         headers: {Authorization: localStorage.getItem('token')}
       })

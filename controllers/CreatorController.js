@@ -198,6 +198,7 @@ export const update = async (req, res) => {
                 imageUrl: req.body.imageUrl,
                 fullName: req.body.fullName,
                 about: req.body.about,
+                login: req.body.login,
                 description: req.body.description,
                 kindActivity: req.body.kindActivity,
                 social: req.body.social,

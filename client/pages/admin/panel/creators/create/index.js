@@ -60,7 +60,7 @@ function NewCreator() {
                 }
             }
         ).then((response) => {
-            // alert('success')
+            // TODO сделать алерт
         }).catch((error) => {
             console.log(error)
         })
