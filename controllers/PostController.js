@@ -1,4 +1,5 @@
 import PostModel from '../models/Post.js';
+import fss from "fs/promises";
 
 export const getCategory = async (req, res) => {
     try {
@@ -155,7 +156,8 @@ export const getOneByTitle = async (req, res) => {
 export const remove = async (req, res) => {
     try {
         const postId = req.params.id
-
+        const post = await PostModel.findById(postId)
+        const {imageUrl} = post._doc
         PostModel.findOneAndDelete({
             _id: postId,
         }, (err, doc) => {
@@ -170,7 +172,7 @@ export const remove = async (req, res) => {
                     message: 'Статья не найдена'
                 })
             }
-
+            fss.unlink(('.'+imageUrl.url))
             res.json({
                 success: true,
             })

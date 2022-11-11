@@ -1,5 +1,6 @@
 import CreatorModel from "../models/Creator.js";
 import CreatorPostModel from "../models/CreatorPost.js";
+import fss from "fs/promises";
 
 export const getAll = async (req, res) => {
     const {page, perPage} = req.query
@@ -126,14 +127,9 @@ export const remove = async (req, res) => {
                 message: 'Пользователь не найден'
             })
         }
-
-        const {login} = currentCreator._doc
+        const {imageUrl, login} = currentCreator._doc
 
         const creatorPosts = await CreatorPostModel.find({creator: login})
-
-        for (let post of creatorPosts) {
-            await CreatorPostModel.findOneAndDelete(post)
-        }
 
         CreatorModel.findOneAndDelete({
             _id: creatorId,
@@ -149,7 +145,10 @@ export const remove = async (req, res) => {
                     message: 'Креатор не найден'
                 })
             }
-
+            for (let post of creatorPosts) {
+                CreatorPostModel.findOneAndDelete(post)
+            }
+            fss.unlink(('.'+imageUrl.url))
             res.json({
                 success: true,
             })

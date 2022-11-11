@@ -1,4 +1,5 @@
 import CreatorPostModel from '../models/CreatorPost.js'
+import fss from "fs/promises";
 
 export const getCreatorPosts = async (req, res) => {
 
@@ -119,6 +120,8 @@ export const remove = async (req, res) => {
 
     try {
         const postId = req.params.id
+        const post = await CreatorPostModel.findById(postId)
+        const {imageUrl} = post._doc
 
         CreatorPostModel.findOneAndDelete({
             _id: postId,
@@ -134,7 +137,7 @@ export const remove = async (req, res) => {
                     message: 'Статья не найдена'
                 })
             }
-
+            fss.unlink(('.'+imageUrl.url))
             res.json({
                 success: true,
             })
