@@ -3,7 +3,6 @@ import postStyle from '../../pages/posts/index.module.scss'
 import Image from "next/image";
 
 export default function PostPreview({data}) {
-    console.log(data)
 
     return (
         <div className={styles.postPreview}>
@@ -25,7 +24,7 @@ export default function PostPreview({data}) {
                             <div className={postStyle.fullPost__titleImg}>
                                 {
                                     data.titleImg
-                                        ?<Image src={data.titleImg} alt="" width={300} height={300}/> //авто не работает, срань -_-
+                                        ?<Image src={data.titleImg.fullUrl} alt="" width={300} height={300}/> //авто не работает, срань -_-
                                         :'Картинка не загружена...'
                                 }
                             </div>
