@@ -170,7 +170,7 @@ function EditPost({id, post}) {
                     </div>
 
                     <div style={previewState ? {position: 'fixed'} : {}} className={styles.newPostForm__wrpBtn}>
-                        <input className={'btn'} type={'submit'} value={'Опубликовать'}/>
+                        <input className={'btn'} type={'submit'} value={'Сохранить'}/>
                         <div onClick={() => setPreviewState(!previewState)}
                              className={'btn'}>
                             {
