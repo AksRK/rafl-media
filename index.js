@@ -20,6 +20,7 @@ import * as UserController from "./controllers/UserController.js";
 import * as CreatorController from "./controllers/CreatorController.js";
 import * as CreatorPostController from "./controllers/CreatorPostController.js";
 import * as PostController from "./controllers/PostController.js";
+import fss from 'fs/promises'
 
 
 import cors from 'cors'
@@ -39,12 +40,11 @@ const storage = multer.diskStorage({
         cb(null, 'uploads')
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now()+ '-' + uuidv4()+'-'+file.originalname)
+        cb(null, Date.now()+ '-' + uuidv4()+'-'+file.originalname.replaceAll(' ', ''))
     },
 })
 
 const fileFilter = (req, file, cb) => {
-
     if(file.mimetype === "image/png" ||
         file.mimetype === "image/jpg"||
         file.mimetype === "image/jpeg"){
@@ -71,9 +71,21 @@ app.get('/auth/me', checkAuth, UserController.getMe)
 
 app.post('/uploads',  upload.single('image'), (req, res) => {
     res.json({
-        url: `/uploads/${req.file.originalname}`,
-        fullUrl: `${baseUrl}uploads/${req.file.originalname}`
+        url: `/uploads/${req.file.filename}`,
+        fullUrl: `${baseUrl}uploads/${req.file.filename}`
     })
+})
+app.delete('/uploads/:name', async (req, res) => {
+    try {
+        await fss.unlink(('./uploads/'+req.params.name))
+        res.json({
+            message:'true'
+        })
+    } catch (e) {
+        res.status(500).json({
+            message: 'Не удалось удалить файл',
+        })
+    }
 })
 
 app.get('/creator', CreatorController.getAll)
