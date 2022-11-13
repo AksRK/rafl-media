@@ -1,6 +1,7 @@
 import CreatorModel from "../models/Creator.js";
 import CreatorPostModel from "../models/CreatorPost.js";
-import fss from "fs/promises";
+import fs from "fs/promises";
+import constants from "fs/promises";
 
 export const getAll = async (req, res) => {
     const {page, perPage} = req.query
@@ -139,8 +140,9 @@ export const remove = async (req, res) => {
 
     try {
         const creatorId = req.params.id
-
         const currentCreator = await CreatorModel.findById(req.params.id)
+        const regexUrl = new RegExp(/(\/uploads.*\.(?:png|jpg|jpeg))/, 'g')
+        const regexTag = new RegExp(/<img\s+[^>]*src="([^"]*)"[^>]*>/, 'g')
 
         if (!currentCreator) {
             return res.status(404).json({
@@ -148,12 +150,37 @@ export const remove = async (req, res) => {
             })
         }
         const {imageUrl, login} = currentCreator._doc
-
         const creatorPosts = await CreatorPostModel.find({creator: login})
+
+        if (creatorPosts.length >=1) {
+            for (let post of creatorPosts) {
+                const {_id, imageUrl, content} = post._doc
+
+                try {
+                    await fs.access('.'+imageUrl.url, constants.F_OK);
+                    fs.unlink(('.'+imageUrl.url))
+                } catch {}
+                const allTags = content.match(regexTag)
+
+                if (allTags !== null) {
+                    for (let tag of allTags) {
+                        if (!tag.match(regexUrl)) {
+                            continue
+                        }
+                        try {
+                            await fs.access('.'+tag.match(regexUrl)[0], constants.F_OK);
+                            fs.unlink(('.'+tag.match(regexUrl)[0]))
+                        } catch {}
+                    }
+                }
+
+                await CreatorPostModel.findByIdAndDelete(_id)
+            }
+        }
 
         CreatorModel.findOneAndDelete({
             _id: creatorId,
-        }, (err, doc) => {
+        }, async (err, doc) => {
             if (err) {
                 return res.status(500).json({
                     message: 'Не удалось удалить креатора'
@@ -165,10 +192,10 @@ export const remove = async (req, res) => {
                     message: 'Креатор не найден'
                 })
             }
-            for (let post of creatorPosts) {
-                CreatorPostModel.findOneAndDelete(post)
-            }
-            fss.unlink(('.'+imageUrl.url))
+            try {
+                await fs.access('.'+imageUrl.url, constants.F_OK);
+                fs.unlink(('.'+imageUrl.url))
+            } catch {}
             res.json({
                 success: true,
             })
