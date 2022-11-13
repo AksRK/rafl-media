@@ -32,7 +32,6 @@ function NewCreator() {
     }, [inputValue]);
     const handleClose = (removedTag) => {
         const newTags = tags.filter((tag) => tag !== removedTag);
-        console.log(newTags);
         setTags(newTags);
     };
     const showInput = () => {
@@ -50,7 +49,6 @@ function NewCreator() {
     };
 
     const onSubmit = (data) => {
-        console.log({...data, imageUrl: titleImage, social: tags})
         axios.post(
             '/api/creator',
             {...data, imageUrl: titleImage, social: tags},

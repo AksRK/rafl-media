@@ -14,7 +14,6 @@ export const getAll = async (req, res) => {
         const creators = await CreatorModel.paginate({}, options)
         res.json(creators)
     }catch (err) {
-        console.log(err)
         res.status(500).json({
             message: 'Не удалось получить список креаторов',
         })

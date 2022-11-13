@@ -52,8 +52,8 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({ fileFilter, storage, limits:{ fileSize: 5000000 }  })
 
 app.use(express.json());
-app.use('/uploads', express.static('uploads'))
 app.use(cors())
+app.use('/uploads', express.static('uploads'))
 
 app.get('/', (req, res) => {
     res.send('Hi')

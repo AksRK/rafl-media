@@ -5,7 +5,6 @@ import Card from "../../components/Card";
 import {NextSeo} from 'next-seo'
 
 export default function Community({creators}) {
-    console.log(creators)
     return (
         <DefaultLayout>
             <NextSeo

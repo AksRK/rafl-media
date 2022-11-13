@@ -19,7 +19,7 @@ function Card({type, title, description, imgUrl, tag = null, path}) {
             (mobile >= size.width ? styles.card_mob:'')
         }>
             <div className={styles.card__img + ' ' + (type === 'creator'?styles.card__img_creator:'')}>
-                <img src={imgUrl} alt={title}/>
+                <Image src={imgUrl} alt={title} width={378} height={512}/>
                 {
                     type !== 'creator' && tag?
                         <div className={styles.card__tag}>{Category.find((c) => c.value === tag).label}</div>:

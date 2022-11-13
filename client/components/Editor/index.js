@@ -106,7 +106,6 @@ export default function Editor({ initialContent = '', name, onChange, props, con
     }
 
     const handleImageUploadError = (errorMessage, result, core) => {
-        console.log(123123123123)
         console.log(errorMessage, result)
     }
 

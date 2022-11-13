@@ -38,7 +38,6 @@ function EditCreator({id, creator}) {
     }, [inputValue]);
     const handleClose = (removedTag) => {
         const newTags = tags.filter((tag) => tag !== removedTag);
-        console.log(newTags);
         setTags(newTags);
     };
     const showInput = () => {
@@ -56,7 +55,6 @@ function EditCreator({id, creator}) {
     };
 
     const onSubmit = (data) => {
-        console.log({...data, imageUrl: titleImage, social: tags})
         axios.put(
             `/api/creator/${id}`,
             {...data, imageUrl: titleImage, social: tags},

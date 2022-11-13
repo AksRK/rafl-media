@@ -121,7 +121,6 @@ function NewPost() {
                                         placeholder="Поиск по логину или имени"
                                         fetchOptions={fetchUserList}
                                         onChange={(newValue) => {
-                                            console.log(newValue.value)
                                             setValue(newValue);
                                         }}
                                         style={{

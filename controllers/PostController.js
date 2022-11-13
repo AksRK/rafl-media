@@ -49,7 +49,6 @@ export const getAll = async (req, res) => {
 
 export const getBannerCards = async (req, res) => {
     const {cardsLimit} = req.query
-    console.log(req.query)
 
     const options = {
         limit: parseInt(cardsLimit, 10) || 5,
