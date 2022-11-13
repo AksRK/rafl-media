@@ -2,12 +2,20 @@ import HomeLayout from "../../layouts/HomeLayout";
 import MyMain from "../../components/MyMain";
 import DefaultLayout from "../../layouts/DefaultLayout";
 import Card from "../../components/Card";
-import tstImg from "../../public/tstImg.jpg";
+import {NextSeo} from 'next-seo'
 
 export default function Community({creators}) {
     console.log(creators)
     return (
         <DefaultLayout>
+            <NextSeo
+                title='Rafl - Комьюнити'
+                description='Независимое издание, освещающее эстетическую сторону российского футбола'
+                openGraph={{
+                    title: 'Rafl - Комьюнити',
+                    description: 'Независимое издание, освещающее эстетическую сторону российского футбола'
+                }}
+            />
             <MyMain>
                 <HomeLayout>
                     <div>

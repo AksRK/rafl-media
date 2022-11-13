@@ -3,12 +3,19 @@ import DefaultLayout from "../../layouts/DefaultLayout";
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import MyMain from "../../components/MyMain";
+import {NextSeo} from "next-seo";
 
 export default function UserLicenseAgreement() {
     const {asPath} = useRouter()
 
     return (
         <DefaultLayout activePage={asPath} bannerState={false}>
+            <NextSeo
+                title={`Rafl - Пользовательское соглашение`}
+                openGraph={{
+                    title: `Rafl - Пользовательское соглашение`,
+                }}
+            />
             <MyMain bigPadding={true}>
                 <div className={styles.license}>
                     <h3 className={styles.license__subtitle}>

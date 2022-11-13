@@ -10,6 +10,7 @@ import PostPreview from "../../../../../components/PostPreview";
 import {Category} from "../../../../../core/mock";
 import {Select} from "antd";
 import FetchSelect, {fetchUserList} from "../../../../../components/UI/FetchSelect";
+import CyrillicToTranslit from "cyrillic-to-translit-js";
 
 
 function NewPost() {
@@ -35,15 +36,16 @@ function NewPost() {
 
     const onSubmit = (data) => {
         setFullPost({...data, post: postBody, titleImg: titleImage})
+        const titleUrl = CyrillicToTranslit().transform(data.title, "-").replaceAll('?', '').replaceAll('&', '').toLowerCase()
         axios.post(
             category === 'community' ?'/api/creator/posts' : '/api/posts',
             category === 'community' ? {
-                ...data, content: postBody, imageUrl: titleImage, category, creator: value.value, readAlso: [
+                ...data, content: postBody, imageUrl: titleImage, category, titleUrl: titleUrl, creator: value.value, readAlso: [
                     "634adfc0b3152bd7eb481f06",
                     "634ae06fc43506a1e371d7ba"
                 ], userId: '633ad4e026be25c7184a194f'
             } : {
-                ...data, content: postBody, imageUrl: titleImage, category, readAlso: [
+                ...data, content: postBody, imageUrl: titleImage, category, titleUrl: titleUrl, readAlso: [
                     "634adfc0b3152bd7eb481f06",
                     "634ae06fc43506a1e371d7ba"
                 ], userId: '633ad4e026be25c7184a194f'

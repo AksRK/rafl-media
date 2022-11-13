@@ -17,13 +17,7 @@ const nextConfig = {
         hostname: 'localhost',
         port: '4444',
         pathname: '/uploads/*',
-      },
-      {
-        protocol: 'http',
-        hostname: '192.168.31.44',
-        port: '4444',
-        pathname: '/uploads/*',
-      },
+      }
     ],
   },
 }

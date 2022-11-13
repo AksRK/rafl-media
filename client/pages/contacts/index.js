@@ -2,12 +2,19 @@ import styles from './index.module.scss'
 import DefaultLayout from "../../layouts/DefaultLayout";
 import {useRouter} from 'next/router'
 import MyMain from "../../components/MyMain";
+import {NextSeo} from "next-seo";
 
 export default function Contacts() {
     const {asPath} = useRouter()
 
     return (
         <DefaultLayout activePage={asPath} bannerState={false}>
+            <NextSeo
+                title={`Rafl - Контакты`}
+                openGraph={{
+                    title: `Rafl - Контакты`,
+                }}
+            />
             <MyMain bigPadding={true}>
                 <div className={styles.contacts}>
                     <h2 className={'page-title'}>Контакты</h2>

@@ -11,6 +11,7 @@ import Image from 'next/image'
 import Liked from "../../components/UI/Liked";
 import {Category} from "../../core/mock";
 import {formatRuDate} from "../../core/utils";
+import {NextSeo} from "next-seo";
 
 
 export default function FullPost({post}) {
@@ -19,6 +20,14 @@ export default function FullPost({post}) {
 
     return (
         <DefaultLayout bannerState={false}>
+            <NextSeo
+                title={`Rafl - ${post.title}`}
+                description={post.description}
+                openGraph={{
+                    title: `Rafl - ${post.title}`,
+                    description: post.description
+                }}
+            />
             <MyMain post={true}>
                 <section className={styles.fullPost}>
                     <div className={styles.fullPost__moreWrp}>

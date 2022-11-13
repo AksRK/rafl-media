@@ -10,6 +10,8 @@ import "swiper/css/navigation";
 import '../core/styles/swiper-custom.scss'
 import PreLoader from "../components/UI/PreLoader";
 import {createContext, useEffect, useState} from "react";
+import Head from 'next/head'
+import {DefaultSeo} from "next-seo";
 import {useRouter} from "next/router";
 import axios from "axios";
 
@@ -44,6 +46,18 @@ function MyApp({Component, pageProps}) {
 
   return (
       <>
+          <DefaultSeo
+              title='Rafl'
+              description='Независимое издание, освещающее эстетическую сторону российского футбола'
+              openGraph={{
+                  title: 'Rafl',
+                  description: 'Независимое издание, освещающее эстетическую сторону российского футбола'
+              }}
+          />
+          <Head>
+              <meta charSet="UTF-8"/>
+              <meta name="theme-color" content="#000"/>
+          </Head>
         {loading && <PreLoader/>}
         <AuthContext.Provider value={{isAuth, setIsAuth}}>
           <Component {...pageProps} />

@@ -8,10 +8,19 @@ import {useEffect, useState} from "react";
 
 import tstImg from '../../public/tstImg.jpg'
 import ShrinkText from "../UI/ShrinkText/ShrinkText";
+import axios from "axios";
 
 export  default function CarouselBanner() {
     const size = useWindowSize()
     const [perView, setPerView] = useState(2.5)
+    const [banners, setBanners] = useState([])
+
+    useEffect(() => {
+        axios.get('/api/posts/banner')
+            .then((r) => {
+                setBanners(r.data.docs)
+            })
+    }, [])
 
     useEffect(() => {
         if (size.width <= 1600) setPerView(2.5);
@@ -37,37 +46,19 @@ export  default function CarouselBanner() {
                 modules={[Navigation, Autoplay]}
                 className="mySwiper"
             >
-                <SwiperSlide>
-                    <Link className={styles.card} href={'/asd'}>
-                        <Image src={tstImg} alt={123}/>
-                        <div className={styles.card__textWrp}>
-                            <h3 className={styles.card__title}>Владимир Раевский: любить урал</h3>
-                            <span>
-                                «Футбол — уникальный вид человеческой деятельности» журналист Владимир Раевский о любви к «Уралу».
+                {
+                    banners.map(b => <SwiperSlide key={b._id}>
+                        <Link className={styles.card} href={`/posts/${b.title}`}>
+                            <Image src={b.imageUrl.fullUrl} alt={b.title} width={533} height={500}/>
+                            <div className={styles.card__textWrp}>
+                                <h3 className={styles.card__title}>{b.title}</h3>
+                                <span>
+                                <ShrinkText text={b.description} maxChar={95}/>
                             </span>
-                        </div>
-                    </Link>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <Link className={styles.card} href={'/asd'}>
-                        <Image src={tstImg} alt={123}/>
-                        <div className={styles.card__textWrp}>
-                            <h3 className={styles.card__title}>Ирина Подшибякина: на равных</h3>
-                            <span>
-                                <ShrinkText text={'Защитница «Локомотива» и Сборной России Ирина Подшибякина о своем пути, восприятии женского футбола'} maxChar={95}/>
-                            </span>
-                        </div>
-                    </Link>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div style={{backgroundColor:'blue'}} className={styles.card}><h1>3</h1></div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div style={{backgroundColor:'orange'}} className={styles.card}><h1>4</h1></div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div style={{backgroundColor:'violet'}} className={styles.card}><h1>5</h1></div>
-                </SwiperSlide>
+                            </div>
+                        </Link>
+                    </SwiperSlide>)
+                }
             </Swiper>
         </div>
 

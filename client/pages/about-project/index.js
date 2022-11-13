@@ -6,12 +6,20 @@ import DefaultLayout from "../../layouts/DefaultLayout";
 import Image from "next/image";
 import selenovIgor from '../../public/selenov-igor.jpg'
 import zverevIgor from '../../public/zverev-igor.jpeg'
+import {Category} from "../../core/mock";
+import {NextSeo} from "next-seo";
 
 export default function AboutProject() {
     const {asPath} = useRouter()
 
     return (
         <DefaultLayout activePage={asPath} bannerState={false}>
+            <NextSeo
+                title={`Rafl - О проекте`}
+                openGraph={{
+                    title: `Rafl - О проекте`,
+                }}
+            />
             <MyMain bigPadding={true}>
                 <div className={styles.aboutProject}>
                     <h2 style={{maxWidth:'700px'}} className={'page-title'}>
