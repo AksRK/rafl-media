@@ -2,6 +2,7 @@ import styles from './index.module.scss'
 import useWindowSize from "../../core/hooks/useWindowSize";
 import Link from 'next/link'
 import Image from 'next/image'
+import {Category} from "../../core/mock";
 
 function Card({type, title, description, imgUrl, tag = null, path}) {
 
@@ -20,7 +21,7 @@ function Card({type, title, description, imgUrl, tag = null, path}) {
                 <img src={imgUrl} alt={title}/>
                 {
                     type !== 'creator' && tag?
-                        <div className={styles.card__tag}>{tag}</div>:
+                        <div className={styles.card__tag}>{Category.find((c) => c.value === tag).label}</div>:
                         ''
                 }
 

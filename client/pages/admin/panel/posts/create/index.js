@@ -36,8 +36,13 @@ function NewPost() {
     const onSubmit = (data) => {
         setFullPost({...data, post: postBody, titleImg: titleImage})
         axios.post(
-            '/api/posts',
-            {
+            category === 'community' ?'/api/creator/posts' : '/api/posts',
+            category === 'community' ? {
+                ...data, content: postBody, imageUrl: titleImage, category, creator: value.value, readAlso: [
+                    "634adfc0b3152bd7eb481f06",
+                    "634ae06fc43506a1e371d7ba"
+                ], userId: '633ad4e026be25c7184a194f'
+            } : {
                 ...data, content: postBody, imageUrl: titleImage, category, readAlso: [
                     "634adfc0b3152bd7eb481f06",
                     "634ae06fc43506a1e371d7ba"

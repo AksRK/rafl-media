@@ -2,11 +2,10 @@ import styles from './index.module.scss'
 import Card from "../Card";
 import tstImg from "../../public/tstImg.jpg";
 
-export default function CardsList({typeCard, posts}) {
+export default function CardsList({typeCard, creatorLogin, posts}) {
 
     return (
         <div className={styles.cardsList}>
-
             {
                 posts.map((el, index) => {
                     return (
@@ -16,7 +15,7 @@ export default function CardsList({typeCard, posts}) {
                               description={el.description}
                               imgUrl={el.imageUrl.fullUrl}
                               tag={el.category}
-                              path={`/posts/${el.title}`}
+                              path={!!creatorLogin ? `/posts/${creatorLogin}/${el.title}` : `/posts/${el.title}`}
                         />
                     )
                 })
