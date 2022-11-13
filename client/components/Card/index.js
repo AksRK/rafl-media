@@ -17,7 +17,7 @@ function Card({type, title, description, imgUrl, tag = null, path}) {
             (mobile >= size.width ? styles.card_mob:'')
         }>
             <div className={styles.card__img + ' ' + (type === 'creator'?styles.card__img_creator:'')}>
-                <Image src={imgUrl} alt="RAFL"/>
+                <img src={imgUrl} alt={title}/>
                 {
                     type !== 'creator' && tag?
                         <div className={styles.card__tag}>{tag}</div>:

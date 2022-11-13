@@ -17,7 +17,7 @@ function SeeMore({category, authorName, linksArray}) {
                  className={styles.seeMore+ ' ' + (seeMoreState?styles.seeMore_open:'')}>
                 <div className={styles.seeMore__el}>
                     <div className={styles.seeMore__category}>
-                        Интервью
+                        {category}
                     </div>
                     <div style={seeMoreState?{transform:'rotate3d(1, 0, 0, 160deg)'}:{}}
                          className={styles.seeMore__arrowWrp}>
@@ -30,7 +30,7 @@ function SeeMore({category, authorName, linksArray}) {
                         }}
                     >
                         <Marquee gradient={false}>
-                            <div style={{marginRight: '15px'}}>Ирина Подшибяина: на равных</div>
+                            <div style={{marginRight: '15px'}}>{authorName}</div>
                         </Marquee>
                         {/*<span>*/}
                         {/*    Ирина Подшибяина: на равных*/}

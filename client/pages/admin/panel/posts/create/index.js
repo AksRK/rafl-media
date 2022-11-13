@@ -9,10 +9,12 @@ import axios from "axios";
 import PostPreview from "../../../../../components/PostPreview";
 import {Category} from "../../../../../core/mock";
 import {Select} from "antd";
+import FetchSelect, {fetchUserList} from "../../../../../components/UI/FetchSelect";
 
 
 function NewPost() {
     const [fullPost, setFullPost] = useState(null)
+    const [value, setValue] = useState([]);
     const [postBody, setPostBody] = useState('')
     const imageRef = useRef()
     const [titleImage, setTitleImage] = useState('')
@@ -88,12 +90,42 @@ function NewPost() {
         <AdminPanelLayout>
             <div className="container-admin">
                 <h1>Новая статья</h1>
-                <Select
-                    placeholder="Выберите категорию"
-                    optionFilterProp="children"
-                    onChange={onChange}
-                    options={Category}
-                />
+                <div className={styles.flexWrp}>
+                    <div>
+                        <p>Выберите категорию</p>
+                        <Select
+                            placeholder="Выберите категорию"
+                            optionFilterProp="children"
+                            onChange={onChange}
+                            options={Category}
+                            style={{
+                                width: '300px',
+                            }}
+                        />
+                    </div>
+                    <div>
+                        {
+                            category === 'community'
+                                ? <>
+                                    <p>Выберите креатора</p>
+                                    <FetchSelect
+                                        showSearch
+                                        value={value}
+                                        placeholder="Поиск по логину или имени"
+                                        fetchOptions={fetchUserList}
+                                        onChange={(newValue) => {
+                                            console.log(newValue.value)
+                                            setValue(newValue);
+                                        }}
+                                        style={{
+                                            width: '300px',
+                                        }}
+                                    />
+                                </>
+                                : <></>
+                        }
+                    </div>
+                </div>
                 <br/><br/>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={styles.newPostFormWrp}>

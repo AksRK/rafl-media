@@ -1,12 +1,13 @@
 import dynamic from "next/dynamic";
 import axios from "axios";
+import {useRef, useState} from "react";
 
 const SunEditor = dynamic(() => import("suneditor-react"), {
     ssr: false
 });
 
 export default function Editor({ initialContent = '', name, onChange, props, contTst }) {
-
+    let imagesArr = []
     const options = {
         height: 750,
         "formats": [
@@ -88,11 +89,24 @@ export default function Editor({ initialContent = '', name, onChange, props, con
         remainingFilesCount,
         core,
     ) => {
-        console.log(targetElement.src)
-        console.log(core)
+        if (state === 'create') imagesArr.push(info.src)
+        if (state === 'update') {
+            console.log(imagesArr[index])
+            imagesArr = imagesArr.map((image, i) => {
+                if (i === index) {
+                    return info.src
+                }
+                return image
+            })
+        }
+        if (state === 'delete') {
+            console.log(imagesArr[index])
+        }
+        // console.log(editor.current.core.context.image._infoList[index].src)
     }
 
-    const handleImageUploadError = (errorMessage, result) => {
+    const handleImageUploadError = (errorMessage, result, core) => {
+        console.log(123123123123)
         console.log(errorMessage, result)
     }
 

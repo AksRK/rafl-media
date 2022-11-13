@@ -1,8 +1,8 @@
 import styles from './index.module.scss'
 import {useEffect, useState} from "react";
 
-function Liked() {
-    const [likeCount, setLikeCount] = useState(0)
+function Liked({likes}) {
+    const [likeCount, setLikeCount] = useState(likes)
     const [btnState, setBtnState] = useState(false)
     const [clicked, setClicked] = useState(false)
     const [startAnimThx, setStartAnimThx] = useState(false)
@@ -36,7 +36,7 @@ function Liked() {
             {
                 clicked?
                     <> <span></span> <span className={styles.like__count}>{'+'+likeCount}</span></>:
-                    <> <span></span> <span className={styles.like__total}>123</span></>
+                    <> <span></span> <span className={styles.like__total}>{likes}</span></>
             }
 
             {

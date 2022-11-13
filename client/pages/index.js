@@ -4,7 +4,7 @@ import MyMain from "../components/MyMain";
 import HomeLayout from "../layouts/HomeLayout";
 import CardList from "../components/CardsList";
 
-export default function Home() {
+export default function Home({posts}) {
 
 
 
@@ -18,10 +18,17 @@ export default function Home() {
             <DefaultLayout>
                 <MyMain>
                     <HomeLayout>
-                        <CardList/>
+                        <CardList posts={posts}/>
                     </HomeLayout>
                 </MyMain>
             </DefaultLayout>
     </div>
   )
+}
+
+export async function getServerSideProps(context) {
+    const posts = await fetch(`http://localhost:3000/api/posts/`).then(r => r.json())
+    return {
+        props: {posts: posts.docs}, // will be passed to the page component as props
+    }
 }

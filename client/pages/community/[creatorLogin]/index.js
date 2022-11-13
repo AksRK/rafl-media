@@ -9,7 +9,7 @@ import Link from 'next/link'
 import useWindowSize from "../../../core/hooks/useWindowSize";
 import CardsList from "../../../components/CardsList";
 
-export default function CreatorPage() {
+export default function CreatorPage({posts}) {
     const closeImg = <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M18 6L6 18" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
                         <path d="M6 6L18 18" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
@@ -69,10 +69,17 @@ export default function CreatorPage() {
                         </div>
                     </div>
                     <div>
-                        <CardsList/>
+                        <CardsList posts={posts.docs}/>
                     </div>
                 </HomeLayout>
             </MyMain>
         </DefaultLayout>
     )
+}
+
+export async function getServerSideProps(context) {
+    const posts = await fetch(`http://localhost:3000/api/creator/posts/login/${context.params.creatorLogin}`).then(r => r.json())
+    return {
+        props: {posts: posts}, // will be passed to the page component as props
+    }
 }

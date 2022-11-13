@@ -1,3 +1,8 @@
+.flexWrp {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+}
 .newPostForm {
   position: relative;
 

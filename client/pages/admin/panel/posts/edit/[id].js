@@ -22,6 +22,8 @@ function EditPost({id, post}) {
         defaultValues: {
             title: post?.title,
             description: post?.description,
+            likes: post?.likes,
+            viewsCount: post?.viewsCount,
         }
     });
     const watchAllFields = watch();
@@ -149,13 +151,43 @@ function EditPost({id, post}) {
                                 </label>
                                 <textarea
                                     className={styles.newPostForm__textArea}
-                                    style={{minHeight: '323px'}}
+                                    style={{minHeight: '257px'}}
                                     placeholder={'Описание статьи'}
                                     name={'description'}
                                     id={'description'}
                                     {...register("description",
                                         {required: true, minLength: 5, maxLength: 200})}
                                 />
+                            </div>
+                            <div className={styles.newPostForm__counter}>
+                                <div className={styles.newPostForm__controller}>
+                                    <label className={styles.newPostForm__label}
+                                           htmlFor={'viewsCount'}>
+                                        Кол-во лайков
+                                    </label>
+                                    <input type="text"
+                                           name={'likes'}
+                                           id={'likes'}
+                                           {...register("likes",
+                                               {required: true, valueAsNumber: true})}
+                                           className={styles.newPostForm__input}
+                                           style={errors.likes ? {borderColor: 'red', background: '#ffc8c8'} : {}}
+                                    />
+                                </div>
+                                <div className={styles.newPostForm__controller}>
+                                    <label className={styles.newPostForm__label}
+                                           htmlFor={'viewsCount'}>
+                                        Кол-во просмотров
+                                    </label>
+                                    <input type="text"
+                                           name={'viewsCount'}
+                                           id={'viewsCount'}
+                                           {...register("viewsCount",
+                                               {required: true, valueAsNumber: true})}
+                                           className={styles.newPostForm__input}
+                                           style={errors.viewsCount ? {borderColor: 'red', background: '#ffc8c8'} : {}}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>

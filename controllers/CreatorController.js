@@ -72,7 +72,7 @@ export const findAll = async (req, res) => {
                 message: 'Ничего не найдено'
             })
         }
-        res.json({...creatorsLogin, ...creatorsFullName})
+        res.json([...creatorsLogin, ...creatorsFullName])
     }catch (err) {
         console.log(err)
         res.status(500).json({

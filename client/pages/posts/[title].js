@@ -9,31 +9,34 @@ import MyMain from "../../components/MyMain";
 import styles from './index.module.scss'
 import Image from 'next/image'
 import Liked from "../../components/UI/Liked";
-import {tstText} from "../../core/mock";
+import {Category} from "../../core/mock";
+import {formatRuDate} from "../../core/utils";
 
 
-export default function FullPost() {
+export default function FullPost({post}) {
     const size = useWindowSize()
-    const mobile = 479
+    const mobile = 479;
 
     return (
         <DefaultLayout bannerState={false}>
             <MyMain post={true}>
                 <section className={styles.fullPost}>
                     <div className={styles.fullPost__moreWrp}>
-                        <SeeMore />
+                        <SeeMore category={Category.find((c) => c.value === post?.category)?.label}
+                                 authorName={post?.title}/>
                     </div>
                     <span className={styles.fullPost__date}>
-                        1 октября 2022 г.
+                        {formatRuDate(post?.createdAt)}
                     </span>
                     <div className={styles.fullPost__head}>
-                        <h1 className={'page-title page-title--full-post'}>Ирина Подшибякина: на равных</h1>
+                        <h2 className={'page-title page-title--full-post'}>
+                            {post?.title}
+                        </h2>
                         <span className={styles.fullPost__description}>
-                    Защитница «Локомотива» и Сборной России Ирина Подшибякина о своем пути,
-                    восприятии женского футбола и лучших моментах в карьере.
-                </span>
+                           {post?.description}
+                        </span>
                         <div className={styles.fullPost__titleImg}>
-                            <Image src={tstImg} alt=""/>
+                            <Image src={post?.imageUrl?.fullUrl} alt="" width={800} height={800}/>
                         </div>
                     </div>
 
@@ -41,7 +44,8 @@ export default function FullPost() {
                     <div className={styles.fullPost__wrp}>
 
                         <div className={styles.fullPost__content}>
-                            <div className={'sun-editor-editable sun-editor-editable--content'} dangerouslySetInnerHTML={{__html: tstText}}/>
+                            <div className={'sun-editor-editable sun-editor-editable--content'}
+                                 dangerouslySetInnerHTML={{__html: post?.content}}/>
 
                         </div>
 
@@ -58,7 +62,7 @@ export default function FullPost() {
                                 </a>
                             </div>
                             <div className={styles.fullPostFooter__btnBox}>
-                                <Liked/>
+                                <Liked likes={post?.likes}/>
                                 {/*<button className={'share-btn'}>Поделиться статьей</button>*/}
                             </div>
 
@@ -145,4 +149,13 @@ export default function FullPost() {
         </DefaultLayout>
 
     )
+}
+
+
+export async function getServerSideProps(context) {
+    const post = await fetch(`http://localhost:3000/api/posts/title/${context.params.title}`).then(r => r.json())
+
+    return {
+        props: {post: post}, // will be passed to the page component as props
+    }
 }
