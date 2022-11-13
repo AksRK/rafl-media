@@ -219,11 +219,6 @@ export const remove = async (req, res) => {
 export const create = async (req, res) => {
 
     try {
-
-        if (PostModel.findOne(req.body.title)) {
-            console.log(true)
-        }
-
         const doc = new PostModel({
             category: req.body.category,
             title: req.body.title,
