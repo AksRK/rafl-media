@@ -1,5 +1,6 @@
 import PostModel from '../models/Post.js';
-import fss from "fs/promises";
+import fs from "fs/promises";
+import constants from 'fs/promises';
 
 export const getCategory = async (req, res) => {
     try {
@@ -103,6 +104,14 @@ export const getOneAdmin = async (req, res) => {
     try {
         const postId = req.params
         const post = await PostModel.findOne(postId)
+        const pathTst = './uploads/1668184247873-c8409f7d-bb83-4fc4-9c49-7c6a881752ea-Instagrampost-74.png'
+        try {
+            await fs.access(pathTst, constants.F_OK);
+            console.log('file exists');
+        } catch {
+            console.error('file does not exists');
+        }
+
         res.json(post)
     }catch (err) {
         console.log(err)
@@ -157,10 +166,12 @@ export const remove = async (req, res) => {
     try {
         const postId = req.params.id
         const post = await PostModel.findById(postId)
-        const {imageUrl} = post._doc
+        const regexUrl = new RegExp(/(\/uploads.*\.(?:png|jpg|jpeg))/, 'g')
+        const regexTag = new RegExp(/<img\s+[^>]*src="([^"]*)"[^>]*>/, 'g')
+
         PostModel.findOneAndDelete({
             _id: postId,
-        }, (err, doc) => {
+        }, async (err, doc) => {
             if (err) {
                 return res.status(500).json({
                     message: 'Не удалось удалить статью'
@@ -172,7 +183,27 @@ export const remove = async (req, res) => {
                     message: 'Статья не найдена'
                 })
             }
-            fss.unlink(('.'+imageUrl.url))
+
+            const {imageUrl, content} = post._doc
+            try {
+                await fs.access('.'+imageUrl.url, constants.F_OK);
+                fs.unlink(('.'+imageUrl.url))
+            } catch {}
+
+            const allTags = content.match(regexTag)
+
+            if (allTags !== null) {
+                for (let tag of allTags) {
+                    if (!tag.match(regexUrl)) {
+                        continue
+                    }
+                    try {
+                        await fs.access('.'+tag.match(regexUrl)[0], constants.F_OK);
+                        fs.unlink(('.'+tag.match(regexUrl)[0]))
+                    } catch {}
+
+                }
+            }
             res.json({
                 success: true,
             })

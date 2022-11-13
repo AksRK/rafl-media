@@ -1,5 +1,7 @@
 import CreatorPostModel from '../models/CreatorPost.js'
 import fss from "fs/promises";
+import fs from "fs/promises";
+import constants from "fs/promises";
 
 export const getCreatorPosts = async (req, res) => {
 
@@ -121,11 +123,13 @@ export const remove = async (req, res) => {
     try {
         const postId = req.params.id
         const post = await CreatorPostModel.findById(postId)
-        const {imageUrl} = post._doc
+        const regexUrl = new RegExp(/(\/uploads.*\.(?:png|jpg|jpeg))/, 'g')
+        const regexTag = new RegExp(/<img\s+[^>]*src="([^"]*)"[^>]*>/, 'g')
+
 
         CreatorPostModel.findOneAndDelete({
             _id: postId,
-        }, (err, doc) => {
+        }, async (err, doc) => {
             if (err) {
                 return res.status(500).json({
                     message: 'Не удалось удалить статью'
@@ -137,7 +141,28 @@ export const remove = async (req, res) => {
                     message: 'Статья не найдена'
                 })
             }
-            fss.unlink(('.'+imageUrl.url))
+
+            const {imageUrl, content} = post._doc
+            try {
+                await fs.access('.'+imageUrl.url, constants.F_OK);
+                fs.unlink(('.'+imageUrl.url))
+            } catch {}
+
+            const allTags = content.match(regexTag)
+
+            if (allTags !== null) {
+                for (let tag of allTags) {
+                    if (!tag.match(regexUrl)) {
+                        continue
+                    }
+                    try {
+                        await fs.access('.'+tag.match(regexUrl)[0], constants.F_OK);
+                        fs.unlink(('.'+tag.match(regexUrl)[0]))
+                    } catch {}
+
+                }
+            }
+
             res.json({
                 success: true,
             })
@@ -157,6 +182,7 @@ export const create = async (req, res) => {
             title: req.body.title,
             description: req.body.description,
             imageUrl: req.body.imageUrl,
+            creator: req.body.creator,
             content: req.body.content,
             readAlso: req.body.readAlso,
             user: req.userId,
