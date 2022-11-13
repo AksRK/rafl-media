@@ -25,14 +25,8 @@ import fss from 'fs/promises'
 
 import cors from 'cors'
 
-
-mongoose
-    .connect('mongodb+srv://admin:wwwwww@cluster0.odjoyaf.mongodb.net/rafl-media?retryWrites=true&w=majority',)
-    .then(() => {console.log('DB connect')})
-    .catch((err) => {console.log('DB err', err)})
-
 const app = express();
-
+const PORT = 4444;
 const baseUrl = 'http://localhost:4444/'
 
 const storage = multer.diskStorage({
@@ -117,10 +111,25 @@ app.post('/posts', checkAuth, postCreateValidation, handleValidationErrors, Post
 app.put('/posts/:id', checkAuth, postUpdateValidation, handleValidationErrors, PostController.update)
 app.delete('/posts/:id', checkAuth, PostController.remove);
 
-app.listen(4444, (err)=> {
-    if (err) {
-        return console.log(err)
+async function start() {
+    try {
+        await mongoose
+            .connect('mongodb+srv://admin:wwwwww@cluster0.odjoyaf.mongodb.net/rafl-media?retryWrites=true&w=majority',)
+            .then(() => {console.log('DB connect')})
+            .catch((err) => {console.log('DB err', err)})
+        app.listen(PORT, () => console.log(`Server started on port ${PORT}...`))
+    } catch (e) {
+        console.log('Server Error', e.message);
+        process.exit(1)
     }
+}
 
-    console.log('Server running')
-})
+start()
+
+// app.listen(4444, (err)=> {
+//     if (err) {
+//         return console.log(err)
+//     }
+//
+//     console.log('Server running')
+// })
