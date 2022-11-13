@@ -31,10 +31,6 @@ export  default function CarouselBanner() {
         if (size.width <= 479) setPerView(1.1);
     }, [size.width])
 
-    if (banners.length === 0) {
-        return <></>
-    }
-
     return (
         <div className={styles.carousel}>
             <Swiper
