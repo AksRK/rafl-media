@@ -145,6 +145,7 @@ a {
     gap: 0 12px;
     padding: 13px 17px;
     margin: 0;
+    z-index: 2;
   }
 
   &_disabled {
@@ -159,8 +160,11 @@ a {
   line-height: 62px;
   color: #000000;
   max-width: 720px;
+  white-space: pre-wrap;
 
-
+  &--full-post {
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 1633px) {

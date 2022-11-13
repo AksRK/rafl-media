@@ -3,6 +3,7 @@ import useWindowSize from "../../core/hooks/useWindowSize";
 import Link from 'next/link'
 import Image from 'next/image'
 import {Category} from "../../core/mock";
+import ShrinkText from "../UI/ShrinkText/ShrinkText";
 
 function Card({type, title, description, imgUrl, tag = null, path}) {
 
@@ -28,11 +29,11 @@ function Card({type, title, description, imgUrl, tag = null, path}) {
             </div>
             <div className={styles.card__wrp+ ' '+ (type === 'creator'?styles.card__wrp_creator:'')}>
                 <h2 className={styles.card__title+ ' ' + (type === 'creator'?styles.card__title_creator:'')}>
-                    {title}
+                    <ShrinkText text={title.replace(':', ':\n')} maxChar={39}/>
                 </h2>
 
                 <span className={styles.card__description+ ' ' + (type === 'creator'?styles.card__description_creator:'')}>
-                    {description}
+                     <ShrinkText text={description.replace(':', ':\n')} maxChar={mobile >= size.width?185:122}/>
                 </span>
 
                 <div className={styles.card__readBtn}>

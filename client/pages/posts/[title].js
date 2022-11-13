@@ -30,7 +30,7 @@ export default function FullPost({post}) {
                     </span>
                     <div className={styles.fullPost__head}>
                         <h2 className={'page-title page-title--full-post'}>
-                            {post?.title}
+                            {post?.title.replace(':', ':\n')}
                         </h2>
                         <span className={styles.fullPost__description}>
                            {post?.description}

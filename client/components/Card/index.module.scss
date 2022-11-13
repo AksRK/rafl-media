@@ -49,7 +49,7 @@
     bottom: 5px;
     background: #000000;
     border-radius: 41px;
-    padding: 13px 12px;
+    padding: 13px 15px;
     font-weight: 500;
     font-size: 15px;
     line-height: 18px;
@@ -70,10 +70,13 @@
 
   &__title {
     max-width: 331px;
+    max-height: 66px;
+    overflow: hidden;
     margin: 0;
     font-weight: 800;
-    font-size: 30px;
+    font-size: 24px;
     line-height: 33px;
+    white-space: pre-wrap;
     &_creator {
 
     }
@@ -186,7 +189,7 @@
     }
 
     &__title {
-      font-size: 26px;
+      font-size: 22px;
       line-height: 28px;
 
       &_creator {
