@@ -3,9 +3,19 @@ import fs from "fs/promises";
 import constants from 'fs/promises';
 
 export const getCategory = async (req, res) => {
+    const {page, perPage} = req.query
+
+    const options = {
+        page: parseInt(page, 10) || 1,
+        limit: parseInt(perPage, 10) || 8,
+        sort: {
+            viewsCount: -1
+        }
+    };
+
     try {
         const postsTag = req.params
-        const posts = await PostModel.find(postsTag)
+        const posts = await PostModel.paginate({...postsTag}, options)
         res.json(posts)
     }catch (err) {
         console.log(err)
