@@ -1,5 +1,4 @@
 import CreatorPostModel from '../models/CreatorPost.js'
-import fss from "fs/promises";
 import fs from "fs/promises";
 import constants from "fs/promises";
 
@@ -80,11 +79,11 @@ export const getOneAdmin = async (req, res) => {
 export const getOneByTitle = async (req, res) => {
 
     try {
-        const postTitle = req.params.title;
+        const postTitleUrl = req.params.titleUrl;
 
         CreatorPostModel.findOneAndUpdate(
             {
-                title: postTitle,
+                titleUrl: postTitleUrl,
             },
             {
                 $inc: { viewsCount: 1 },
@@ -180,6 +179,7 @@ export const create = async (req, res) => {
     try {
         const doc = new CreatorPostModel({
             title: req.body.title,
+            titleUrl: req.body.titleUrl,
             description: req.body.description,
             imageUrl: req.body.imageUrl,
             creator: req.body.creator,
@@ -209,6 +209,7 @@ export const update = async (req, res) => {
         }, {
             creator: req.body.creator,
             title: req.body.title,
+            titleUrl: req.body.titleUrl,
             description: req.body.description,
             imageUrl: req.body.imageUrl,
             content: req.body.content,

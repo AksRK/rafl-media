@@ -7,6 +7,11 @@ const PostSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    titleUrl: {
+        type: String,
+        required: true,
+        unique: true
+    },
     description: {
         type: String,
         required: true,

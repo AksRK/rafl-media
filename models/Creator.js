@@ -7,6 +7,11 @@ const CreatorSchema = new mongoose.Schema({
         type: Object,
         required: true,
     },
+    titleUrl: {
+        type: String,
+        required: true,
+        unique: true
+    },
     fullName: {
         type: String,
         required: true,

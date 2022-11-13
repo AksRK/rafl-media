@@ -134,11 +134,11 @@ export const getOneAdmin = async (req, res) => {
 export const getOneByTitle = async (req, res) => {
 
     try {
-        const postTitle = req.params.title;
+        const postTitleUrl = req.params.titleUrl;
 
         PostModel.findOneAndUpdate(
             {
-                title: postTitle,
+                titleUrl: postTitleUrl,
             },
             {
                 $inc: { viewsCount: 1 },
@@ -232,6 +232,7 @@ export const create = async (req, res) => {
         const doc = new PostModel({
             category: req.body.category,
             title: req.body.title,
+            titleUrl: req.body.titleUrl,
             description: req.body.description,
             imageUrl: req.body.imageUrl,
             content: req.body.content,
@@ -259,6 +260,7 @@ export const update = async (req, res) => {
             _id: postId,
         }, {
             title: req.body.title,
+            titleUrl: req.body.titleUrl,
             description: req.body.description,
             imageUrl: req.body.imageUrl,
             content: req.body.content,

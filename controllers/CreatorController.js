@@ -214,6 +214,7 @@ export const create = async (req, res) => {
         const doc = await new CreatorModel({
             login: req.body.login,
             imageUrl: req.body.imageUrl,
+            titleUrl: req.body.titleUrl,
             fullName: req.body.fullName,
             about: req.body.about,
             description: req.body.description,
@@ -242,6 +243,7 @@ export const update = async (req, res) => {
             },
             {
                 imageUrl: req.body.imageUrl,
+                titleUrl: req.body.titleUrl,
                 fullName: req.body.fullName,
                 about: req.body.about,
                 login: req.body.login,
