@@ -9,6 +9,7 @@ import PostPreview from "../../../../../components/PostPreview";
 import {useForm} from "react-hook-form";
 import {Select} from "antd";
 import {Category} from "../../../../../core/mock";
+import CyrillicToTranslit from "cyrillic-to-translit-js";
 
 
 function EditPost({id, post}) {
@@ -35,11 +36,11 @@ function EditPost({id, post}) {
 
     const onSubmit = (data) => {
         event.preventDefault()
-        console.log({...data, post: postBody, titleImg: titleImage, category})
+        const titleUrl = CyrillicToTranslit().transform(data.title, "-").replaceAll('?', '').replaceAll('&', '').toLowerCase()
         // setFullPost({...data, post: postBody, titleImg: titleImage})
         axios.put(
             `/api/posts/${id}`,
-            {...data, post: postBody, content: postBody, imageUrl: titleImage, readAlso: [
+            {...data, post: postBody, content: postBody, titleUrl, imageUrl: titleImage, readAlso: [
                     "634adfc0b3152bd7eb481f06",
                     "634ae06fc43506a1e371d7ba"
                 ]
@@ -92,6 +93,7 @@ function EditPost({id, post}) {
             <div className="container-admin">
                 <h1>Редактировать статью</h1>
                 <Select
+                    disabled={true}
                     placeholder="Выберите категорию"
                     optionFilterProp="children"
                     onChange={onChange}

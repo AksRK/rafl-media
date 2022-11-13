@@ -135,7 +135,6 @@ export const getOneByTitle = async (req, res) => {
 
     try {
         const postTitleUrl = req.params.titleUrl;
-
         PostModel.findOneAndUpdate(
             {
                 titleUrl: postTitleUrl,

@@ -22,13 +22,13 @@ export default function Contacts() {
                     <div className={styles.contacts__wrp}>
                         <div className={styles.contacts__el}>
                             <span>Insta:</span>
-                            <a className={'link link_hover_black'} href={'https://instagram.com/rafl.studio'}>
+                            <a className={'link link_hover_black'} href={'https://instagram.com/rafl.studio'} target="_blank" rel="noreferrer">
                                 <span>instagram.com/rafl.studio</span>
                             </a>
                         </div>
                         <div className={styles.contacts__el}>
                             <span>TG:</span>
-                            <a className={'link link_hover_black'} href={'https://t.me/igorselenov'}>
+                            <a className={'link link_hover_black'} href={'https://t.me/igorselenov'} target="_blank" rel="noreferrer">
                                 <span>t.me/igorselenov</span>
                             </a>
                         </div>

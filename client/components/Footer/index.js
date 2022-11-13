@@ -33,10 +33,8 @@ function Footer() {
                 </div>
 
                 <div className={style.footerLinks__social}>
-                    <SocialLink url={'https://vk.com'} social={'inst'} black={false}/>
-                    <SocialLink url={'https://vk.com'} social={'tg'} black={false}/>
-                    <SocialLink url={'https://vk.com'} social={'vk'} black={false}/>
-                    <SocialLink url={'https://vk.com'} social={'yt'} black={false}/>
+                    <SocialLink url={'https://instagram.com/rafl.studio'} black={false}/>
+                    <SocialLink url={'https://t.me/igorselenov'} black={false}/>
                 </div>
             </div>
 

@@ -155,7 +155,7 @@ function NewCreator() {
                                        id={'login'}
                                        placeholder={'Введите логин'}
                                        {...register("login",
-                                           {required: true, minLength: 3, maxLength: 80})}
+                                           {required: true, minLength: 3, maxLength: 80, pattern: /^[A-Za-z0-9]*$/})}
                                        className={styles.newPostForm__input}
                                        style={errors.login ? {borderColor: 'red', background: '#ffc8c8'} : {}}
                                 />

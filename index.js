@@ -93,7 +93,7 @@ app.delete('/creator/:id', checkAuth, CreatorController.remove);
 
 app.get('/creator/posts/:id', CreatorPostController.getOne)
 app.get('/creator/posts/edit/:id', CreatorPostController.getOneAdmin)
-app.get('/creator/posts/title/:title', CreatorPostController.getOneByTitle)
+app.get('/creator/posts/title/:titleUrl', CreatorPostController.getOneByTitle)
 app.get('/creator/posts/login/:creator', CreatorPostController.getCreatorPosts)
 app.post('/creator/posts', checkAuth, creatorPostCreateValidation, handleValidationErrors, CreatorPostController.create)
 app.put('/creator/posts/:id', checkAuth, creatorPostUpdateValidation, handleValidationErrors, CreatorPostController.update)
@@ -104,7 +104,7 @@ app.get('/posts', PostController.getAll)
 app.get('/posts/banner', PostController.getBannerCards)
 app.get('/posts/:id', PostController.getOne)
 app.get('/posts/edit/:id', PostController.getOneAdmin)
-app.get('/posts/title/:title', PostController.getOneByTitle)
+app.get('/posts/title/:titleUrl', PostController.getOneByTitle)
 app.get('/posts/category/:category', PostController.getCategory);
 app.put('/posts/like/:id', handleValidationErrors, PostController.like)
 app.post('/posts', checkAuth, postCreateValidation, handleValidationErrors, PostController.create)

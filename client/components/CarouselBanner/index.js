@@ -9,6 +9,7 @@ import {useEffect, useState} from "react";
 import tstImg from '../../public/tstImg.jpg'
 import ShrinkText from "../UI/ShrinkText/ShrinkText";
 import axios from "axios";
+import CyrillicToTranslit from "cyrillic-to-translit-js";
 
 export  default function CarouselBanner() {
     const size = useWindowSize()
@@ -30,6 +31,9 @@ export  default function CarouselBanner() {
         if (size.width <= 479) setPerView(1.1);
     }, [size.width])
 
+    if (banners.length === 0) {
+        return <></>
+    }
 
     return (
         <div className={styles.carousel}>
@@ -48,7 +52,7 @@ export  default function CarouselBanner() {
             >
                 {
                     banners.map(b => <SwiperSlide key={b._id}>
-                        <Link className={styles.card} href={`/posts/${b.title}`}>
+                        <Link className={styles.card} href={`/posts/${CyrillicToTranslit().transform(b.title, "-").replaceAll('?', '').replaceAll('&', '').toLowerCase()}`}>
                             <Image src={b.imageUrl.fullUrl} alt={b.title} width={533} height={500}/>
                             <div className={styles.card__textWrp}>
                                 <h3 className={styles.card__title}>{b.title}</h3>
