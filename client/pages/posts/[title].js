@@ -32,14 +32,14 @@ export default function FullPost({post}) {
                 <section className={styles.fullPost}>
                     <div className={styles.fullPost__moreWrp}>
                         <SeeMore category={Category.find((c) => c.value === post?.category)?.label}
-                                 authorName={post?.title}/>
+                                 authorName={post?.title} linksArray={post.postsAlso} activeTitle={post.title}/>
                     </div>
                     <span className={styles.fullPost__date}>
                         {formatRuDate(post?.createdAt)}
                     </span>
                     <div className={styles.fullPost__head}>
                         <h2 className={'page-title page-title--full-post'}>
-                            {post?.title.replace(':', ':\n')}
+                            {post?.title?.replace(':', ':\n')}
                         </h2>
                         <span className={styles.fullPost__description}>
                            {post?.description}
@@ -71,7 +71,7 @@ export default function FullPost({post}) {
                                 </a>
                             </div>
                             <div className={styles.fullPostFooter__btnBox}>
-                                <Liked likes={post?.likes}/>
+                                <Liked likes={post?.likes} postId={post._id}/>
                                 {/*<button className={'share-btn'}>Поделиться статьей</button>*/}
                             </div>
 

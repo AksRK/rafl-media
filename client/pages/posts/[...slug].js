@@ -2,14 +2,12 @@ import Link from "next/link";
 import ShrinkText from "../../components/UI/ShrinkText/ShrinkText";
 import tstImg from '../../public/tstImg.jpg'
 import hand from '../../public/hand-black.svg'
-import SeeMore from "../../components/UI/SeeMore";
 import useWindowSize from "../../core/hooks/useWindowSize";
 import DefaultLayout from "../../layouts/DefaultLayout";
 import MyMain from "../../components/MyMain";
 import styles from './index.module.scss'
 import Image from 'next/image'
 import Liked from "../../components/UI/Liked";
-import {Category} from "../../core/mock";
 import {formatRuDate} from "../../core/utils";
 import {NextSeo} from "next-seo";
 
@@ -30,16 +28,12 @@ export default function FullPost({post}) {
             />
             <MyMain post={true}>
                 <section className={styles.fullPost}>
-                    <div className={styles.fullPost__moreWrp}>
-                        <SeeMore category={Category.find((c) => c.value === post?.category)?.label}
-                                 authorName={post?.title}/>
-                    </div>
                     <span className={styles.fullPost__date}>
                         {formatRuDate(post?.createdAt)}
                     </span>
                     <div className={styles.fullPost__head}>
                         <h2 className={'page-title page-title--full-post'}>
-                            {post?.title.replace(':', ':\n')}
+                            {post?.title?.replace(':', ':\n')}
                         </h2>
                         <span className={styles.fullPost__description}>
                            {post?.description}
@@ -71,7 +65,7 @@ export default function FullPost({post}) {
                                 </a>
                             </div>
                             <div className={styles.fullPostFooter__btnBox}>
-                                <Liked likes={post?.likes}/>
+                                <Liked likes={post?.likes} postId={post._id} typePost={'creator'}/>
                                 {/*<button className={'share-btn'}>Поделиться статьей</button>*/}
                             </div>
 
