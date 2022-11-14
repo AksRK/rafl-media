@@ -21,6 +21,12 @@ function Liked({likes, postId, typePost = 'default'}) {
         }
     }
 
+    useEffect(() => {
+        setLikesTotal(likes)
+        setBtnState(false)
+        setLikeCount(0)
+    }, [likes])
+
     useEffect(()=> {
         setTimeout(()=>{
             if (clicked){

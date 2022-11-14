@@ -24,7 +24,7 @@ export default function PostPreview({data}) {
                             <div className={postStyle.fullPost__titleImg}>
                                 {
                                     data.titleImg
-                                        ?<Image src={data.titleImg.fullUrl} alt="" width={300} height={300}/> //авто не работает, срань -_-
+                                        ?<Image src={data.titleImg.fullUrl} alt="" width={976} height={800}/> //авто не работает, срань -_-
                                         :'Картинка не загружена...'
                                 }
                             </div>
