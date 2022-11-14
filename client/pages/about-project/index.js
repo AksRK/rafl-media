@@ -55,8 +55,8 @@ export default function AboutProject() {
                                 {'Игорь \n Селенов'}
                             </h3>
                             <div className={styles.aboutProjectCards__social}>
-                                <SocialLink url={'https://vk.com'} social={'inst'} black={true}/>
-                                <SocialLink url={'https://vk.com'} social={'vk'} black={true}/>
+                                <SocialLink url={'https://www.instagram.com/selenov/'} black={true}/>
+                                <SocialLink url={'https://t.me/igorselenov'} black={true}/>
                             </div>
                         </div>
                         <div className={styles.aboutProjectCards__item}>
@@ -67,8 +67,8 @@ export default function AboutProject() {
                                 {'Игорь \n Зверев'}
                             </h3>
                             <div className={styles.aboutProjectCards__social}>
-                                <SocialLink url={'https://vk.com'} social={'inst'} black={true}/>
-                                <SocialLink url={'https://vk.com'} social={'vk'} black={true}/>
+                                <SocialLink url={'https://www.instagram.com/zverevcom/'} black={true}/>
+                                <SocialLink url={'https://t.me/zverev_com'} black={true}/>
                             </div>
                         </div>
                     </div>
