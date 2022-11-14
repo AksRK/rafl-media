@@ -144,7 +144,7 @@ export const getOneByTitle = async (req, res) => {
             {
                 returnDocument: 'after',
             },
-            ( err, doc ) => {
+            async ( err, doc ) => {
                 if (err) {
                     console.log(err)
                     return  res.status(500).json({
@@ -158,7 +158,22 @@ export const getOneByTitle = async (req, res) => {
                     })
                 }
 
-                res.json(doc)
+                const post = doc._doc
+
+                const alsoPosts = await PostModel.find(
+                    {
+                        category: doc.category,
+                        createdAt : {$lte: doc.createdAt }
+                    }).sort({createdAt:-1})
+                const alsoPostsFiltered = alsoPosts.slice(0, 4)
+                const resultALsoPost = []
+
+                for (let post of alsoPostsFiltered) {
+                    const {title, titleUrl, _id} = post
+                    resultALsoPost.push({_id, title,titleUrl})
+                }
+
+                res.json({postsAlso : resultALsoPost, ...post})
             }
         )
 
