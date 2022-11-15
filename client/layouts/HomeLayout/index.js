@@ -8,28 +8,38 @@ export default function HomeLayout({children}) {
                 <nav className={styles.navTags}>
                     <NavLink href={'/community'}
                              myClassName={styles.navTags__link}
-                             myActiveClassName={styles.navTags__link_active}>
+                             myActiveClassName={styles.navTags__link_active}
+                             scroll={false}
+                    >
                         Комьюнити
                     </NavLink>
                     <span className={styles.navTags__separator}/>
                     <NavLink href={'/'}
                              myClassName={styles.navTags__link}
-                             myActiveClassName={styles.navTags__link_active}>
+                             myActiveClassName={styles.navTags__link_active}
+                             scroll={false}
+                    >
                         Все статьи
                     </NavLink>
                     <NavLink href={'/interview'}
                              myClassName={styles.navTags__link}
-                             myActiveClassName={styles.navTags__link_active}>
+                             myActiveClassName={styles.navTags__link_active}
+                             scroll={false}
+                    >
                         Интервью
                     </NavLink>
                     <NavLink href={'/video'}
                              myClassName={styles.navTags__link}
-                             myActiveClassName={styles.navTags__link_active}>
+                             myActiveClassName={styles.navTags__link_active}
+                             scroll={false}
+                    >
                         Видео
                     </NavLink>
                     <NavLink href={'/cards'}
                              myClassName={styles.navTags__link}
-                             myActiveClassName={styles.navTags__link_active}>
+                             myActiveClassName={styles.navTags__link_active}
+                             scroll={false}
+                    >
                         Карточки
                     </NavLink>
                 </nav>

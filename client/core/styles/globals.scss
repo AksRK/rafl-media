@@ -169,6 +169,7 @@ a {
 
 .mySwiper_border_radius {
   border-radius: 23px 0 0 23px;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
 }
 
 @media (max-width: 1633px) {

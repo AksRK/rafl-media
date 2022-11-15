@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import {useRouter} from 'next/router'
 
-export default function NavLink({href, children, myClassName, myActiveClassName, handleClick}) {
+export default function NavLink({href, children, myClassName, myActiveClassName, handleClick, scroll=true}) {
     const router = useRouter()
     function checkActiveLink() {
         if (href === router.asPath) {
@@ -19,6 +19,7 @@ export default function NavLink({href, children, myClassName, myActiveClassName,
             href={href}
             onClick={handleClick}
             className={myClassName + ' ' + checkActiveLink()}
+            scroll={scroll}
         >
             {children}
         </Link>

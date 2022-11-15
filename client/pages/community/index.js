@@ -1,16 +1,20 @@
 import {NextSeo} from "next-seo";
 import Card from "../../components/Card";
-import {useContext, useEffect} from "react";
-import {ScrollContext} from "../_app";
 import {useRouter} from "next/router";
+import {useEffect, useState} from "react";
+import styles from "../../components/CardsList/index.module.scss";
+import SkeletonComunity from "../../components/UI/SkeletonComunity";
 
 export default function Community({creators}) {
-    const scrollY = useContext(ScrollContext)
-    const router = useRouter()
-    useEffect(() => {
-        window.scrollTo(0, scrollY)
-    }, [router.asPath])
+    const [loading, setLoading] = useState(true)
+    const router = useRouter();
 
+    useEffect(() => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+        }, 500)
+    }, [router.asPath])
     return (
         <>
             <NextSeo
@@ -21,16 +25,24 @@ export default function Community({creators}) {
                     description: 'Независимое издание, освещающее эстетическую сторону российского футбола'
                 }}
             />
-            {
-                creators.docs.map(c =>
-                    <Card type={'creator'}
-                          key={c._id}
-                          title={c.fullName}
-                          description={c.description}
-                          imgUrl={c.imageUrl.fullUrl}
-                          path={`/community/${c.login}`}/>
-                )
-            }
+            <div className={styles.cardsList}>
+                {
+                    loading
+                        ? <SkeletonComunity/>
+                        : <>
+                            {
+                                creators.docs.map(c =>
+                                    <Card type={'creator'}
+                                          key={c._id}
+                                          title={c.fullName}
+                                          description={c.description}
+                                          imgUrl={c.imageUrl.fullUrl}
+                                          path={`/community/${c.login}`}/>
+                                )
+                            }
+                        </>
+                }
+            </div>
         </>
     )
 }

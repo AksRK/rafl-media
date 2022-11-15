@@ -8,8 +8,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import '../core/styles/swiper-custom.scss'
-import PreLoader from "../components/UI/PreLoader";
-import {createContext, useEffect, useMemo, useState} from "react";
+import {createContext, useEffect, useState} from "react";
 import {DefaultSeo} from "next-seo";
 import {useRouter} from "next/router";
 import axios from "axios";
@@ -19,18 +18,14 @@ import DefaultLayout from "../layouts/DefaultLayout";
 
 export const AuthContext = createContext();
 export const SliderContext = createContext();
-export const ScrollContext = createContext();
 
 function MyApp({Component, pageProps}) {
     const [isAuth, setIsAuth] = useState(false)
     const [banners, setBanners] = useState([])
-    const [scroll, setScroll] = useState(0)
-    const handleScroll = (value) => {
-        setScroll(value)
-    }
+
+
     const router = useRouter();
     useEffect(() => {
-        document.addEventListener('scroll',() => handleScroll(window.scrollY))
 
         if (router.pathname.includes('/admin/panel')) {
             axios.get(`/api/auth/me`, {
@@ -59,7 +54,6 @@ function MyApp({Component, pageProps}) {
                     description: 'Независимое издание, освещающее эстетическую сторону российского футбола'
                 }}
             />
-            <ScrollContext.Provider value={scroll}>
                 <SliderContext.Provider value={banners}>
                     <AuthContext.Provider value={{isAuth, setIsAuth}}>
                         <DefaultLayout>
@@ -80,7 +74,6 @@ function MyApp({Component, pageProps}) {
                         </DefaultLayout>
                     </AuthContext.Provider>
                 </SliderContext.Provider>
-            </ScrollContext.Provider>
         </>
   )
 }

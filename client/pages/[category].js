@@ -6,12 +6,6 @@ import {ScrollContext} from "./_app";
 import {useRouter} from "next/router";
 
 export default function Home({posts, category}) {
-    const scrollY = useContext(ScrollContext)
-    const router = useRouter()
-    useEffect(() => {
-        window.scrollTo(0, scrollY)
-    }, [router.asPath])
-
     return (
         <>
             <NextSeo

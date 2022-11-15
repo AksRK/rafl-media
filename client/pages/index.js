@@ -3,13 +3,9 @@ import {NextSeo} from "next-seo";
 import {useContext, useEffect} from "react";
 import {ScrollContext} from "./_app";
 import {useRouter} from "next/router";
+import Skeleton from "../components/UI/Skeleton";
 
 export default function Home({posts}) {
-    const scrollY = useContext(ScrollContext)
-    const router = useRouter()
-    useEffect(() => {
-        window.scrollTo(0, scrollY)
-    }, [router.asPath])
     return (
         <>
             <NextSeo
