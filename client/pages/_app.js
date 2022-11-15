@@ -12,9 +12,9 @@ import {createContext, useEffect, useState} from "react";
 import {DefaultSeo} from "next-seo";
 import {useRouter} from "next/router";
 import axios from "axios";
-import HomeLayout from "../layouts/HomeLayout";
-import MyMain from "../components/MyMain";
 import DefaultLayout from "../layouts/DefaultLayout";
+import MyMain from "../components/MyMain";
+import HomeLayout from "../layouts/HomeLayout";
 
 export const AuthContext = createContext();
 export const SliderContext = createContext();
@@ -56,22 +56,29 @@ function MyApp({Component, pageProps}) {
             />
                 <SliderContext.Provider value={banners}>
                     <AuthContext.Provider value={{isAuth, setIsAuth}}>
-                        <DefaultLayout>
+                        {
+                            (
+                                router.asPath.includes('admin')
+                            )
+                            ? <Component {...pageProps} />
+                            : <DefaultLayout>
                             <MyMain>
-                                {
-                                    (
-                                        router.asPath.includes('contacts')
-                                        ||  router.asPath.includes('user-license-agreement')
-                                        ||  router.asPath.includes('about-project')
-                                        ||  router.asPath.includes('posts')
-                                    )
-                                        ? <Component {...pageProps} />
-                                        : <HomeLayout>
-                                            <Component {...pageProps} />
-                                        </HomeLayout>
-                                }
+                        {
+                            (
+                            router.asPath.includes('contacts')
+                            ||  router.asPath.includes('user-license-agreement')
+                            ||  router.asPath.includes('about-project')
+                            ||  router.asPath.includes('posts')
+                            ||  router.asPath.includes('admin')
+                            )
+                            ? <Component {...pageProps} />
+                            : <HomeLayout>
+                            <Component {...pageProps} />
+                            </HomeLayout>
+                        }
                             </MyMain>
-                        </DefaultLayout>
+                            </DefaultLayout>
+                        }
                     </AuthContext.Provider>
                 </SliderContext.Provider>
         </>

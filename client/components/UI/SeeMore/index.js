@@ -29,7 +29,7 @@ function SeeMore({category, authorName, linksArray, activeTitle}) {
                             opacity: seeMoreState ? 0 : 1
                         }}
                     >
-                        <Marquee gradient={false}>
+                        <Marquee gradient={false} speed={50}>
                             <div style={{marginRight: '15px'}}>{authorName}</div>
                         </Marquee>
                     </div>
