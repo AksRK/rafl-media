@@ -82,7 +82,7 @@ a {
   &_column {
     display: flex;
     flex-direction: column;
-    gap: 10px 0;
+    gap: 6px 0;
   }
 
   &_white {
@@ -165,6 +165,10 @@ a {
   &--full-post {
     max-width: 100%;
   }
+}
+
+.mySwiper_border_radius {
+  border-radius: 23px 0 0 23px;
 }
 
 @media (max-width: 1633px) {

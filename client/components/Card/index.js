@@ -20,9 +20,14 @@ function Card({type, title, description, imgUrl, tag = null, path}) {
         }>
             <div className={styles.card__img + ' ' + (type === 'creator'?styles.card__img_creator:'')}>
                 <Image src={imgUrl} alt={title} width={378} height={512}/>
+                {/*{*/}
+                {/*    type !== 'creator' && tag?*/}
+                {/*        <div className={styles.card__tag}>{Category.find((c) => c.value === tag).label}</div>:*/}
+                {/*        ''*/}
+                {/*}*/}
                 {
                     type !== 'creator' && tag?
-                        <div className={styles.card__tag}>{Category.find((c) => c.value === tag).label}</div>:
+                        <Link href={`/${tag}`} className={styles.card__tag}>{Category.find((c) => c.value === tag).label}</Link>:
                         ''
                 }
 

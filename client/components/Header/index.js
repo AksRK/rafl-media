@@ -42,10 +42,10 @@ function Header({routes}) {
 
 
                                 <div className={styles.burgerMenu__socialWrp}>
-                                    <SocialLink url={'https://vk.com'} social={'inst'} black={true}/>
-                                    <SocialLink url={'https://vk.com'} social={'tg'} black={true}/>
-                                    <SocialLink url={'https://vk.com'} social={'vk'} black={true}/>
-                                    <SocialLink url={'https://vk.com'} social={'yt'} black={true}/>
+                                    <SocialLink url={'https://www.instagram.com/rafl.media/'} black={true}/>
+                                    <SocialLink url={'https://t.me/raflmedia'} black={true}/>
+                                    <SocialLink url={'https://vk.com/raflmedia'} black={true}/>
+                                    <SocialLink url={'https://www.youtube.com/channel/UC5qMpkZ_Di6whW9C88TF8Tw/videos'} black={true}/>
                                 </div>
 
                             </div>

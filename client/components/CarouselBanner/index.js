@@ -44,7 +44,7 @@ export  default function CarouselBanner() {
                 }}
                 navigation={size.width <= 479?false:true}
                 modules={[Navigation, Autoplay]}
-                className="mySwiper"
+                className="mySwiper mySwiper_border_radius"
             >
                 {
                     banners.map(b => <SwiperSlide key={b._id}>

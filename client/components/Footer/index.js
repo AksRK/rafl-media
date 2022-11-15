@@ -3,6 +3,8 @@ import footerLogo from '../../public/footer-logo.svg'
 import Link from "next/link";
 import Image from 'next/image'
 import SocialLink from "../UI/SocialLink";
+import styles from "../Header/index.module.scss";
+import NavLink from "../UI/NavLink";
 
 function Footer() {
 
@@ -17,19 +19,37 @@ function Footer() {
                    <h5 className={style.footerLinks__title}>
                        Меню
                    </h5>
-                   <Link className={'link'} href={'/'}><span>Медиа</span></Link>
-                   <Link className={'link'} href={'/'}><span>Студия</span></Link>
-                   <Link className={'link'} href={'/about-project'}><span>О проекте</span></Link>
-                   <Link className={'link'} href={'/contacts'}><span>Контакты</span></Link>
+                   <NavLink
+                       href={'/'}
+                       myClassName={'link'}
+                       myActiveClassName={' link_active'}>
+                       <span>Медиа</span>
+                   </NavLink>
+                   <a className={'link'} href="http://rafl.studio/" target="_blank" rel="noreferrer"><span>Студия</span></a>
+                   <NavLink
+                       href={'/about-project'}
+                       myClassName={'link'}
+                       myActiveClassName={' link_active'}>
+                       <span>О проекте</span>
+                   </NavLink>
+                   <NavLink
+                       href={'/contacts'}
+                       myClassName={'link'}
+                       myActiveClassName={' link_active'}>
+                       <span>Контакты</span>
+                   </NavLink>
                </div>
                 <div className={style.footerLinks__el}>
                     <h5 className={style.footerLinks__title}>
                         Поддержка
                     </h5>
-                    <Link className={'link link_column'} href={'/user-license-agreement'}>
+                    <NavLink
+                        href={'/user-license-agreement'}
+                        myClassName={'link link_column'}
+                        myActiveClassName={' link_active'}>
                         <span>Пользовательское</span>
                         <span>соглашение</span>
-                    </Link>
+                    </NavLink>
                 </div>
 
                 <div className={style.footerLinks__social}>
