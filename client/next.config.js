@@ -1,5 +1,13 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const runtimeCaching = require("next-pwa/cache");
+const withPWA = require('next-pwa')({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  runtimeCaching,
+  buildExcludes: [/middleware-manifest.json$/]
+})
+
+module.exports = withPWA({
   async rewrites() {
     return [
       {
@@ -19,7 +27,5 @@ const nextConfig = {
         pathname: '/uploads/*',
       }
     ],
-  },
-}
-
-module.exports = nextConfig
+  }
+})
