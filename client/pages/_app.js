@@ -54,10 +54,6 @@ function MyApp({Component, pageProps}) {
                   description: 'Независимое издание, освещающее эстетическую сторону российского футбола'
               }}
           />
-          <Head>
-              <meta charSet="UTF-8"/>
-              <meta name="theme-color" content="#000"/>
-          </Head>
         {loading && <PreLoader/>}
         <AuthContext.Provider value={{isAuth, setIsAuth}}>
           <Component {...pageProps} />
