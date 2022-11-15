@@ -1,16 +1,22 @@
 import styles from './index.module.scss'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Link from 'next/link'
 import useWindowSize from "../../core/hooks/useWindowSize";
 import SocialLink from "../UI/SocialLink";
 import Logo from "../UI/Logo";
 import NavBar from "../NavBar";
+import {useRouter} from "next/router";
 
 
 function Header({routes}) {
     const size = useWindowSize()
+    const router = useRouter()
     const [burgerState, setBurgerState] = useState(false)
     const mobile = 1220
+
+    useEffect(() => {
+        setBurgerState(false)
+    }, [router.asPath])
 
     return (
         <header className={styles.header}>

@@ -1,14 +1,15 @@
-import DefaultLayout from "../layouts/DefaultLayout";
-import MyMain from "../components/MyMain";
-import HomeLayout from "../layouts/HomeLayout";
 import CardList from "../components/CardsList";
-import {Category} from "../core/mock";
 import {NextSeo} from "next-seo";
+import {useContext, useEffect} from "react";
+import {ScrollContext} from "./_app";
+import {useRouter} from "next/router";
 
 export default function Home({posts}) {
-
-
-
+    const scrollY = useContext(ScrollContext)
+    const router = useRouter()
+    useEffect(() => {
+        window.scrollTo(0, scrollY)
+    }, [router.asPath])
     return (
         <>
             <NextSeo
@@ -17,13 +18,7 @@ export default function Home({posts}) {
                     title: `Rafl - Медиа`,
                 }}
             />
-            <DefaultLayout>
-                <MyMain>
-                    <HomeLayout>
-                        <CardList posts={posts}/>
-                    </HomeLayout>
-                </MyMain>
-            </DefaultLayout>
+            <CardList posts={posts}/>
         </>
     )
 }

@@ -7,7 +7,7 @@ const withPWA = require('next-pwa')({
   buildExcludes: [/middleware-manifest.json$/]
 })
 
-module.exports = withPWA({
+module.exports = {
   async rewrites() {
     return [
       {
@@ -28,4 +28,4 @@ module.exports = withPWA({
       }
     ],
   }
-})
+}

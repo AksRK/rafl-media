@@ -1,12 +1,18 @@
-import HomeLayout from "../../layouts/HomeLayout";
-import MyMain from "../../components/MyMain";
-import DefaultLayout from "../../layouts/DefaultLayout";
+import {NextSeo} from "next-seo";
 import Card from "../../components/Card";
-import {NextSeo} from 'next-seo'
+import {useContext, useEffect} from "react";
+import {ScrollContext} from "../_app";
+import {useRouter} from "next/router";
 
 export default function Community({creators}) {
+    const scrollY = useContext(ScrollContext)
+    const router = useRouter()
+    useEffect(() => {
+        window.scrollTo(0, scrollY)
+    }, [router.asPath])
+
     return (
-        <DefaultLayout>
+        <>
             <NextSeo
                 title='Rafl - Комьюнити'
                 description='Независимое издание, освещающее эстетическую сторону российского футбола'
@@ -15,23 +21,17 @@ export default function Community({creators}) {
                     description: 'Независимое издание, освещающее эстетическую сторону российского футбола'
                 }}
             />
-            <MyMain>
-                <HomeLayout>
-                    <div>
-                        {
-                            creators.docs.map(c =>
-                                <Card type={'creator'}
-                                      key={c._id}
-                                      title={c.fullName}
-                                      description={c.description}
-                                      imgUrl={c.imageUrl.fullUrl}
-                                      path={`/community/${c.login}`}/>
-                            )
-                        }
-                    </div>
-                </HomeLayout>
-            </MyMain>
-        </DefaultLayout>
+            {
+                creators.docs.map(c =>
+                    <Card type={'creator'}
+                          key={c._id}
+                          title={c.fullName}
+                          description={c.description}
+                          imgUrl={c.imageUrl.fullUrl}
+                          path={`/community/${c.login}`}/>
+                )
+            }
+        </>
     )
 }
 

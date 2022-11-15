@@ -1,27 +1,18 @@
 import styles from './index.module.scss'
 import Link from "next/link";
 import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper";
+import {Swiper, SwiperSlide} from "swiper/react";
+import {Autoplay, Navigation} from "swiper";
 import useWindowSize from "../../core/hooks/useWindowSize";
-import {useEffect, useState} from "react";
-
-import tstImg from '../../public/tstImg.jpg'
+import {useContext, useEffect, useState} from "react";
 import ShrinkText from "../UI/ShrinkText/ShrinkText";
-import axios from "axios";
 import CyrillicToTranslit from "cyrillic-to-translit-js";
-
-export  default function CarouselBanner() {
+import {SliderContext} from "../../pages/_app";
+import testImg from '/public/tstImg.jpg'
+export default function CarouselBanner() {
     const size = useWindowSize()
     const [perView, setPerView] = useState(2.5)
-    const [banners, setBanners] = useState([])
-
-    useEffect(() => {
-        axios.get('/api/posts/banner')
-            .then((r) => {
-                setBanners(r.data.docs)
-            })
-    }, [])
+    const banners = useContext(SliderContext)
 
     useEffect(() => {
         if (size.width <= 1600) setPerView(2.5);
@@ -48,8 +39,9 @@ export  default function CarouselBanner() {
             >
                 {
                     banners.map(b => <SwiperSlide key={b._id}>
-                        <Link className={styles.card} href={`/posts/${CyrillicToTranslit().transform(b.title, "-").replaceAll('?', '').replaceAll('&', '').toLowerCase()}`}>
-                            <Image src={b.imageUrl.fullUrl} alt={b.title} width={533} height={500}/>
+                        <Link className={styles.card}
+                              href={`/posts/${CyrillicToTranslit().transform(b.title, "-").replaceAll('?', '').replaceAll('&', '').toLowerCase()}`}>
+                            <Image src={b.imageUrl.fullUrl} alt={b.title} width={533} height={500} priority={true}/>
                             <div className={styles.card__textWrp}>
                                 <h3 className={styles.card__title}>{b.title}</h3>
                                 <span>

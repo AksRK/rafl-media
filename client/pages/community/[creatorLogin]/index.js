@@ -1,7 +1,4 @@
 import styles from './index.module.scss'
-import HomeLayout from "../../../layouts/HomeLayout";
-import MyMain from "../../../components/MyMain";
-import DefaultLayout from "../../../layouts/DefaultLayout";
 import SocialLink from "../../../components/UI/SocialLink";
 import Image from 'next/image'
 import Link from 'next/link'
@@ -14,10 +11,11 @@ export default function CreatorPage({posts, creator}) {
         <path d="M18 6L6 18" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
         <path d="M6 6L18 18" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
+
     const mobile = 479
     const size = useWindowSize()
     return (
-        <DefaultLayout>
+        <>
             <NextSeo
                 title={`Rafl - Комьюнити ${creator.fullName}`}
                 description={creator.description}
@@ -26,62 +24,58 @@ export default function CreatorPage({posts, creator}) {
                     description: creator.description
                 }}
             />
-            <MyMain>
-                <HomeLayout>
-                    <div className={styles.creatorPage}>
-                        <Link href={'/community'} className={'btn btn_tag'}>{creator.fullName} {closeImg}</Link>
-                        <div className={styles.creator}>
-                            <div className={styles.creator__el}>
-                                <div className={styles.creator__img}>
-                                    <Image src={creator.imageUrl.fullUrl} alt={'rafl'} width={190} height={190}/>
-                                </div>
-                            </div>
-                            <div className={styles.creator__el}>
-                                <h3 className={styles.creator__name}>
-                                    {creator.fullName}
-                                </h3>
-                                <div className={styles.creator__infoWrp}>
-                                    <span>{creator.about}</span>
-                                    <div className={styles.creator__control}>
+            <div className={styles.creatorPage}>
+                <Link href={'/community'} className={'btn btn_tag'}>{creator.fullName} {closeImg}</Link>
+                <div className={styles.creator}>
+                    <div className={styles.creator__el}>
+                        <div className={styles.creator__img}>
+                            <Image src={creator.imageUrl.fullUrl} alt={'rafl'} width={190} height={190}/>
+                        </div>
+                    </div>
+                    <div className={styles.creator__el}>
+                        <h3 className={styles.creator__name}>
+                            {creator.fullName}
+                        </h3>
+                        <div className={styles.creator__infoWrp}>
+                            <span>{creator.about}</span>
+                            <div className={styles.creator__control}>
                                         <span className={styles.creator__subTitle}>
                                             Направление деятельности:
                                         </span>
-                                        <p>
-                                            {creator.kindActivity}
-                                        </p>
-                                    </div>
-                                    <div className={styles.creator__control}>
+                                <p>
+                                    {creator.kindActivity}
+                                </p>
+                            </div>
+                            <div className={styles.creator__control}>
                                         <span className={styles.creator__subTitle}>
                                            Справка:
                                         </span>
-                                        <p>
-                                            {creator.description}
-                                        </p>
-                                    </div>
-                                    {
-                                        creator.social.length !== 0
-                                            ? <div className={styles.creator__control}>
+                                <p>
+                                    {creator.description}
+                                </p>
+                            </div>
+                            {
+                                creator.social.length !== 0
+                                    ? <div className={styles.creator__control}>
                                                 <span className={styles.creator__subTitle}>
                                                    Соц. сети:
                                                 </span>
-                                                <div className={styles.creator__social}>
-                                                    {
-                                                        creator.social.map(s => <SocialLink key={s} url={s} black={true}/>)
-                                                    }
-                                                </div>
-                                            </div>
-                                            : null
-                                    }
-                                </div>
-                            </div>
+                                        <div className={styles.creator__social}>
+                                            {
+                                                creator.social.map(s => <SocialLink key={s} url={s} black={true}/>)
+                                            }
+                                        </div>
+                                    </div>
+                                    : null
+                            }
                         </div>
                     </div>
-                    <div>
-                        <CardsList posts={posts.docs} creatorLogin={creator.login}/>
-                    </div>
-                </HomeLayout>
-            </MyMain>
-        </DefaultLayout>
+                </div>
+            </div>
+            <div>
+                <CardsList posts={posts.docs} creatorLogin={creator.login}/>
+            </div>
+        </>
     )
 }
 

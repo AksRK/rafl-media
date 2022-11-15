@@ -26,7 +26,7 @@
   &__img {
     object-fit: cover;
     position: relative;
-    max-width: 380px;
+    //max-width: 380px;
     height: 513px;
     display: flex;
     justify-content: center;
@@ -37,6 +37,7 @@
     & img {
       transition: transform 0.2s ease-in-out;
       object-fit: cover;
+      width: 100%;
     }
 
     &_creator {

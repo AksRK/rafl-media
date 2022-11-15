@@ -1,28 +1,27 @@
-import Head from 'next/head'
-import DefaultLayout from "../layouts/DefaultLayout";
-import MyMain from "../components/MyMain";
-import HomeLayout from "../layouts/HomeLayout";
 import CardList from "../components/CardsList";
 import {NextSeo} from "next-seo";
 import {Category} from "../core/mock";
+import {useContext, useEffect} from "react";
+import {ScrollContext} from "./_app";
+import {useRouter} from "next/router";
 
 export default function Home({posts, category}) {
+    const scrollY = useContext(ScrollContext)
+    const router = useRouter()
+    useEffect(() => {
+        window.scrollTo(0, scrollY)
+    }, [router.asPath])
+
     return (
-        <div>
+        <>
             <NextSeo
                 title={`Rafl - ${Category.find((c) => c.value === category).label}`}
                 openGraph={{
                     title: `Rafl - ${Category.find((c) => c.value === category).label}`,
                 }}
             />
-            <DefaultLayout>
-                <MyMain>
-                    <HomeLayout>
-                        <CardList posts={posts.docs}/>
-                    </HomeLayout>
-                </MyMain>
-            </DefaultLayout>
-        </div>
+            <CardList posts={posts.docs}/>
+        </>
     )
 }
 
