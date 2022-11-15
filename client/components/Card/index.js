@@ -6,7 +6,6 @@ import {Category} from "../../core/mock";
 import ShrinkText from "../UI/ShrinkText/ShrinkText";
 
 function Card({type, title, description, imgUrl, tag = null, path}) {
-
     const size = useWindowSize();
     const mobile = 479
     const arrow = <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -20,16 +19,16 @@ function Card({type, title, description, imgUrl, tag = null, path}) {
         }>
             <div className={styles.card__img + ' ' + (type === 'creator'?styles.card__img_creator:'')}>
                 <Image src={imgUrl} alt={title} width={378} height={512}/>
-                {/*{*/}
-                {/*    type !== 'creator' && tag?*/}
-                {/*        <div className={styles.card__tag}>{Category.find((c) => c.value === tag).label}</div>:*/}
-                {/*        ''*/}
-                {/*}*/}
                 {
                     type !== 'creator' && tag?
-                        <Link href={`/${tag}`} className={styles.card__tag}>{Category.find((c) => c.value === tag).label}</Link>:
+                        <div className={styles.card__tag}>{Category.find((c) => c.value === tag).label}</div>:
                         ''
                 }
+                {/*{*/}
+                {/*    type !== 'creator' && tag?*/}
+                {/*        <Link href={`/${tag}`} className={styles.card__tag}>{Category.find((c) => c.value === tag).label}</Link>:*/}
+                {/*        ''*/}
+                {/*}*/}
 
             </div>
             <div className={styles.card__wrp+ ' '+ (type === 'creator'?styles.card__wrp_creator:'')}>
