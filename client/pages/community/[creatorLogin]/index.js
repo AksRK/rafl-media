@@ -80,8 +80,8 @@ export default function CreatorPage({posts, creator}) {
 }
 
 export async function getServerSideProps(context) {
-    const posts = await fetch(`http://localhost:3000/api/creator/posts/login/${context.params.creatorLogin}`).then(r => r.json())
-    const creator = await fetch(`http://localhost:3000/api/creator/login/${context.params.creatorLogin}`).then(r => r.json())
+    const posts = await fetch(`http://localhost:80/api/creator/posts/login/${context.params.creatorLogin}`).then(r => r.json())
+    const creator = await fetch(`http://localhost:80/api/creator/login/${context.params.creatorLogin}`).then(r => r.json())
     return {
         props: {posts, creator}, // will be passed to the page component as props
     }

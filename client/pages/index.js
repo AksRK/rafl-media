@@ -20,7 +20,7 @@ export default function Home({posts}) {
 }
 
 export async function getServerSideProps(context) {
-    const posts = await fetch(`http://localhost:3000/api/posts/`).then(r => r.json())
+    const posts = await fetch(`http://localhost:80/api/posts/`).then(r => r.json())
     return {
         props: {posts: posts.docs}, // will be passed to the page component as props
     }

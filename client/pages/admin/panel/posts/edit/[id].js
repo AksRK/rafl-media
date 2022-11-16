@@ -223,7 +223,7 @@ function EditPost({id, post}) {
 }
 
 export async function getServerSideProps(context) {
-    const post = await fetch(`http://localhost:3000/api/posts/${context.params.id}`)
+    const post = await fetch(`http://localhost:80/api/posts/${context.params.id}`)
         .then(res => res.json())
 
     return {

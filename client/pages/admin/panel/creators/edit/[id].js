@@ -272,7 +272,7 @@ function EditCreator({id, creator}) {
 }
 
 export async function getServerSideProps(context) {
-    const creator = await fetch(`http://localhost:3000/api/creator/${context.params.id}`)
+    const creator = await fetch(`http://localhost:80/api/creator/${context.params.id}`)
         .then(res => res.json())
 
     return {
