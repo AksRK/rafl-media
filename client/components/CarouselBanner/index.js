@@ -23,7 +23,7 @@ export default function CarouselBanner() {
     }, [size.width])
 
     return (
-        <div className={styles.carousel}>
+        <div className={styles.carousel+ ' container'}>
             <Swiper
                 slidesPerView={perView}
                 spaceBetween={16}
@@ -33,7 +33,7 @@ export default function CarouselBanner() {
                     disableOnInteraction: false,
                     pauseOnMouseEnter: true
                 }}
-                navigation={size.width <= 479?false:true}
+                navigation={size.width <= 768?false:true}
                 modules={[Navigation, Autoplay]}
                 className="mySwiper mySwiper_border_radius"
             >

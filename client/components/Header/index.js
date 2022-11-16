@@ -1,5 +1,5 @@
 import styles from './index.module.scss'
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import Link from 'next/link'
 import useWindowSize from "../../core/hooks/useWindowSize";
 import SocialLink from "../UI/SocialLink";
@@ -8,10 +8,9 @@ import NavBar from "../NavBar";
 import {useRouter} from "next/router";
 
 
-function Header({routes}) {
+function Header({routes, burgerState, setBurgerState, setBurgerStateZIndex = () => {}}) {
     const size = useWindowSize()
     const router = useRouter()
-    const [burgerState, setBurgerState] = useState(false)
     const mobile = 1220
 
     useEffect(() => {
@@ -19,7 +18,7 @@ function Header({routes}) {
     }, [router.asPath])
 
     return (
-        <header className={styles.header}>
+        <header className={styles.header + ' container'}>
             <div className={styles.header__logoWrp}>
                 <Link className={styles.header__img} href={'/'} style={{
                     color: burgerState ? '#000000' : '#ffffff'
@@ -33,16 +32,26 @@ function Header({routes}) {
             {
                 mobile >= size.width
                     ? <>
-                        <button onClick={()=> setBurgerState(!burgerState)}
+                        <button onClick={() => {
+                            if (burgerState) {
+                                setBurgerState(false)
+                                setTimeout(() => {
+                                    setBurgerStateZIndex('2')
+                                }, 200)
+                            } else {
+                                setBurgerStateZIndex('4')
+                                setBurgerState(true)
+                            }
+                        }}
                                 className={styles.burgerButton}
-                                style={burgerState?{background:'#000000', color:'#ffffff'}:{}}>
+                                style={burgerState ? {background: '#000000', color: '#ffffff'} : {}}>
                             {
-                                burgerState?'Закрыть':'Меню'
+                                burgerState ? 'Закрыть' : 'Меню'
                             }
                         </button>
-                        <div style={burgerState?{top:'0'}:{top:'-530px'}} className={styles.burgerMenu}>
-                            <div style={burgerState?{opacity:'100%',}:{}} className={styles.burgerMenu__content}>
-                                <div style={!burgerState?{opacity:'0'}:{}} className={styles.burgerMenu__navWrp}>
+                        <div style={burgerState ? {top: '0'} : {top: '-530px'}} className={styles.burgerMenu}>
+                            <div style={burgerState ? {opacity: '100%',} : {}} className={styles.burgerMenu__content}>
+                                <div style={!burgerState ? {opacity: '0'} : {}} className={styles.burgerMenu__navWrp}>
                                     <NavBar routes={routes}/>
                                 </div>
 

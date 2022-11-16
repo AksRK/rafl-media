@@ -9,7 +9,7 @@ import NavLink from "../UI/NavLink";
 function Footer() {
 
     return (
-        <footer className={style.footer}>
+        <footer className={style.footer + ' container'}>
 
             <div className={style.footer__logo}>
                 <Image src={footerLogo} alt={'RAFL'}/>

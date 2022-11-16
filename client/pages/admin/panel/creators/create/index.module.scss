@@ -96,14 +96,14 @@
     transition: background-color 0.3s ease-in-out;
 
     &_del {
-      top: 45px;
-      left: 88%;
+      top: 37px;
+      right: -20px;
+      left: auto;
       z-index: 2;
       cursor: pointer;
       border-radius: 15px;
       width: 60px;
       height: 60px;
-
       & img {
         transform: rotate(45deg);
       }

@@ -1,10 +1,12 @@
 import styles from './styles.module.scss'
 import Header from "../../components/Header";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {AuthContext} from "../../pages/_app";
+import {publicRoutes} from "../DefaultLayout";
 
 function AdminPanelLayout({children}) {
     const {isAuth, setIsAuth} = useContext(AuthContext)
+    const [burgerState, setBurgerState] = useState(false)
 
     const privateRoutes = [
         {link: '/admin/panel', name: 'Главная'},
@@ -24,7 +26,7 @@ function AdminPanelLayout({children}) {
     return (
         <div className={'container'}>
             <div className={styles.adminP}>
-                <Header routes={privateRoutes}/>
+                <Header burgerState={burgerState} setBurgerState={setBurgerState} routes={privateRoutes}/>
                 <div className={styles.adminP__editPage}>
                     {children}
                 </div>

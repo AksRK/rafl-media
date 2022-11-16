@@ -9,6 +9,7 @@ import {AuthContext} from "../../_app";
 
 function Auth() {
     const router = useRouter()
+    const [burgerState, setBurgerState] = useState(false)
     const { setIsAuth } = useContext(AuthContext)
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
@@ -49,7 +50,7 @@ function Auth() {
 
     return (
         <>
-            <Header routes={publicRoutes}/>
+            <Header routes={publicRoutes} burgerState={burgerState} setBurgerState={setBurgerState}/>
             <section className={styles.auth}>
 
                 <form onSubmit={handleSubmit(onSubmit)} className={styles.authForm}>

@@ -25,7 +25,7 @@ export default function CreatorPage({posts, creator}) {
                 }}
             />
             <div className={styles.creatorPage}>
-                <Link href={'/community'} className={'btn btn_tag'}>{creator.fullName} {closeImg}</Link>
+                <Link href={'/community'} scroll={false} className={'btn btn_tag'}>{creator.fullName} {closeImg}</Link>
                 <div className={styles.creator}>
                     <div className={styles.creator__el}>
                         <div className={styles.creator__img}>

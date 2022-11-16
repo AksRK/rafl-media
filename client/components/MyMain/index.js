@@ -26,7 +26,9 @@ export default function MyMain({children, bigPaddingInit = false, postInit = fal
         <main className={styles.main + ' ' +
             (bigPadding?styles.main_big_padding:'') +
             (post?styles.main_postBody:'')}>
-            {children}
+            <div className="container">
+                {children}
+            </div>
         </main>
     )
 }

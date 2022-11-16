@@ -62,23 +62,24 @@ function MyApp({Component, pageProps}) {
                             )
                             ? <Component {...pageProps} />
                             : <DefaultLayout>
-                            <MyMain>
-                        {
-                            (
-                            router.asPath.includes('contacts')
-                            ||  router.asPath.includes('user-license-agreement')
-                            ||  router.asPath.includes('about-project')
-                            ||  router.asPath.includes('posts')
-                            ||  router.asPath.includes('admin')
-                            )
-                            ? <Component {...pageProps} />
-                            : <HomeLayout>
-                            <Component {...pageProps} />
-                            </HomeLayout>
-                        }
-                            </MyMain>
+                                <MyMain>
+                                    {
+                                        (
+                                        router.asPath.includes('contacts')
+                                        ||  router.asPath.includes('user-license-agreement')
+                                        ||  router.asPath.includes('about-project')
+                                        ||  router.asPath.includes('posts')
+                                        ||  router.asPath.includes('admin')
+                                        )
+                                        ? <Component {...pageProps} />
+                                        : <HomeLayout>
+                                        <Component {...pageProps} />
+                                        </HomeLayout>
+                                    }
+                                </MyMain>
                             </DefaultLayout>
                         }
+
                     </AuthContext.Provider>
                 </SliderContext.Provider>
         </>
