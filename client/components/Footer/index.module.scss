@@ -1,5 +1,10 @@
 .footer {
-  position: relative;
+
+  position: fixed;
+  bottom: 0;
+  z-index: 1;
+  max-width: 1633px;
+  width: 100%;
   min-height: 317px;
   margin-top: 26px;
   margin-bottom: 50px;
