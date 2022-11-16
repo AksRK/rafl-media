@@ -5,15 +5,23 @@ import axios from "axios";
 function Liked({likes, postId, typePost = 'default'}) {
     const [likesTotal, setLikesTotal] = useState(likes)
     const [likeCount, setLikeCount] = useState(0)
-    const [btnState, setBtnState] = useState(false)
+    const [btnDisable, setBtnDisable] = useState(false)
     const [clicked, setClicked] = useState(false)
+    const [plusView, setPlusView] = useState(false)
 
-    const liked = () => {
-        if (!clicked && likeCount <= 4) {
+    useEffect(() => {
+        setLikesTotal(likes)
+        setClicked(false)
+        setLikeCount(0)
+        setBtnDisable(false)
+    }, [likes])
+
+    const like = () => {
+        if (likeCount <= 4) {
             setClicked(true)
             setLikeCount(likeCount + 1)
             setLikesTotal(likesTotal + 1)
-
+            console.log(likesTotal)
             axios.put(`/api${typePost === 'creator'?'/creator':''}/posts/like/${postId}`,
             ).catch((error) => {
                 console.log(error)
@@ -22,43 +30,33 @@ function Liked({likes, postId, typePost = 'default'}) {
     }
 
     useEffect(() => {
-        setLikesTotal(likes)
-        setBtnState(false)
-        setLikeCount(0)
-    }, [likes])
-
-    useEffect(()=> {
-        setTimeout(()=>{
-            if (clicked){
-                setClicked(false)
-            }
-        }, 1000)
-    }, [clicked])
-
-    useEffect(()=> {
         if (likeCount === 5) {
-            setTimeout(()=> {
-                setBtnState(true)
-            }, 1000)
+            setTimeout(() => {
+                setBtnDisable(true)
+            }, 700)
+
         }
     }, [likeCount])
 
-    return (
-        <button disabled={btnState} onClick={!clicked?liked:()=>{}} className={styles.like}>
-            {
-                clicked?
-                    <> <span></span> <span className={styles.like__count}>{'+'+likeCount}</span></>:
-                    <> <span></span> <span className={styles.like__total}>{likesTotal}</span></>
-            }
+    useEffect(() => {
+        setPlusView(true)
+        setClicked(false)
+        const timer = setTimeout(() => {
+            setPlusView(false)
+        }, 700)
+        return ()=> clearTimeout(timer);
+    }, [clicked])
 
+    return (
+        <button disabled={btnDisable} onClick={like} className={styles.like}>
+            <span></span> <span className={styles.like__count}>{plusView?'+'+likeCount:likesTotal}</span>
             {
-                btnState?<div className={styles.like__boxThx}>
+                btnDisable?<div className={styles.like__boxThx}>
                     <div className={styles.like__thxText}>
                         Спасибо!
                     </div>
                 </div>:''
             }
-
         </button>
     )
 }
