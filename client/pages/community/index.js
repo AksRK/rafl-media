@@ -48,7 +48,7 @@ export default function Community({creators}) {
 }
 
 export async function getServerSideProps(context) {
-    const creators = await fetch(`http://localhost:80/api/creator/`).then(r => r.json())
+    const creators = await fetch(`http://localhost:3000/api/creator/`).then(r => r.json())
     return {
         props: {creators: creators}, // will be passed to the page component as props
     }

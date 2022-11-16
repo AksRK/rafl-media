@@ -151,7 +151,7 @@ export default function FullPost({post}) {
 
 
 export async function getServerSideProps(context) {
-    const post = await fetch(`http://localhost:80/api/creator/posts/title/${context.params.slug[1]}`).then(r => r.json())
+    const post = await fetch(`http://localhost:3000/api/creator/posts/title/${context.params.slug[1]}`).then(r => r.json())
 
     return {
         props: {post: post}, // will be passed to the page component as props
