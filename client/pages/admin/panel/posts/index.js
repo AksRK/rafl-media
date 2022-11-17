@@ -4,7 +4,8 @@ import Link from "next/link";
 import {SettingOutlined} from "@ant-design/icons";
 import axios from "axios";
 import AdminPanelLayout from "../../../../layouts/AdminPanelLayout";
-import {formatRuDate} from "../../../../core/utils";
+import {alert, formatRuDate} from "../../../../core/utils";
+import {ToastContainer} from "react-toastify";
 
 
 function AdminPanel() {
@@ -65,13 +66,13 @@ function AdminPanel() {
                 key: '2',
                 danger: true,
                 onClick: () => {
-                    axios.delete(`/api/posts/${id}`, {
+                    axios.delete(category === 'media'?`/api/posts/${id}`:`/api/creator/posts/${id}`, {
                         headers: {
                             "Authorization": `Bearer ${localStorage.getItem('token')}`
                         }
                     }).then(r => {
-                        // TODO сделать алерт
                         setDataSource(dataSource.filter((item) => item._id !== id))
+                        alert('Статья удалена', 'success')
                     })
                 },
                 label: 'Удалить статью',
@@ -124,6 +125,7 @@ function AdminPanel() {
     ];
     return (
         <AdminPanelLayout>
+            <ToastContainer/>
             <div style={{
                 display: 'flex',
                 justifyContent: 'space-between',

@@ -7,6 +7,9 @@ import {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import {Input, Tag} from "antd";
 import {PlusOutlined} from "@ant-design/icons";
+import {useRouter} from "next/router";
+import {alert} from "../../../../../core/utils";
+import {ToastContainer} from "react-toastify";
 
 function EditCreator({id, creator}) {
     const imageRef = useRef()
@@ -27,6 +30,7 @@ function EditCreator({id, creator}) {
     const [inputValue, setInputValue] = useState('');
     const inputRef = useRef(null);
     const editInputRef = useRef(null);
+    const router = useRouter()
 
     useEffect(() => {
         if (inputVisible) {
@@ -64,9 +68,18 @@ function EditCreator({id, creator}) {
                 }
             }
         ).then((response) => {
-            // TODO сделать алерт
+            if (response) {
+                alert('Креатор успешно добавлен', 'success')
+                setTimeout(() => {
+                    router.push('/admin/panel/creators/')
+                }, 3000)
+            }
         }).catch((error) => {
-            console.log(error)
+            if (error.response) {
+                error.response.data?.map((er) => {
+                    alert(er.msg, 'error')
+                })
+            }
         })
     }
 
@@ -99,6 +112,7 @@ function EditCreator({id, creator}) {
 
     return (
         <AdminPanelLayout>
+            <ToastContainer/>
             <div className="container-admin">
                 <h1>Изменения данных креатора</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>

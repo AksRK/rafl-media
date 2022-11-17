@@ -3,6 +3,7 @@ import 'antd/dist/antd.css';
 import '../core/styles/suneditor.min.css'
 import '../core/styles/globals.scss'
 import '../core/styles/sun-editor.scss'
+import 'react-toastify/dist/ReactToastify.css';
 
 import "swiper/css";
 import "swiper/css/pagination";

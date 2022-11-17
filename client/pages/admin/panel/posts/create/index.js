@@ -12,6 +12,10 @@ import {Select} from "antd";
 import FetchSelect, {fetchUserList} from "../../../../../components/UI/FetchSelect";
 import CyrillicToTranslit from "cyrillic-to-translit-js";
 
+import { ToastContainer, toast } from 'react-toastify';
+import {useRouter} from "next/router";
+import {alert} from "../../../../../core/utils";
+
 
 function NewPost() {
     const [fullPost, setFullPost] = useState(null)
@@ -28,6 +32,8 @@ function NewPost() {
         }
     });
     const watchAllFields = watch();
+    const router = useRouter()
+
 
     useEffect(() => {
         scrollTo(top)
@@ -56,9 +62,18 @@ function NewPost() {
                 }
             }
         ).then((response) => {
-            // TODO сделать алерт
+            if (response) {
+                alert('Статья была опубликована!', 'success')
+                setTimeout(() => {
+                    router.push('/admin/panel/posts')
+                }, 3000)
+            }
         }).catch((error) => {
-            console.log(error)
+            if (error.response) {
+                error.response.data?.map((er) => {
+                    alert(er.msg, 'error')
+                })
+            }
         })
     }
 
@@ -95,6 +110,8 @@ function NewPost() {
 
     return (
         <AdminPanelLayout>
+            <ToastContainer/>
+
             <div className="container-admin">
                 <h1>Новая статья</h1>
                 <div className={styles.flexWrp}>

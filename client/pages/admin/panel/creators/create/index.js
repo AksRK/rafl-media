@@ -7,6 +7,9 @@ import {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import {Input, Tag} from "antd";
 import {PlusOutlined} from "@ant-design/icons";
+import {ToastContainer} from "react-toastify";
+import {alert} from "../../../../../core/utils";
+import {useRouter} from "next/router";
 
 function NewCreator() {
     const imageRef = useRef()
@@ -22,6 +25,7 @@ function NewCreator() {
     const [inputValue, setInputValue] = useState('');
     const inputRef = useRef(null);
     const editInputRef = useRef(null);
+    const router = useRouter()
     useEffect(() => {
         if (inputVisible) {
             inputRef.current?.focus();
@@ -58,9 +62,18 @@ function NewCreator() {
                 }
             }
         ).then((response) => {
-            // TODO сделать алерт
+            if (response) {
+                alert('Креатор успешно добавлен', 'success')
+                setTimeout(() => {
+                    router.push('/admin/panel/creators/')
+                }, 3000)
+            }
         }).catch((error) => {
-            console.log(error)
+            if (error.response) {
+                error.response.data?.map((er) => {
+                    alert(er.msg, 'error')
+                })
+            }
         })
     }
 
@@ -93,6 +106,7 @@ function NewCreator() {
 
     return (
         <AdminPanelLayout>
+            <ToastContainer/>
             <div className="container-admin">
                 <h1>Создать креатора</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>

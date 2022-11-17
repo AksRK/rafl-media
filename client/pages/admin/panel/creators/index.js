@@ -4,7 +4,8 @@ import Link from "next/link";
 import {SettingOutlined} from "@ant-design/icons";
 import axios from "axios";
 import AdminPanelLayout from "../../../../layouts/AdminPanelLayout";
-import {formatRuDate} from "../../../../core/utils";
+import {alert, formatRuDate} from "../../../../core/utils";
+import {ToastContainer} from "react-toastify";
 
 
 function AdminPanel() {
@@ -68,6 +69,7 @@ function AdminPanel() {
                         // TODO сделать алерт
                     }).then(r => {
                         setDataSource(dataSource.filter((item) => item._id !== id))
+                        alert('Креатор удален', 'success')
                     })
                 },
                 label: 'Удалить креатора',
@@ -124,6 +126,7 @@ function AdminPanel() {
     ];
     return (
         <AdminPanelLayout>
+            <ToastContainer/>
             <div style={{
                 display: 'flex',
                 justifyContent: 'space-between',

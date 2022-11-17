@@ -2,6 +2,7 @@
 import {ruMonths} from "../mock";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {toast} from "react-toastify";
 
 export const formatRuDate = (dt) => {
     dt = new Date(dt)
@@ -24,4 +25,30 @@ export const CheckAuth = () => {
     }, [])
 
     return isAuth
+}
+
+export const alert = (msg, type) => {
+    if (type === 'error') {
+        toast.error(msg, {
+            position: "bottom-center",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
+    }else if (type === 'success') {
+        toast.success(msg, {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
+    }
 }
