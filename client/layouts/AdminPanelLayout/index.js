@@ -9,7 +9,7 @@ function AdminPanelLayout({children}) {
     const [burgerState, setBurgerState] = useState(false)
 
     const privateRoutes = [
-        {link: '/admin/panel', name: 'Главная'},
+        // {link: '/admin/panel', name: 'Главная'},
         {link: '/admin/panel/posts', name: 'Статьи'},
         {link: '/admin/panel/creators', name: 'Креаторы'},
         {

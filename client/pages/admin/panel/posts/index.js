@@ -23,7 +23,7 @@ function AdminPanel() {
 
     useEffect(() => {
         setLoading(true)
-        fetch(`/api${category === 'community'}/posts?page=${tableParams.pagination.current}`)
+        fetch(`/api/${category === 'community' ? 'creator/posts/admin/all' : 'posts'}?page=${tableParams.pagination.current}`)
             .then(res => res.json())
             .then(data => {
                 setDataSource(data.docs.map(p => ({...p, createdAt: formatRuDate(p.createdAt)})))
@@ -91,9 +91,9 @@ function AdminPanel() {
             key: 'description',
         },
         {
-            title: 'Категория',
-            dataIndex: 'category',
-            key: 'category',
+            title: category === 'community' ? 'Креатор' : 'Категория',
+            dataIndex: category === 'community' ? 'creator' : 'category',
+            key: category === 'community' ? 'creator' : 'category',
         },
         {
             title: 'Дата создания',

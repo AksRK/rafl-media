@@ -26,7 +26,7 @@ function Auth() {
                 if (response.status === 200) {
                     localStorage.setItem('token', response.data.token)
                     setIsAuth(true)
-                    router.push('/admin/panel')
+                    router.push('/admin/panel/posts')
                 }
             })
             .catch(function (error) {
@@ -41,7 +41,7 @@ function Auth() {
         })
             .then(function (response) {
                 setIsAuth(true)
-                router.push('/admin/panel')
+                router.push('/admin/panel/posts')
             })
             .catch(function (error) {
                 console.log(error);
