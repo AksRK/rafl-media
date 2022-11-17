@@ -15,6 +15,7 @@
     background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgb(0, 0, 0) 100%);
     z-index: 2;
     pointer-events: none;
+    backdrop-filter: blur(1px);
   }
 }
 
