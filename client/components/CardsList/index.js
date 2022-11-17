@@ -39,7 +39,6 @@ export default function CardsList({typeCard, creatorLogin, posts}) {
                                     )
                                 })
                             }
-                            <Skeleton />
                             </>
                 }
             </>

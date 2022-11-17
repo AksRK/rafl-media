@@ -54,6 +54,28 @@ export default function DefaultLayout({children, bannerState = true}) {
         }
     }
 
+    if (router.asPath.includes('contacts')) {
+        return (<>
+            <div className="container">
+                <div>
+                    <Header burgerState={burgerState} setBurgerState={setBurgerState} routes={publicRoutes}
+                            setBurgerStateZIndex={setBurgerStateZIndex}/>
+                </div>
+            </div>
+            <div>
+                <div className={'container'}>{children}</div>
+            </div>
+            <div>
+                <div className="container">
+                    <Footer styled={{
+                        position: 'static'
+                    }}/>
+                </div>
+            </div>
+        </>)
+    }
+
+
     return (
         <>
             <div className="container">

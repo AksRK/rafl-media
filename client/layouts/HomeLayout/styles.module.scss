@@ -85,6 +85,7 @@
     padding: 0 20px;
 
     &::-webkit-scrollbar {
+      -webkit-appearance: none;
       width: 0;
       height: 0;
     }

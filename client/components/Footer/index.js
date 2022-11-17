@@ -6,10 +6,10 @@ import SocialLink from "../UI/SocialLink";
 import styles from "../Header/index.module.scss";
 import NavLink from "../UI/NavLink";
 
-function Footer() {
+function Footer({styled = {}}) {
 
     return (
-        <footer className={style.footer + ' container'}>
+        <footer className={style.footer + ' container'} style={styled}>
 
             <div className={style.footer__logo}>
                 <Image src={footerLogo} alt={'RAFL'}/>

@@ -43,7 +43,7 @@ export default function AboutProject() {
                 <div className={styles.aboutProjectCards}>
                     <div className={styles.aboutProjectCards__item}>
                         <div className={styles.aboutProjectCards__img}>
-                            <Image src={selenovIgor} alt={'Игорь Селенов'}/>
+                            <Image src={selenovIgor} alt={'Игорь Селенов'} placeholder={"blur"}/>
                         </div>
                         <h3 className={styles.aboutProjectCards__title}>
                             {'Игорь \n Селенов'}
@@ -55,7 +55,7 @@ export default function AboutProject() {
                     </div>
                     <div className={styles.aboutProjectCards__item}>
                         <div className={styles.aboutProjectCards__img}>
-                            <Image src={zverevIgor} alt={'Игорь Зверев'}/>
+                            <Image src={zverevIgor} alt={'Игорь Зверев'}  placeholder={"blur"}/>
                         </div>
                         <h3 className={styles.aboutProjectCards__title}>
                             {'Игорь \n Зверев'}
