@@ -1,5 +1,9 @@
 .swiper {
   padding-bottom: 61px;
+
+  @media (max-width: 768px) {
+    padding-left: 16px;
+  }
 }
 
 .swiper-button-next {

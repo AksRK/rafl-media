@@ -52,7 +52,7 @@ function Header({routes, burgerState, setBurgerState, setBurgerStateZIndex = () 
                         <div style={burgerState ? {top: '0'} : {top: '-530px'}} className={styles.burgerMenu}>
                             <div style={burgerState ? {opacity: '100%',} : {}} className={styles.burgerMenu__content}>
                                 <div style={!burgerState ? {opacity: '0'} : {}} className={styles.burgerMenu__navWrp}>
-                                    <NavBar routes={routes}/>
+                                    <NavBar routes={routes} setBurgerStateZIndex={setBurgerStateZIndex}/>
                                 </div>
 
 
@@ -66,7 +66,7 @@ function Header({routes, burgerState, setBurgerState, setBurgerStateZIndex = () 
                             </div>
                         </div>
                     </>
-                    : <NavBar routes={routes}/>
+                    : <NavBar routes={routes} setBurgerStateZIndex={setBurgerStateZIndex}/>
             }
 
         </header>

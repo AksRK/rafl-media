@@ -73,7 +73,7 @@
 
 @media (max-width: 1634px) {
   .carousel {
-    padding-left: 20px;
+    //padding-left: 20px;
   }
 }
 
@@ -95,7 +95,7 @@
 
 @media (max-width: 768px) {
   .carousel {
-    padding-left: 20px;
+    //padding-left: 20px;
     &::before {
       width: 125px;
     }
@@ -108,7 +108,7 @@
 @media (max-width: 479px) {
   .carousel {
     height: fit-content;
-    padding-left: 20px;
+    //padding-left: 20px;
     padding-bottom: 15px;
     &::before {
       width: 35px;

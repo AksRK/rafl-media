@@ -4,6 +4,7 @@ import {useState} from "react";
 import Header from "../../components/Header";
 import CarouselBanner from "../../components/CarouselBanner";
 import Footer from "../../components/Footer";
+import useWindowSize from "../../core/hooks/useWindowSize";
 
 export const publicRoutes = [
     {link: '/', name: 'Медиа'},
@@ -17,15 +18,19 @@ export default function DefaultLayout({children, bannerState = true}) {
     const [burgerState, setBurgerState] = useState(false)
     const [burgerStateZIndex, setBurgerStateZIndex] = useState(burgerState ? '4' : '2')
     const {scrollY} = useScroll()
+    const size = useWindowSize()
+
 
     function setWidth() {
-        if (scrollY === 0) {
-            return 92
+        // if (96 + (scrollY / 100) > 100) {
+        //     return 100
+        // }
+
+        if (size.width <= 1600) {
+            return 96 + (scrollY / 200)
         }
-        if (92 + (scrollY / 100) >= 100) {
-            return 100
-        }
-        return 92 + (scrollY / 100)
+        ;
+        if (size.width <= 768) return 92 + (scrollY / 100);
     }
 
     function noBanner(ifAction, elseAction) {
@@ -52,7 +57,7 @@ export default function DefaultLayout({children, bannerState = true}) {
     return (
         <>
             <div className="container">
-                <div className={'head' + (scrollY >= noBanner(50, 550) ? ' head_hidden' : '')}
+                <div className={'head' + (scrollY >= noBanner(50, 650) ? ' head_hidden' : '')}
                      style={{
                          zIndex: burgerStateZIndex
                      }}
@@ -62,7 +67,7 @@ export default function DefaultLayout({children, bannerState = true}) {
                 </div>
                 {
                     noBanner(null,
-                        <div className={'head' + (scrollY >= 550 ? ' head_hidden' : '')} style={{
+                        <div className={'head' + (scrollY >= 650 ? ' head_hidden' : '')} style={{
                             top: '142px'
                         }}>
                             <CarouselBanner/>
@@ -74,8 +79,8 @@ export default function DefaultLayout({children, bannerState = true}) {
             <div className={'body' + (noBanner('', ' body_with_banner'))}>
                 {
                     router.asPath.includes('posts')
-                        ?<div className={'container'}>{children}</div>
-                        :<div className="container" style={otherPages({}, {
+                        ? <div className={'container'}>{children}</div>
+                        : <div className="container" style={otherPages({}, {
                             width: `${setWidth()}%`,
                             maxWidth: '100vw'
                         })}>
@@ -84,7 +89,7 @@ export default function DefaultLayout({children, bannerState = true}) {
                 }
 
             </div>
-            <div style={scrollY <= noBanner(50, 550) ? {opacity: 0} : {}}>
+            <div style={scrollY <= noBanner(50, 650) ? {opacity: 0} : {}}>
                 <div className="container">
                     <Footer/>
                 </div>

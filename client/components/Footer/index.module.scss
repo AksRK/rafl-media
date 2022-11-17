@@ -15,6 +15,10 @@
   gap: 39px 20px;
   font-size: 18px;
 
+  @media (max-height: 454px) {
+    position: relative;
+  }
+
   &__logo {
     max-width: 452px;
     & img {

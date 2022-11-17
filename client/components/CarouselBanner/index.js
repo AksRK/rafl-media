@@ -8,7 +8,7 @@ import {useContext, useEffect, useState} from "react";
 import ShrinkText from "../UI/ShrinkText/ShrinkText";
 import CyrillicToTranslit from "cyrillic-to-translit-js";
 import {SliderContext} from "../../pages/_app";
-import testImg from '/public/tstImg.jpg'
+
 export default function CarouselBanner() {
     const size = useWindowSize()
     const [perView, setPerView] = useState(2.5)

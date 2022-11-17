@@ -27,7 +27,7 @@ export default function MyMain({children, bigPaddingInit = false, postInit = fal
     }, [router.asPath])
 
     return (
-        <main className={styles.main + ' ' +
+        <main id={"main"} className={styles.main + ' ' +
             (bigPadding ? styles.main_big_padding : ' ') + ' ' +
             (post ? styles.main_postBody : ' ')}>
             <div className="container">

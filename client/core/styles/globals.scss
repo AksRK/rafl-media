@@ -40,7 +40,7 @@ a {
   animation: 0.3s head-visible ease-in-out both;
 
   &_hidden {
-    animation: 0.1s head-hidden ease-in-out both;
+    animation: 0.3s head-hidden ease-in-out both;
   }
 }
 
@@ -255,8 +255,8 @@ a {
 }
 
 .mySwiper_border_radius {
-  border-radius: 23px 0 0 23px;
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  //border-radius: 23px 0 0 23px;
+  //-webkit-mask-image: -webkit-radial-gradient(white, black);
 }
 
 @media (max-width: 1633px) {

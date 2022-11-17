@@ -32,7 +32,7 @@ function Card({type, title, description, imgUrl, tag = null, path}) {
                     type !== 'creator' && tag
                         ? <div onClick={(event) => {
                             event.preventDefault()
-                            router.push(`/${tag}`, null, {scroll: false})
+                            router.push(`/${tag}#main`, null, {scroll: false})
                         }
                         } className={styles.card__tag}>
                             {Category.find((c) => c.value === tag).label}
