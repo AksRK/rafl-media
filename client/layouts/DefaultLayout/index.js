@@ -20,9 +20,9 @@ export default function DefaultLayout({children, bannerState = true}) {
 
     function setWidth() {
         if (scrollY === 0) {
-            return 96
+            return 92
         }
-        return 96 + (scrollY / 200)
+        return 92 + (scrollY / 100)
     }
 
     function noBanner(ifAction, elseAction) {
