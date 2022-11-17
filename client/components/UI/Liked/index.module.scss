@@ -4,7 +4,7 @@
   width: 121px;
   height: 44px;
   background: #ffffff;
-  border: 1px solid #F1F1F1;
+  border: none;
   border-radius: 37px;
   -webkit-mask-image: -webkit-radial-gradient(white, black);
   color: #000000;
@@ -102,7 +102,6 @@
 
   &:hover {
     background: #000000;
-    border: 1px solid #F1F1F1;
     color: #ffffff;
 
     & span {
