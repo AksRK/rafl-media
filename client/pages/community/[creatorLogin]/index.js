@@ -2,18 +2,34 @@ import styles from './index.module.scss'
 import SocialLink from "../../../components/UI/SocialLink";
 import Image from 'next/image'
 import Link from 'next/link'
-import useWindowSize from "../../../core/hooks/useWindowSize";
 import CardsList from "../../../components/CardsList";
 import {NextSeo} from "next-seo";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
-export default function CreatorPage({posts, creator}) {
+export default function CreatorPage({posts, creator, next}) {
     const closeImg = <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M18 6L6 18" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
         <path d="M6 6L18 18" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
 
-    const mobile = 479
-    const size = useWindowSize()
+    const [nextPage, setNextPage] = useState(next)
+    const [postList, setPostList] = useState(posts)
+
+    function loadMorePosts() {
+        axios.get(`/api/creator/posts/login/${creator.login}?page=${nextPage}`,
+        ).then(result => {
+            setPostList([...postList, ...result.data.docs])
+            setNextPage(result.data.nextPage)
+        }).catch((error) => {
+            console.log(error)
+        })
+    }
+
+    useEffect(() => {
+        setPostList(posts)
+    }, [posts])
+
     return (
         <>
             <NextSeo
@@ -73,7 +89,10 @@ export default function CreatorPage({posts, creator}) {
                 </div>
             </div>
             <div>
-                <CardsList posts={posts.docs} creatorLogin={creator.login}/>
+                <CardsList posts={postList} creatorLogin={creator.login}/>
+                {
+                    nextPage? <button className={'btn'} style={{margin:'50px auto 0 auto'}} onClick={loadMorePosts}>Загрузить еще</button>:''
+                }
             </div>
         </>
     )
@@ -83,6 +102,6 @@ export async function getServerSideProps(context) {
     const posts = await fetch(`http://localhost:3000/api/creator/posts/login/${context.params.creatorLogin}`).then(r => r.json())
     const creator = await fetch(`http://localhost:3000/api/creator/login/${context.params.creatorLogin}`).then(r => r.json())
     return {
-        props: {posts, creator}, // will be passed to the page component as props
+        props: {posts: posts.docs, next: posts.nextPage, creator},
     }
 }
