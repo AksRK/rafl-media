@@ -22,6 +22,9 @@ export default function DefaultLayout({children, bannerState = true}) {
         if (scrollY === 0) {
             return 92
         }
+        if (92 + (scrollY / 100) >= 100) {
+            return 100
+        }
         return 92 + (scrollY / 100)
     }
 
