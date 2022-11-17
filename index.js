@@ -93,6 +93,7 @@ app.delete('/creator/:id', checkAuth, CreatorController.remove);
 
 app.get('/creator/posts/:id', CreatorPostController.getOne)
 app.get('/creator/posts/edit/:id', CreatorPostController.getOneAdmin)
+app.get('/creator/posts/admin/all', CreatorPostController.getAllCreatorPostsAdmin)
 app.get('/creator/posts/title/:titleUrl', CreatorPostController.getOneByTitle)
 app.get('/creator/posts/login/:creator', CreatorPostController.getCreatorPosts)
 app.post('/creator/posts', checkAuth, creatorPostCreateValidation, handleValidationErrors, CreatorPostController.create)

@@ -8,11 +8,36 @@ export const getCreatorPosts = async (req, res) => {
     const options = {
         page: parseInt(page, 10) || 1,
         limit: parseInt(perPage, 10) || 8,
+        sort: {
+            viewsCount: -1
+        }
     };
 
     try {
         const creator = req.params
         const posts = await CreatorPostModel.paginate({...creator}, options)
+        res.json(posts)
+    }catch (err) {
+        console.log(err)
+        res.status(500).json({
+            message: 'Не удалось получить статьи',
+        })
+    }
+};
+
+export const getAllCreatorPostsAdmin = async (req, res) => {
+
+    const {page, perPage} = req.query
+    const options = {
+        page: parseInt(page, 10) || 1,
+        limit: parseInt(perPage, 10) || 8,
+        sort: {
+            createdAt: -1
+        }
+    };
+
+    try {
+        const posts = await CreatorPostModel.paginate(options)
         res.json(posts)
     }catch (err) {
         console.log(err)
