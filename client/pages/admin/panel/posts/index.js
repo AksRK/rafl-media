@@ -1,4 +1,4 @@
-import {Dropdown, Table} from "antd";
+import {Dropdown, Select, Table} from "antd";
 import {useEffect, useState} from "react";
 import Link from "next/link";
 import {SettingOutlined} from "@ant-design/icons";
@@ -9,7 +9,11 @@ import {formatRuDate} from "../../../../core/utils";
 
 function AdminPanel() {
     const [dataSource, setDataSource] = useState([])
+    const [category, setCategory] = useState('media')
     const [loading, setLoading] = useState(false);
+    const onChange = (value) => {
+        setCategory(value)
+    };
     const [tableParams, setTableParams] = useState({
         pagination: {
             current: 1,
@@ -19,7 +23,7 @@ function AdminPanel() {
 
     useEffect(() => {
         setLoading(true)
-        fetch(`/api/posts?page=${tableParams.pagination.current}`)
+        fetch(`/api${category === 'community'}/posts?page=${tableParams.pagination.current}`)
             .then(res => res.json())
             .then(data => {
                 setDataSource(data.docs.map(p => ({...p, createdAt: formatRuDate(p.createdAt)})))
@@ -37,7 +41,7 @@ function AdminPanel() {
                 }
                 setLoading(false)
             })
-    }, [JSON.stringify(tableParams), JSON.stringify(dataSource)])
+    }, [JSON.stringify(tableParams), JSON.stringify(dataSource), category])
 
     const handleTableChange = (pagination, filters, sorter) => {
         setTableParams({
@@ -123,9 +127,36 @@ function AdminPanel() {
             <div style={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                alignItems: 'center'
+                alignItems: 'center',
+                marginBottom: '20px',
             }}>
-                <h1>Статьи</h1>
+                <div style={{
+                    display: 'flex',
+                    gap: '20px',
+                    alignItems: 'center'
+                }}>
+                    <h1 style={{
+                        marginBottom: 0,
+                    }}>Статьи</h1>
+                    <Select
+                        placeholder="Выберите категорию"
+                        optionFilterProp="children"
+                        onChange={onChange}
+                        value={category}
+                        options={[
+                            {
+                                label: 'Медиа',
+                                value: 'media'
+                            },
+                            {
+                                label: 'Комьюнити',
+                                value: 'community'
+                            },]}
+                        style={{
+                            width: '300px',
+                        }}
+                    />
+                </div>
                 <Link href={'/admin/panel/posts/create'} className={'btn'}>
                     Создать статью
                 </Link>
