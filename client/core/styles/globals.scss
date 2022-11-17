@@ -27,6 +27,7 @@ a {
   width: 1633px;
   margin: 0 auto;
   padding-bottom: 1px;
+  transition: width 0.1s ease-in-out;
 }
 
 .head {
@@ -36,10 +37,10 @@ a {
   max-width: 1633px;
   z-index: 2;
   overflow: hidden;
-  animation: 0.6s head-visible ease-in-out both;
+  animation: 0.3s head-visible ease-in-out both;
 
   &_hidden {
-    animation: 0.6s head-hidden ease-in-out both;
+    animation: 0.3s head-hidden ease-in-out both;
   }
 }
 
@@ -84,16 +85,18 @@ a {
 
 @media (max-width: 1080px) {
   .body {
+    margin-bottom: 500px;
     &_with_banner {
-      margin-bottom: 520px;
+      margin-bottom: 500px;
     }
   }
 }
 
 @media (max-width: 881px) {
   .body {
+    margin-bottom: 650px;
     &_with_banner {
-      margin-bottom: 680px;
+      margin-bottom: 650px;
     }
   }
 }

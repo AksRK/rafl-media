@@ -3,7 +3,7 @@ $header-nav-anim-time: 0.3s;
 .header {
   width: 100%;
   color: white;
-  padding: 29px 29px 34px 29px;
+  padding: 29px 29px 34px 0;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -140,6 +140,12 @@ $header-nav-anim-time: 0.3s;
 
   &__navWrp {
     transition: opacity 0.1s ease-in-out;
+  }
+}
+
+@media (max-width: 1633px) {
+  .header {
+    padding: 29px 29px 34px 20px;
   }
 }
 

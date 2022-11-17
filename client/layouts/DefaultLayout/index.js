@@ -36,10 +36,20 @@ export default function DefaultLayout({children, bannerState = true}) {
         }
     }
 
+    function otherPages(ifAction, elseAction) {
+        if ( router.asPath.includes('contacts')
+            || router.asPath.includes('user-license-agreement')
+            || router.asPath.includes('about-project')) {
+            return ifAction
+        }else {
+            return elseAction
+        }
+    }
+
     return (
         <>
             <div className="container">
-                <div className={'head' + (scrollY >= 650 ? ' head_hidden' : '')}
+                <div className={'head' + (scrollY >= noBanner(50, 550) ? ' head_hidden' : '')}
                      style={{
                          zIndex: burgerStateZIndex
                      }}
@@ -49,7 +59,7 @@ export default function DefaultLayout({children, bannerState = true}) {
                 </div>
                 {
                     noBanner(null,
-                        <div className={'head' + (scrollY >= 650 ? ' head_hidden' : '')} style={{
+                        <div className={'head' + (scrollY >= 550 ? ' head_hidden' : '')} style={{
                             top: '142px'
                         }}>
                             <CarouselBanner/>
@@ -62,16 +72,16 @@ export default function DefaultLayout({children, bannerState = true}) {
                 {
                     router.asPath.includes('posts')
                         ?<div className={'container'}>{children}</div>
-                        :<div className="container" style={{
+                        :<div className="container" style={otherPages({}, {
                             width: `${setWidth()}%`,
                             maxWidth: '100vw'
-                        }}>
+                        })}>
                             {children}
                         </div>
                 }
 
             </div>
-            <div style={scrollY <= 650 && bannerState ? {opacity: 0} : {}}>
+            <div style={scrollY <= noBanner(50, 550) ? {opacity: 0} : {}}>
                 <div className="container">
                     <Footer/>
                 </div>
