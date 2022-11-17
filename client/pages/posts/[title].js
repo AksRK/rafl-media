@@ -10,11 +10,18 @@ import Liked from "../../components/UI/Liked";
 import {Category} from "../../core/mock";
 import {formatRuDate} from "../../core/utils";
 import {NextSeo} from "next-seo";
-
+import {useEffect, useRef, useState} from "react";
+import { useInView } from 'react-intersection-observer';
 
 export default function FullPost({post}) {
     const size = useWindowSize()
     const mobile = 479;
+    const { ref, inView, entry } = useInView({
+        /* Optional options */
+        threshold: 1,
+        rootMargin: '1500px 0px -21px 0px'
+    });
+
 
     return (
         <>
@@ -67,8 +74,8 @@ export default function FullPost({post}) {
                                     </span>
                             </a>
                         </div>
-                        <div className={styles.fullPostFooter__btnBox}>
-                            <Liked likes={post?.likes} postId={post._id}/>
+                        <div className={styles.fullPostFooter__btnBox} id={"likeBox"} ref={ref}>
+                            <Liked likes={post.likes} postId={post._id} likeFix={inView}/>
                             {/*<button className={'share-btn'}>Поделиться статьей</button>*/}
                         </div>
 

@@ -6,6 +6,7 @@
   background: #ffffff;
   border: 1px solid #F1F1F1;
   border-radius: 37px;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
   color: #000000;
   font-weight: 500;
   font-size: 15px;
@@ -16,8 +17,46 @@
   justify-content: flex-start;
   align-items: center;
   gap: 0 12px;
-
   transition: transform 0.1s ease-in-out;
+
+  &_fix {
+    position: fixed;
+    bottom: 48px;
+    z-index: 1;
+    left: 814px;
+    //transition: all 0.3s ease-in-out;
+  }
+
+  @media (max-width: 1043px) {
+    &_fix {
+      position: fixed;
+      bottom: 17px;
+      z-index: 1;
+      left: calc(100vw - 230px);
+      //right: 16px;
+      //transition: all 0.3s ease-in-out;
+    }
+  }
+  @media (max-width: 769px) {
+    &_fix {
+      position: fixed;
+      bottom: 17px;
+      z-index: 1;
+      left: calc(100vw - 172px);
+      //right: 16px;
+      //transition: all 0.3s ease-in-out;
+    }
+  }
+  @media (max-width: 479px) {
+    &_fix {
+      position: fixed;
+      bottom: 17px;
+      z-index: 1;
+      left: auto;
+      right: 16px;
+      //transition: all 0.3s ease-in-out;
+    }
+  }
 
   &:active {
     transform: scale(0.95);

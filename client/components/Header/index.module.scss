@@ -105,6 +105,7 @@ $header-nav-anim-time: 0.3s;
   color: #000000;
   border: 1px solid #F1F1F1;
   border-radius: 37px;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
   z-index: 3;

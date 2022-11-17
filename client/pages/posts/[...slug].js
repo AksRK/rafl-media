@@ -8,12 +8,17 @@ import Image from 'next/image'
 import Liked from "../../components/UI/Liked";
 import {formatRuDate} from "../../core/utils";
 import {NextSeo} from "next-seo";
+import {useInView} from "react-intersection-observer";
 
 
 export default function FullPost({post}) {
     const size = useWindowSize()
     const mobile = 479;
-
+    const { ref, inView, entry } = useInView({
+        /* Optional options */
+        threshold: 1,
+        rootMargin: '1500px 0px -21px 0px'
+    });
     return (
         <>
             <NextSeo
@@ -61,8 +66,8 @@ export default function FullPost({post}) {
                                     </span>
                             </a>
                         </div>
-                        <div className={styles.fullPostFooter__btnBox}>
-                            <Liked likes={post?.likes} postId={post._id} typePost={'creator'}/>
+                        <div className={styles.fullPostFooter__btnBox} ref={ref}>
+                            <Liked likes={post?.likes} postId={post._id} typePost={'creator'} likeFix={inView}/>
                             {/*<button className={'share-btn'}>Поделиться статьей</button>*/}
                         </div>
 

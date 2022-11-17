@@ -81,7 +81,8 @@
 
   &__btnBox {
     display: flex;
-    justify-content: flex-start;
+    height: 44px;
+    justify-content: flex-end;
     gap: 0 4px;
   }
 }

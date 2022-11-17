@@ -4,6 +4,7 @@
   width: 380px;
   height: 805px;
   border-radius: 23px;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
   color: #000000;
   cursor: pointer;
   border: 1px solid rgba(236, 236, 236, 0);
@@ -53,6 +54,7 @@
     background: #000000;
     border-radius: 41px;
     padding: 13px 15px;
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
     font-weight: 500;
     font-size: 15px;
     line-height: 18px;

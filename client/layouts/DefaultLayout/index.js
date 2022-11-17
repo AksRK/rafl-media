@@ -57,7 +57,7 @@ export default function DefaultLayout({children, bannerState = true}) {
     return (
         <>
             <div className="container">
-                <div className={'head' + (scrollY >= noBanner(50, 650) ? ' head_hidden' : '')}
+                <div className={'head' + (scrollY >= noBanner(50, 700) ? ' head_hidden' : '')}
                      style={{
                          zIndex: burgerStateZIndex
                      }}
@@ -67,7 +67,7 @@ export default function DefaultLayout({children, bannerState = true}) {
                 </div>
                 {
                     noBanner(null,
-                        <div className={'head' + (scrollY >= 650 ? ' head_hidden' : '')} style={{
+                        <div className={'head' + (scrollY >= 700 ? ' head_hidden' : '')} style={{
                             top: '142px'
                         }}>
                             <CarouselBanner/>
@@ -89,7 +89,7 @@ export default function DefaultLayout({children, bannerState = true}) {
                 }
 
             </div>
-            <div style={scrollY <= noBanner(50, 650) ? {opacity: 0} : {}}>
+            <div style={scrollY <= noBanner(50, 700) ? {opacity: 0} : {}}>
                 <div className="container">
                     <Footer/>
                 </div>

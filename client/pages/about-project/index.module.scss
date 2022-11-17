@@ -31,6 +31,7 @@
     height: 450px;
     border: 1px solid #ECECEC;
     border-radius: 23px;
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
     overflow: hidden;
 
     & img {

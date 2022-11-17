@@ -4,7 +4,7 @@
   width: 380px;
   border-radius: 23px;
   background: #FFFFFF;
-  border: 1px solid #ECECEC;
+  //border: 1px solid #ECECEC;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,7 +33,7 @@
     height: 380px;
     background-color: #e2e5e7;
     border-radius: 23px;
-    border: 1px solid #d5d5d5;
+    //border: 1px solid #d5d5d5;
 
 
     @media (max-width: 479px) {
@@ -47,7 +47,7 @@
     height: 36px;
     border-radius: 23px;
     background-color: #e2e5e7;
-    border: 1px solid #d5d5d5;
+    //border: 1px solid #d5d5d5;
 
     @media (max-width: 479px) {
       height: 21px;
@@ -59,7 +59,7 @@
     height: 74px;
     border-radius: 23px;
     background-color: #e2e5e7;
-    border: 1px solid #d5d5d5;
+    //border: 1px solid #d5d5d5;
     margin-bottom: 10px;
 
     @media (max-width: 479px) {

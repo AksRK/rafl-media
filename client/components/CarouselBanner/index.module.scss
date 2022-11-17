@@ -25,6 +25,7 @@
   //min-width: 320px;
   height: 500px;
   border-radius: 23px;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
   z-index: 1;
   overflow: hidden;
   display: flex;
