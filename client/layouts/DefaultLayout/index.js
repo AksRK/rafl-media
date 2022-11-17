@@ -16,14 +16,24 @@ export default function DefaultLayout({children, bannerState = true}) {
     const router = useRouter()
     const [burgerState, setBurgerState] = useState(false)
     const [burgerStateZIndex, setBurgerStateZIndex] = useState(burgerState ? '4' : '2')
-    const {scrollX, scrollY} = useScroll()
+    const {scrollY} = useScroll()
 
     function setWidth() {
-        console.log(scrollY / 100)
         if (scrollY === 0) {
             return 96
         }
         return 96 + (scrollY / 200)
+    }
+
+    function noBanner(ifAction, elseAction) {
+        if ( router.asPath.includes('contacts')
+            || router.asPath.includes('user-license-agreement')
+            || router.asPath.includes('about-project')
+            || router.asPath.includes('posts')) {
+            return ifAction
+        }else {
+            return elseAction
+        }
     }
 
     return (
@@ -38,25 +48,28 @@ export default function DefaultLayout({children, bannerState = true}) {
                             setBurgerStateZIndex={setBurgerStateZIndex}/>
                 </div>
                 {
-                    router.asPath.includes('contacts')
-                    || router.asPath.includes('user-license-agreement')
-                    || router.asPath.includes('about-project')
-                    || router.asPath.includes('posts')
-                        ? null
-                        : <div className={'head' + (scrollY >= 650 ? ' head_hidden' : '')} style={{
+                    noBanner(null,
+                        <div className={'head' + (scrollY >= 650 ? ' head_hidden' : '')} style={{
                             top: '142px'
                         }}>
                             <CarouselBanner/>
                         </div>
+                    )
+
                 }
             </div>
-            <div className={'body' + (bannerState ? ' body_with_banner' : '')}>
-                <div className="container" style={{
-                    width: `${setWidth()}%`,
-                    maxWidth: '100vw'
-                }}>
-                    {children}
-                </div>
+            <div className={'body' + (noBanner('', ' body_with_banner'))}>
+                {
+                    router.asPath.includes('posts')
+                        ?<div className={'container'}>{children}</div>
+                        :<div className="container" style={{
+                            width: `${setWidth()}%`,
+                            maxWidth: '100vw'
+                        }}>
+                            {children}
+                        </div>
+                }
+
             </div>
             <div style={scrollY <= 650 && bannerState ? {opacity: 0} : {}}>
                 <div className="container">
