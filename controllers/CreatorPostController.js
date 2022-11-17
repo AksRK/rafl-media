@@ -37,7 +37,7 @@ export const getAllCreatorPostsAdmin = async (req, res) => {
     };
 
     try {
-        const posts = await CreatorPostModel.paginate(options)
+        const posts = await CreatorPostModel.paginate({}, options)
         res.json(posts)
     }catch (err) {
         console.log(err)
