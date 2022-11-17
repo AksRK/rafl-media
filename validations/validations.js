@@ -16,7 +16,7 @@ export const postCreateValidation = [
     body('title', 'Введите заголовок статьи').isLength({ min: 3}).isString(),
     body('description', 'Введите описание статьи').isLength({ min: 3}).isString(),
     body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 1}).isObject(),
-    body('content', 'Статья не может быть пустой..').isLength({ min: 10 }).isString(),
+    body('content', 'Статья не может быть пустой..').isLength({ min: 30 }).isString(),
     body('readAlso', 'Не указаны рекомендованные статьи').isLength({ min: 1 }).isArray(),
 ]
 
@@ -24,7 +24,7 @@ export const postUpdateValidation = [
     body('title', 'Введите заголовок статьи').isLength({ min: 3}).isString(),
     body('description', 'Введите описание статьи').isLength({ min: 3}).isString(),
     body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 1}).isObject(),
-    body('content', 'Статья не может быть пустой..').isLength({ min: 10 }).isString(),
+    body('content', 'Статья не может быть пустой..').isLength({ min: 30 }).isString(),
     body('readAlso', 'Не указаны рекомендованные статьи').isLength({ min: 1 }).isArray(),
 ]
 
@@ -33,7 +33,7 @@ export const creatorPostCreateValidation = [
     body('description', 'Введите описание статьи').isLength({ min: 3}).isString(),
     body('creator', 'Укажите креатора статьи').isLength({ min: 3}).isString(),
     body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 1}).isObject(),
-    body('content', 'Статья не может быть пустой..').isLength({ min: 10 }).isString(),
+    body('content', 'Статья не может быть пустой..').isLength({ min: 30 }).isString(),
     body('readAlso', 'Не указаны рекомендованные статьи').isLength({ min: 1 }).isArray(),
 ]
 
@@ -41,7 +41,7 @@ export const creatorPostUpdateValidation = [
     body('title', 'Введите заголовок статьи').isLength({ min: 3}).isString(),
     body('description', 'Введите описание статьи').isLength({ min: 3}).isString(),
     body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 1}).isObject(),
-    body('content', 'Статья не может быть пустой..').isLength({ min: 10 }).isString(),
+    body('content', 'Статья не может быть пустой..').isLength({ min: 30 }).isString(),
     body('readAlso', 'Не указаны рекомендованные статьи').isLength({ min: 1 }).isArray(),
 ]
 
