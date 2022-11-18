@@ -1,6 +1,6 @@
 import { Select, Spin } from 'antd';
 import debounce from 'lodash/debounce';
-import React, { useMemo, useRef, useState } from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 function FetchSelect({ fetchOptions, debounceTimeout = 800, ...props }) {
     const [fetching, setFetching] = useState(false);
     const [options, setOptions] = useState([]);
@@ -22,6 +22,11 @@ function FetchSelect({ fetchOptions, debounceTimeout = 800, ...props }) {
         };
         return debounce(loadOptions, debounceTimeout);
     }, [fetchOptions, debounceTimeout]);
+
+    useEffect(() => {
+       setOptions([])
+    }, [fetchOptions])
+
     return (
         <Select
             labelInValue
@@ -44,6 +49,38 @@ export async function fetchUserList(username) {
                     return body.map((user) => ({
                         label: user.fullName,
                         value: user.login,
+                    }))
+                }
+                return []
+            }
+        );
+}
+
+export async function fetchReadAlsoPost(title) {
+    return fetch(`/api/posts/find/${title}`)
+        .then((response) => response.json())
+        .then((body) => {
+                if (Array.isArray(body)) {
+                    return body.map((post) => ({
+                        key: post._id,
+                        label: post.title,
+                        value: post.title,
+                    }))
+                }
+                return []
+            }
+        );
+}
+
+export async function fetchReadAlsoCreatorPost(title) {
+    return fetch(`/api/creator/posts/find/${title}`)
+        .then((response) => response.json())
+        .then((body) => {
+                if (Array.isArray(body)) {
+                    return body.map((post) => ({
+                        key: post._id,
+                        label: post.title,
+                        value: post.title,
                     }))
                 }
                 return []
