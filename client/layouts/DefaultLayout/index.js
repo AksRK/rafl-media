@@ -23,10 +23,14 @@ export default function DefaultLayout({children, bannerState = true}) {
     const { ref: refSpan, inView: inViewSpan } = useInView({
         threshold: 1,
         initialInView: true,
-        rootMargin: '25px 1000px 500px 1000px'
+        rootMargin: '555px 1000px 500px 1000px'
+    });
+
+    const { ref, inView } = useInView({
+        threshold: 1,
+        rootMargin: '1055px 1000px 50px 1000px'
     });
     console.log(inViewSpan)
-
     function setWidth() {
         if (size.width <= 1600) {
             return 96 + (scrollY / 200)
@@ -91,7 +95,7 @@ export default function DefaultLayout({children, bannerState = true}) {
                 </div>
                 {
                     noBanner(null,
-                        <div className={'head' + (scrollY >= 591 ? ' head_hidden' : '')} style={{
+                        <div className={'head' + (!inViewSpan || inView ? ' head_hidden' : '')} style={{
                             top: '142px'
                         }}>
                             <CarouselBanner/>
@@ -112,9 +116,10 @@ export default function DefaultLayout({children, bannerState = true}) {
                             {children}
                         </div>
                 }
-                <span className="hidden_block"></span>
+                <span ref={ref} className="hidden_block"></span>
             </div>
-            <div style={inViewSpan ? {opacity: 0} : {}}>
+            <div className={(!inViewSpan || inView ? '' : 'head_hidden')}>
+            {/*<div style={{opacity: !inViewSpan || inView ? 1 : 0}}>*/}
                 <div className="container">
                     <Footer/>
                 </div>

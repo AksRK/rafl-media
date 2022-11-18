@@ -34,7 +34,7 @@ export default function MyMain({children, bigPaddingInit = false, postInit = fal
               className={styles.main + ' ' +
             (bigPadding ? styles.main_big_padding : ' ') + ' ' +
             (post ? styles.main_postBody : ' ')}>
-            <div className="container">
+            <div className="container myMobileContainer">
                 {children}
             </div>
         </main>
