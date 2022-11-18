@@ -49,9 +49,10 @@ function Card({type, title, description, imgUrl, tag = null, path}) {
 
                 <span
                     className={styles.card__description + ' ' + (type === 'creator' ? styles.card__description_creator : '')}>
-                     <ShrinkText text={description.replace(':', ':\n')} maxChar={mobile >= size.width ? 185 : 122}/>
+                     <ShrinkText text={description.replace(':', ':\n')} maxChar={type==='creator'?mobile >= size.width ? 60 : 122:mobile >= size.width ? 185 : 122}/>
                 </span>
-
+                {/*Основатель RAFL.MEDIA, коллекционер фубольных*/}
+                {/*джерси.*/}
                 <div className={styles.card__readBtn}>
                     {
                         type === 'creator' && mobile <= size.width ?
