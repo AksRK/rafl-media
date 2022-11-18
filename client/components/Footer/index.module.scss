@@ -15,6 +15,10 @@
   gap: 39px 20px;
   font-size: 18px;
 
+  @media (max-width: 480px) {
+    gap: 15px 20px;
+  }
+
   @media (max-height: 454px) {
     position: relative;
   }
@@ -63,6 +67,10 @@
   gap: 0 90px;
   padding-bottom: 100px;
 
+  @media (max-width: 480px) {
+    padding-bottom: 77px;
+  }
+
   &__title {
     font-weight: 500;
     font-size: 18px;
@@ -76,6 +84,10 @@
     display: flex;
     flex-direction: column;
     gap: 20px 0;
+
+    @media (max-width: 480px) {
+      gap: 8px 0;
+    }
   }
 
   &__social {

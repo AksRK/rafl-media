@@ -30,12 +30,13 @@ export default function DefaultLayout({children, bannerState = true}) {
         threshold: 1,
         rootMargin: '1055px 1000px 50px 1000px'
     });
-    console.log(inViewSpan)
+
+
     function setWidth() {
         if (size.width <= 1600) {
             return 96 + (scrollY / 200)
         }
-        ;
+
         if (size.width <= 768) return 92 + (scrollY / 100);
     }
 

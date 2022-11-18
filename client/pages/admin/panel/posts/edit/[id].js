@@ -15,10 +15,10 @@ import {useRouter} from "next/router";
 import {alert} from "../../../../../core/utils";
 
 
-function EditPost({id, post}) {
+function EditPost({id, post, type = ''}) {
     const [fullPost, setFullPost] = useState(null)
     const [postBody, setPostBody] = useState(post?.content)
-    const [category, setCategory] = useState(post?.category)
+    const [category, setCategory] = useState(type === 'creator' ? 'community' : post?.category)
     const imageRef = useRef()
     const [titleImage, setTitleImage] = useState(post?.imageUrl)
     const [previewState, setPreviewState] = useState(false)
@@ -43,7 +43,7 @@ function EditPost({id, post}) {
         const titleUrl = CyrillicToTranslit().transform(data.title, "-").replaceAll('?', '').replaceAll('&', '').toLowerCase()
         // setFullPost({...data, post: postBody, titleImg: titleImage})
         axios.put(
-            `/api/posts/${id}`,
+            type === 'creator' ? `/api/creator/posts/${id}` :`/api/posts/${id}`,
             {...data, post: postBody, content: postBody, titleUrl, imageUrl: titleImage, readAlso: [
                     "634adfc0b3152bd7eb481f06",
                     "634ae06fc43506a1e371d7ba"
@@ -238,11 +238,17 @@ function EditPost({id, post}) {
 }
 
 export async function getServerSideProps(context) {
-    const post = await fetch(`http://localhost:3000/api/posts/${context.params.id}`)
-        .then(res => res.json())
+    let post;
+    if (context.query?.type === 'creator') {
+        post = await fetch(`http://localhost:3000/api/creator/posts/${context.params.id}`)
+            .then(res => res.json())
+    } else {
+        post = await fetch(`http://localhost:3000/api/posts/${context.params.id}`)
+            .then(res => res.json())
+    }
 
     return {
-        props: {id: context.params.id, post }, // will be passed to the page component as props
+        props: {id: context.params.id, post, type: context.query.type }, // will be passed to the page component as props
     }
 }
 

@@ -57,7 +57,7 @@ function AdminPanel() {
             {
                 key: id,
                 label: (
-                    <Link href={`/admin/panel/posts/edit/${id}`}>
+                    <Link href={`/admin/panel/posts/edit/${id}${category === 'community' ? '?type=creator' : '?type=post'}`}>
                         Изменить статью
                     </Link>
                 ),

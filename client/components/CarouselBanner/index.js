@@ -1,5 +1,4 @@
 import styles from './index.module.scss'
-import Link from "next/link";
 import Image from "next/image";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay, Navigation} from "swiper";
@@ -8,9 +7,11 @@ import {useContext, useEffect, useState} from "react";
 import ShrinkText from "../UI/ShrinkText/ShrinkText";
 import CyrillicToTranslit from "cyrillic-to-translit-js";
 import {SliderContext} from "../../pages/_app";
+import {useRouter} from "next/router";
 
 export default function CarouselBanner() {
     const size = useWindowSize()
+    const router = useRouter()
     const [perView, setPerView] = useState(2.5)
     const banners = useContext(SliderContext)
 
@@ -39,8 +40,12 @@ export default function CarouselBanner() {
             >
                 {
                     banners.map(b => <SwiperSlide key={b._id}>
-                        <Link className={styles.card}
-                              href={`/posts/${CyrillicToTranslit().transform(b.title, "-").replaceAll('?', '').replaceAll('&', '').toLowerCase()}`}>
+                        <div className={styles.card}
+                             onClick={() => {
+                                 router.push(`/posts/${CyrillicToTranslit().transform(b.title, "-").replaceAll('?', '').replaceAll('&', '').toLowerCase()}`)
+                             }}
+                        >
+                            {/*<div className={styles.card__carouselBlur}/>*/}
                             <Image src={b.imageUrl.fullUrl} alt={b.title} width={533} height={500} priority={true}/>
                             <div className={styles.card__textWrp}>
                                 <h3 className={styles.card__title}>{b.title}</h3>
@@ -51,8 +56,7 @@ export default function CarouselBanner() {
                                     <ShrinkText text={b.description} maxChar={95}/>
                                 </span>
                             </div>
-                            <div className={styles.card__carouselBlur}/>
-                        </Link>
+                        </div>
                     </SwiperSlide>)
                 }
             </Swiper>

@@ -15,6 +15,7 @@
   @media (max-width: 479px) {
     padding: 8px;
     flex-direction: row;
+    gap: 8px;
   }
 
   &__loading {
@@ -68,7 +69,7 @@
   }
 
   &__wrp {
-    width: 100%;
+    flex-grow: 1;
     gap: 17px;
     display: flex;
     flex-direction: column;

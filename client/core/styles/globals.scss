@@ -60,7 +60,6 @@ nav::-webkit-scrollbar {
 }
 
 .hidden_block {
-  background: red;
   height: 10px;
   width: 10px;
   position: relative;
@@ -137,6 +136,7 @@ nav::-webkit-scrollbar {
   .body {
     &_with_banner {
       margin-top: 685px;
+      margin-bottom: 491px;
     }
   }
 }
