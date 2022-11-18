@@ -21,6 +21,7 @@ export default function Home({posts, category, next}) {
 
     useEffect(() => {
         setPostList(posts)
+        setNextPage(next)
     }, [posts])
 
     return (
