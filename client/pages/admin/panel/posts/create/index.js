@@ -9,7 +9,7 @@ import axios from "axios";
 import PostPreview from "../../../../../components/PostPreview";
 import {Category} from "../../../../../core/mock";
 import {Select} from "antd";
-import FetchSelect, {fetchUserList} from "../../../../../components/UI/FetchSelect";
+import FetchSelect, {fetchReadAlsoPost, fetchReadAlsoCreatorPost, fetchUserList} from "../../../../../components/UI/FetchSelect";
 import CyrillicToTranslit from "cyrillic-to-translit-js";
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -34,6 +34,10 @@ function NewPost() {
     const watchAllFields = watch();
     const router = useRouter()
 
+    const [findReadAlsoPostPrimary, setFindReadAlsoPostPrimary] = useState([])
+    const [findReadAlsoPostSecondary, setFindReadAlsoPostSecondary] = useState([])
+
+
 
     useEffect(() => {
         scrollTo(top)
@@ -47,13 +51,13 @@ function NewPost() {
             category === 'community' ?'/api/creator/posts' : '/api/posts',
             category === 'community' ? {
                 ...data, content: postBody, imageUrl: titleImage, category, titleUrl: titleUrl, creator: value.value, readAlso: [
-                    "634adfc0b3152bd7eb481f06",
-                    "634ae06fc43506a1e371d7ba"
+                    findReadAlsoPostPrimary.key,
+                    findReadAlsoPostSecondary.key,
                 ], userId: '633ad4e026be25c7184a194f'
             } : {
                 ...data, content: postBody, imageUrl: titleImage, category, titleUrl: titleUrl, readAlso: [
-                    "634adfc0b3152bd7eb481f06",
-                    "634ae06fc43506a1e371d7ba"
+                    findReadAlsoPostPrimary.key,
+                    findReadAlsoPostSecondary.key,
                 ], userId: '633ad4e026be25c7184a194f'
             },
             {
@@ -71,7 +75,7 @@ function NewPost() {
         }).catch((error) => {
             if (error.response) {
                 error.response.data?.map((er) => {
-                    alert(er.msg, 'error')
+                    alert(er.msg || er.message, 'error')
                 })
             }
         })
@@ -107,6 +111,19 @@ function NewPost() {
     const onChange = (value) => {
         setCategory(value)
     };
+
+    useEffect(() => {
+        if (findReadAlsoPostSecondary.key === findReadAlsoPostPrimary.key && findReadAlsoPostSecondary.key && findReadAlsoPostPrimary.key) {
+            alert('Нельзя использовать 2 одинаковые статьи!', 'error')
+            setFindReadAlsoPostPrimary([])
+            setFindReadAlsoPostSecondary([])
+        }
+    }, [findReadAlsoPostSecondary, findReadAlsoPostPrimary])
+
+    useEffect(() => {
+        setFindReadAlsoPostPrimary([])
+        setFindReadAlsoPostSecondary([])
+    }, [category])
 
     return (
         <AdminPanelLayout>
@@ -212,6 +229,45 @@ function NewPost() {
                                     style={errors.description ? {borderColor: 'red', background: '#ffc8c8', minHeight: '323px'} : {minHeight: '323px'}}
                                 />
                             </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div>
+                        <label className={styles.newPostForm__label}>
+                            Читайте также:
+                        </label>
+                        <div>
+                            <div>
+                                1)
+                                <FetchSelect
+                                    showSearch
+                                    value={findReadAlsoPostPrimary}
+                                    placeholder="Поиск по заголовку поста"
+                                    fetchOptions={category === 'community' ?fetchReadAlsoCreatorPost:fetchReadAlsoPost}
+                                    onChange={(newValue) => {
+                                        setFindReadAlsoPostPrimary(newValue);
+                                    }}
+                                    style={{
+                                        width: '300px',
+                                    }}
+                                />
+                            </div>
+                            <div>
+                                2)
+                                <FetchSelect
+                                    showSearch
+                                    value={findReadAlsoPostSecondary}
+                                    placeholder="Поиск по заголовку поста"
+                                    fetchOptions={category === 'community' ?fetchReadAlsoCreatorPost:fetchReadAlsoPost}
+                                    onChange={(newValue) => {
+                                        setFindReadAlsoPostSecondary(newValue);
+                                    }}
+                                    style={{
+                                        width: '300px',
+                                    }}
+                                />
+                            </div>
+
                         </div>
                     </div>
                     <br/>
