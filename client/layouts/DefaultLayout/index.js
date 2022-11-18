@@ -22,13 +22,10 @@ export default function DefaultLayout({children, bannerState = true}) {
     const size = useWindowSize()
     const { ref: refSpan, inView: inViewSpan } = useInView({
         threshold: 1,
-        rootMargin: '25px 1000px 200px 1000px'
+        initialInView: true,
+        rootMargin: '25px 1000px 500px 1000px'
     });
-
-    const { ref, inView } = useInView({
-        threshold: 0.1,
-        rootMargin: '2000px 1000px 0px 1000px'
-    });
+    console.log(inViewSpan)
 
     function setWidth() {
         if (size.width <= 1600) {
@@ -84,7 +81,7 @@ export default function DefaultLayout({children, bannerState = true}) {
     return (
         <>
             <div className="container">
-                <div className={'head' + (noBanner(250, !inViewSpan) ? ' head_hidden' : '')}
+                <div className={'head' + (noBanner(!inViewSpan, !inViewSpan) ? ' head_hidden' : '')}
                      style={{
                          zIndex: burgerStateZIndex
                      }}
@@ -115,9 +112,9 @@ export default function DefaultLayout({children, bannerState = true}) {
                             {children}
                         </div>
                 }
-                <span ref={ref} className="hidden_block"></span>
+                <span className="hidden_block"></span>
             </div>
-            <div style={!inView ? {opacity: 0} : {}}>
+            <div style={inViewSpan ? {opacity: 0} : {}}>
                 <div className="container">
                     <Footer/>
                 </div>

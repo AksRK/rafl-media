@@ -47,6 +47,10 @@ a {
   }
 }
 
+img {
+  clip-path: inset(0.8px);
+}
+
 .hidden_block {
   height: 10px;
   width: 10px;
