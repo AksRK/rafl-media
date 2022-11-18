@@ -116,7 +116,7 @@ export const getOneByTitle = async (req, res) => {
             {
                 returnDocument: 'after',
             },
-            ( err, doc ) => {
+            async ( err, doc ) => {
                 if (err) {
                     console.log(err)
                     return  res.status(500).json({
@@ -130,7 +130,20 @@ export const getOneByTitle = async (req, res) => {
                     })
                 }
 
-                res.json(doc)
+                const post = doc._doc
+
+                const {readAlso} = post
+                const readAlsoResult = []
+                for (let readAlsoId of readAlso) {
+                    try {
+                        const {creator,title, titleUrl, description, imageUrl, likes} = await CreatorPostModel.findById(readAlsoId)
+                        readAlsoResult.push({creator, title, titleUrl, description, imageUrl, likes})
+                    }catch (err) {
+                        console.log(err)
+                    }
+                }
+
+                res.json({readAlsoList:readAlsoResult,  ...post})
             }
         )
 

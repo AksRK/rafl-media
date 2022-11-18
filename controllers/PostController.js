@@ -160,20 +160,32 @@ export const getOneByTitle = async (req, res) => {
 
                 const post = doc._doc
 
-                const alsoPosts = await PostModel.find(
+                const seeMorePosts = await PostModel.find(
                     {
                         category: doc.category,
                         createdAt : {$lte: doc.createdAt }
                     }).sort({createdAt:-1})
-                const alsoPostsFiltered = alsoPosts.slice(0, 4)
-                const resultALsoPost = []
+                const seeMorePostsFiltered = seeMorePosts.slice(0, 4)
+                const resultSeeMorePosts = []
 
-                for (let post of alsoPostsFiltered) {
+                for (let post of seeMorePostsFiltered) {
                     const {title, titleUrl, _id} = post
-                    resultALsoPost.push({_id, title,titleUrl})
+                    resultSeeMorePosts.push({_id, title,titleUrl})
                 }
 
-                res.json({postsAlso : resultALsoPost, ...post})
+                const {readAlso} = post
+                const readAlsoResult = []
+                for (let readAlsoId of readAlso) {
+                    try {
+                        const {title, titleUrl, description, imageUrl, likes} = await PostModel.findById(readAlsoId)
+                        readAlsoResult.push({title, titleUrl, description, imageUrl, likes})
+                    }catch (err) {
+                        console.log(err)
+                    }
+                }
+
+
+                res.json({postsAlso : resultSeeMorePosts, readAlsoList:readAlsoResult,  ...post})
             }
         )
 
