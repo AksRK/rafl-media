@@ -12,8 +12,11 @@ import {formatRuDate} from "../../core/utils";
 import {NextSeo} from "next-seo";
 import {useEffect, useRef, useState} from "react";
 import { useInView } from 'react-intersection-observer';
+import axios from "axios";
+import logo from "../../components/UI/Logo";
 
 export default function FullPost({post}) {
+    const [readAlso, setReadAlso] = useState([])
     const size = useWindowSize()
     const mobile = 479;
     const { ref, inView, entry } = useInView({
@@ -22,6 +25,9 @@ export default function FullPost({post}) {
         rootMargin: '2000px 0px -18px 0px'
     });
 
+    useEffect(() => {
+        console.log(post.readAlsoList)
+    }, [])
 
     return (
         <>
@@ -81,81 +87,52 @@ export default function FullPost({post}) {
 
                     </div>
 
-                    <div className={styles.readAlso}>
-                        <h4 className={styles.readAlso__title}>
-                            Читайте также:
-                        </h4>
+                    {
+                        post.readAlsoList?.length >= 1
+                            ?<div className={styles.readAlso}>
 
-                        <Link href={'/'} className={styles.readAlsoCard}>
-                            <div className={styles.readAlsoCard__el}>
-                                <div>
-                                    <h5 className={styles.readAlsoCard__title}>
-                                        {
-                                            mobile >= size.width ?
-                                                <ShrinkText
-                                                    maxChar={24}
-                                                    text={'Владимир Раевский: любить урал'}
-                                                /> :
-                                                ' Владимир Раевский: любить урал'
-                                        }
-                                    </h5>
-                                    <p className={styles.readAlsoCard__description}>
-                                        {
-                                            mobile >= size.width ?
-                                                <ShrinkText
-                                                    maxChar={50}
-                                                    text={'«Футбол — уникальный вид человеческой деятельности» журналист Владимир Раевский о любви к «Уралу»'}
-                                                /> :
-                                                '«Футбол — уникальный вид человеческой деятельности» журналист Владимир Раевский о любви к «Уралу»'
-                                        }
-                                    </p>
-                                </div>
-                                <div className={styles.readAlsoCard__likes}>
-                                    <Image src={hand} alt={'hand'}/>
-                                    <span>185</span>
-                                </div>
+                                <h4 className={styles.readAlso__title}>
+                                    Читайте также:
+                                </h4>
+                                {
+                                    post.readAlsoList?.map((post) => {
+                                        return (
+                                            <Link key={post._id} href={`/posts/${post.titleUrl}`} className={styles.readAlsoCard}>
+                                                <div className={styles.readAlsoCard__el}>
+                                                    <div>
+                                                        <h5 className={styles.readAlsoCard__title}>
+                                                            {
+                                                                mobile >= size.width
+                                                                    ?<ShrinkText
+                                                                        maxChar={24}
+                                                                        text={post.title}
+                                                                    />
+                                                                    :post.title
+                                                            }
+                                                        </h5>
+                                                        <p className={styles.readAlsoCard__description}>
+                                                            <ShrinkText
+                                                                maxChar={mobile >= size.width ?50:100}
+                                                                text={post.description}/>
+                                                        </p>
+                                                    </div>
+                                                    <div className={styles.readAlsoCard__likes}>
+                                                        <Image src={hand} alt={'hand'}/>
+                                                        <span>{post.likes}</span>
+                                                    </div>
+                                                </div>
+                                                <div className={styles.readAlsoCard__img}>
+                                                    <img src={post.imageUrl.fullUrl} alt={post.title}/>
+                                                </div>
+                                            </Link>
+                                        )
+                                    })
+                                }
                             </div>
-                            <div className={styles.readAlsoCard__img}>
-                                <Image src={tstImg} alt="123"/>
-                            </div>
-                        </Link>
-                        <Link href={'/'} className={styles.readAlsoCard}>
-                            <div className={styles.readAlsoCard__el}>
-                                <div>
-                                    <h5 className={styles.readAlsoCard__title}>
-                                        {
-                                            mobile >= size.width ?
-                                                <ShrinkText
-                                                    maxChar={24}
-                                                    text={'Владимир Раевский: любить урал'}
-                                                /> :
-                                                ' Владимир Раевский: любить урал'
-                                        }
-                                    </h5>
-                                    <p className={styles.readAlsoCard__description}>
-                                        {
-                                            mobile >= size.width ?
-                                                <ShrinkText
-                                                    maxChar={50}
-                                                    text={'«Футбол — уникальный вид человеческой деятельности» журналист Владимир Раевский о любви к «Уралу»'}
-                                                /> :
-                                                '«Футбол — уникальный вид человеческой деятельности» журналист Владимир Раевский о любви к «Уралу»'
-                                        }
-                                    </p>
-                                </div>
-                                <div className={styles.readAlsoCard__likes}>
-                                    <Image src={hand} alt={'hand'}/>
-                                    <span>185</span>
-                                </div>
-                            </div>
-                            <div className={styles.readAlsoCard__img}>
-                                <Image
-                                    src={tstImg}
-                                    alt="123"/>
-                            </div>
-                        </Link>
+                            :''
+                    }
 
-                    </div>
+
                 </div>
             </section>
         </>
@@ -167,6 +144,6 @@ export async function getServerSideProps(context) {
     const post = await fetch(`http://localhost:3000/api/posts/title/${context.params.title}`).then(r => r.json())
 
     return {
-        props: {post: post}, // will be passed to the page component as props
+        props: {post: post}
     }
 }
