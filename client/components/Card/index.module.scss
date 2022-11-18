@@ -40,6 +40,7 @@
       transition: transform 0.2s ease-in-out;
       object-fit: cover;
       width: 100%;
+      transform: scale(1.01);
     }
 
     &_creator {
@@ -189,7 +190,7 @@
         padding-top: 5px;
         margin: 0;
         height: 100%;
-        max-width: 218px;
+        max-width: 240px;
         gap: 5px 0;
         flex-shrink: 0;
         flex-direction: column;
