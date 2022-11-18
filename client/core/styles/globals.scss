@@ -37,11 +37,22 @@ a {
   max-width: 1633px;
   z-index: 2;
   overflow: hidden;
+  opacity: 1;
   animation: 0.3s head-visible ease-in-out both;
 
   &_hidden {
-    animation: 0.3s head-hidden ease-in-out both;
+    height: 0;
+    opacity: 0;
+    //animation: 0.3s head-hidden ease-in-out both;
   }
+}
+
+.hidden_block {
+  height: 10px;
+  width: 10px;
+  position: relative;
+  z-index: 1000;
+  display: block;
 }
 
 @keyframes head-hidden {

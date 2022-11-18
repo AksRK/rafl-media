@@ -6,6 +6,22 @@
   }
 }
 
+.swiper-slide {
+  -webkit-transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+
+
+.swiper-slide{
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translate3d(0,0,0);
+}
+
+.swiper-wrapper{
+  -webkit-transform-style: preserve-3d;
+}
+
 .swiper-button-next {
   width: 36px;
   height: 20px;

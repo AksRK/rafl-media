@@ -21,7 +21,7 @@
 
   &:hover {
     background: #FFFFFF;
-    border: 1px solid #ECECEC;
+    //border: 1px solid #ECECEC;
   }
 
   &__img {
@@ -40,7 +40,7 @@
       transition: transform 0.2s ease-in-out;
       object-fit: cover;
       width: 100%;
-      transform: scale(1.01);
+      height: 100%;
     }
 
     &_creator {

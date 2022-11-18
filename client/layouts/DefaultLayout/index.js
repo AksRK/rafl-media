@@ -5,6 +5,7 @@ import Header from "../../components/Header";
 import CarouselBanner from "../../components/CarouselBanner";
 import Footer from "../../components/Footer";
 import useWindowSize from "../../core/hooks/useWindowSize";
+import {useInView} from "react-intersection-observer";
 
 export const publicRoutes = [
     {link: '/', name: 'Медиа'},
@@ -19,13 +20,17 @@ export default function DefaultLayout({children, bannerState = true}) {
     const [burgerStateZIndex, setBurgerStateZIndex] = useState(burgerState ? '4' : '2')
     const {scrollY} = useScroll()
     const size = useWindowSize()
+    const { ref: refSpan, inView: inViewSpan } = useInView({
+        threshold: 1,
+        rootMargin: '0px 1000px 200px 1000px'
+    });
 
+    const { ref, inView } = useInView({
+        threshold: 0.1,
+        rootMargin: '2000px 1000px 0px 1000px'
+    });
 
     function setWidth() {
-        // if (96 + (scrollY / 100) > 100) {
-        //     return 100
-        // }
-
         if (size.width <= 1600) {
             return 96 + (scrollY / 200)
         }
@@ -79,7 +84,7 @@ export default function DefaultLayout({children, bannerState = true}) {
     return (
         <>
             <div className="container">
-                <div className={'head' + (scrollY >= noBanner(50, 700) ? ' head_hidden' : '')}
+                <div className={'head' + (noBanner(250, !inViewSpan) ? ' head_hidden' : '')}
                      style={{
                          zIndex: burgerStateZIndex
                      }}
@@ -89,7 +94,7 @@ export default function DefaultLayout({children, bannerState = true}) {
                 </div>
                 {
                     noBanner(null,
-                        <div className={'head' + (scrollY >= 700 ? ' head_hidden' : '')} style={{
+                        <div className={'head' + (scrollY >= 591 ? ' head_hidden' : '')} style={{
                             top: '142px'
                         }}>
                             <CarouselBanner/>
@@ -99,6 +104,7 @@ export default function DefaultLayout({children, bannerState = true}) {
                 }
             </div>
             <div className={'body' + (noBanner('', ' body_with_banner'))}>
+                <span ref={refSpan} className="hidden_block"></span>
                 {
                     router.asPath.includes('posts')
                         ? <div className={'container'}>{children}</div>
@@ -109,9 +115,9 @@ export default function DefaultLayout({children, bannerState = true}) {
                             {children}
                         </div>
                 }
-
+                <span ref={ref} className="hidden_block"></span>
             </div>
-            <div style={scrollY <= noBanner(50, 700) ? {opacity: 0} : {}}>
+            <div style={!inView ? {opacity: 0} : {}}>
                 <div className="container">
                     <Footer/>
                 </div>

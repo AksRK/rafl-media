@@ -19,7 +19,7 @@ export default function FullPost({post}) {
     const { ref, inView, entry } = useInView({
         /* Optional options */
         threshold: 1,
-        rootMargin: '1500px 0px -21px 0px'
+        rootMargin: '2000px 0px -18px 0px'
     });
 
 
