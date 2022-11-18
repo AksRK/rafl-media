@@ -224,9 +224,9 @@ export const create = async (req, res) => {
         res.json(creator)
     }catch (err) {
         console.log(err)
-        res.status(500).json({
-            message: 'Не удалось добавить креатора',
-        })
+        res.status(500).json([{
+            message: 'Не удалось добавить креатора, проверьте логин на уникальность',
+        }])
     }
 }
 
@@ -255,15 +255,15 @@ export const update = async (req, res) => {
             ( err, doc ) => {
                 if (err) {
                     console.log(err)
-                    return  res.status(500).json({
+                    return  res.status(500).json([{
                         message: 'Ошибка обновления данных',
-                    })
+                    }])
                 }
 
                 if (!doc) {
-                    return res.status(404).json({
+                    return res.status(404).json([{
                         message: 'Креатор не найден'
-                    })
+                    }])
                 }
 
                 res.json(doc)
@@ -272,8 +272,8 @@ export const update = async (req, res) => {
 
     }catch (err) {
         console.log(err)
-        res.status(500).json({
+        res.status(500).json([{
             message: 'Не удалось обновить данные креатора',
-        })
+        }])
     }
 }

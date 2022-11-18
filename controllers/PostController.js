@@ -197,6 +197,25 @@ export const getOneByTitle = async (req, res) => {
     }
 }
 
+export const getAllByTitle = async (req, res) => {
+    try {
+        const {findParams} = req.params
+        const postTitle = await PostModel.find({title: {'$regex': findParams, '$options': 'i'}})
+        const result = {...postTitle}
+        if (Object.keys(result).length == 0) {
+            return res.status(404).json({
+                message: 'Ничего не найдено'
+            })
+        }
+        res.json([...postTitle])
+    }catch (err) {
+        console.log(err)
+        res.status(500).json({
+            message: 'Не удалось получить статьи',
+        })
+    }
+};
+
 export const remove = async (req, res) => {
     try {
         const postId = req.params.id
@@ -270,9 +289,9 @@ export const create = async (req, res) => {
         res.json(post)
     }catch (err) {
         console.log(err)
-        res.status(400).json({
-            message: 'Не удалось создать статью',
-        })
+        res.status(400).json([{
+            message: 'Не удалось создать статью,  проверьте заголовок на уникальность',
+        }])
     }
 }
 
@@ -300,9 +319,9 @@ export const update = async (req, res) => {
         })
     } catch (err) {
         console.log(err)
-        res.status(500).json({
-            message: 'Не удалось обновить статью'
-        })
+        res.status(500).json([{
+            message: 'Не удалось обновить статью, проверьте заголовок на уникальность'
+        }])
     }
 }
 
