@@ -88,6 +88,10 @@
     font-size: 24px;
     line-height: 33px;
     white-space: pre-wrap;
+
+    @media (max-width: 480px) {
+      max-height: 77px;
+    }
     &_creator {
 
     }

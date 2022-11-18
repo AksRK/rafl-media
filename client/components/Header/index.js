@@ -39,7 +39,7 @@ function Header({routes, burgerState, setBurgerState, setBurgerStateZIndex = () 
                                     setBurgerStateZIndex('2')
                                 }, 200)
                             } else {
-                                setBurgerStateZIndex('4')
+                                setBurgerStateZIndex('5')
                                 setBurgerState(true)
                             }
                         }}

@@ -30,6 +30,11 @@ a {
   //transition: width 0.1s ease-in-out;
 }
 
+.index-6 {
+  position: relative;
+  z-index: 3;
+}
+
 .head {
   position: fixed;
   top: 0;
@@ -60,8 +65,9 @@ nav::-webkit-scrollbar {
 }
 
 .hidden_block {
+  background: red;
   height: 10px;
-  width: 10px;
+  width: 100%;
   position: relative;
   z-index: 1000;
   display: block;
@@ -95,7 +101,7 @@ nav::-webkit-scrollbar {
 
 .body {
   position: relative;
-  z-index: 2;
+  z-index: 4;
   margin-top: 150px;
   margin-bottom: 400px;
   overflow: hidden;

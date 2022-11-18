@@ -23,12 +23,12 @@ export default function DefaultLayout({children, bannerState = true}) {
     const { ref: refSpan, inView: inViewSpan } = useInView({
         threshold: 1,
         initialInView: true,
-        rootMargin: '555px 1000px 500px 1000px'
+        rootMargin: '185px 1000px 500px 1000px'
     });
 
     const { ref, inView } = useInView({
         threshold: 1,
-        rootMargin: '1055px 1000px 50px 1000px'
+        rootMargin: '1055px 1000px 200px 1000px'
     });
 
 
@@ -106,7 +106,6 @@ export default function DefaultLayout({children, bannerState = true}) {
                 }
             </div>
             <div className={'body' + (noBanner('', ' body_with_banner'))}>
-                <span ref={refSpan} className="hidden_block"></span>
                 {
                     router.asPath.includes('posts')
                         ? <div className={'container'}>{children}</div>
@@ -114,12 +113,13 @@ export default function DefaultLayout({children, bannerState = true}) {
                             width: `${setWidth()}%`,
                             maxWidth: '100vw'
                         })}>
+                            <span ref={refSpan} className="hidden_block"></span>
                             {children}
+                            <span ref={ref} className="hidden_block"></span>
                         </div>
                 }
-                <span ref={ref} className="hidden_block"></span>
             </div>
-            <div className={(!inViewSpan || inView ? '' : 'head_hidden')}>
+            <div className={(!inViewSpan || inView ? 'index-6' : 'head_hidden')}>
             {/*<div style={{opacity: !inViewSpan || inView ? 1 : 0}}>*/}
                 <div className="container">
                     <Footer/>
