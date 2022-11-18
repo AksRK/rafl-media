@@ -42,7 +42,7 @@
     z-index: -1;
   }
 
-  &::before {
+  &__carouselBlur {
     content: '';
     position: absolute;
     width: 100%;
@@ -53,17 +53,20 @@
 
   &__textWrp {
     position: relative;
+    z-index: 1000;
+    z-index: 1000;
     max-width: 568px;
     font-family: 'Source Serif Pro';
     font-size: 18px;
     line-height: 28px;
     color: #FFFFFF;
-    z-index: 2;
     margin: 24px 15px;
     cursor: pointer;
   }
 
   &__title {
+    position: relative;
+    z-index: 1000;
     font-size: 18px;
     font-weight: 700;
     margin: 0;

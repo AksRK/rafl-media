@@ -44,10 +44,14 @@ export default function CarouselBanner() {
                             <Image src={b.imageUrl.fullUrl} alt={b.title} width={533} height={500} priority={true}/>
                             <div className={styles.card__textWrp}>
                                 <h3 className={styles.card__title}>{b.title}</h3>
-                                <span>
-                                <ShrinkText text={b.description} maxChar={95}/>
-                            </span>
+                                <span style={{
+                                    position: "relative",
+                                    zIndex: '1000'
+                                }}>
+                                    <ShrinkText text={b.description} maxChar={95}/>
+                                </span>
                             </div>
+                            <div className={styles.card__carouselBlur}/>
                         </Link>
                     </SwiperSlide>)
                 }

@@ -22,7 +22,7 @@ export default function DefaultLayout({children, bannerState = true}) {
     const size = useWindowSize()
     const { ref: refSpan, inView: inViewSpan } = useInView({
         threshold: 1,
-        rootMargin: '0px 1000px 200px 1000px'
+        rootMargin: '25px 1000px 200px 1000px'
     });
 
     const { ref, inView } = useInView({

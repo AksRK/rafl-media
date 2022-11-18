@@ -38,7 +38,7 @@ a {
   z-index: 2;
   overflow: hidden;
   opacity: 1;
-  animation: 0.3s head-visible ease-in-out both;
+  height: 100%;
 
   &_hidden {
     height: 0;
