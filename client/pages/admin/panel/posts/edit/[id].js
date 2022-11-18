@@ -65,7 +65,7 @@ function EditPost({id, post}) {
         }).catch((error) => {
             if (error.response) {
                 error.response.data?.map((er) => {
-                    alert(er.msg, 'error')
+                    alert(er.msg || er.message, 'error')
                 })
             }
         })
