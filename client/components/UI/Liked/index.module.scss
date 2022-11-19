@@ -1,7 +1,7 @@
 .like {
   position: relative;
   overflow: hidden;
-  width: 121px;
+  min-width: 121px;
   height: 44px;
   background: #ffffff;
   border: none;
@@ -14,17 +14,24 @@
   cursor: pointer;
   display: flex;
   padding-left: 20px;
+  padding-right: 20px;
   justify-content: flex-start;
   align-items: center;
   gap: 0 12px;
   transition: transform 0.1s ease-in-out;
+
+  &_plus_count {
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    transform:translate(-50%, -50%);
+  }
 
   &_fix {
     position: fixed;
     bottom: 48px;
     z-index: 1;
     left: 814px;
-    //transition: all 0.3s ease-in-out;
   }
 
   @media (max-width: 1043px) {

@@ -52,7 +52,11 @@ function Liked({likes, postId, typePost = 'default', likeFix = true}) {
 
     return (
         <button disabled={btnDisable} onClick={like} className={likeFix ? styles.like : styles.like + ' ' + styles.like_fix}>
-            <span></span> <span className={styles.like__count}>{(plusView && !firstView) ? '+' + likeCount : likesTotal}</span>
+            {/*<span></span> <span className={styles.like__count}>{(plusView && !firstView) ? '+' + likeCount : likesTotal}</span>*/}
+            <span></span> <span className={styles.like__count} style={(plusView && !firstView)?{opacity:0}:{}}>{likesTotal}</span>
+            {
+                (plusView && !firstView)?<span className={styles.like_plus_count}>+ {likeCount}</span>:''
+            }
             {
                 btnDisable?<div className={styles.like__boxThx}>
                     <div className={styles.like__thxText}>
