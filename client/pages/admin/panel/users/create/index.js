@@ -46,15 +46,6 @@ function NewUser() {
         })
     }
 
-    const changePasswordView = () => {
-        const input = document.querySelector('#password')
-        if (passwordState) {
-            input.type = 'text'
-        }else {
-            input.type = 'password'
-        }
-    }
-
     return (
         <AdminPanelLayout>
             <ToastContainer/>
@@ -102,7 +93,7 @@ function NewUser() {
                                 <input
                                     className={styles.newPostForm__input}
                                     ref={inputPasswordRef}
-                                    type={'password'}
+                                    type={passwordState?'text':'password'}
                                     placeholder={'Пароль'}
                                     name={'password'}
                                     id={'password'}
@@ -112,7 +103,6 @@ function NewUser() {
                                 <div className={'btn'} style={{padding:'10px 15px'}}
                                      onClick={()=> {
                                          setPasswordState(!passwordState)
-                                         changePasswordView()
                                      }}>
                                     {
                                         passwordState?'Скрыть пароль':'Сделать пароль видимым'
