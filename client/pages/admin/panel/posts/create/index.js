@@ -210,8 +210,7 @@ function NewPost() {
                                     placeholder={'Заголовок статьи'}
                                     name={'title'}
                                     id={'title'}
-                                    {...register("title",
-                                        {required: true, minLength: 5, maxLength: 80})}
+                                    {...register("title")}
                                     style={errors.title ? {borderColor: 'red', background: '#ffc8c8'} : {}}
                                 />
                             </div>
@@ -225,8 +224,7 @@ function NewPost() {
                                     placeholder={'Описание статьи'}
                                     name={'description'}
                                     id={'description'}
-                                    {...register("description",
-                                        {required: true, minLength: 5, maxLength: 200})}
+                                    {...register("description")}
                                     style={errors.description ? {borderColor: 'red', background: '#ffc8c8', minHeight: '323px'} : {minHeight: '323px'}}
                                 />
                             </div>

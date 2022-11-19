@@ -194,8 +194,7 @@ function EditPost({id, post, type = ''}) {
                                     placeholder={'Заголовок статьи'}
                                     name={'title'}
                                     id={'title'}
-                                    {...register("title",
-                                        {required: true, minLength: 5, maxLength: 80})}
+                                    {...register("title")}
                                 />
                             </div>
                             <div className={styles.newPostForm__controller}>
@@ -209,8 +208,7 @@ function EditPost({id, post, type = ''}) {
                                     placeholder={'Описание статьи'}
                                     name={'description'}
                                     id={'description'}
-                                    {...register("description",
-                                        {required: true, minLength: 5, maxLength: 200})}
+                                    {...register("description")}
                                 />
                             </div>
                             <div className={styles.newPostForm__counter}>

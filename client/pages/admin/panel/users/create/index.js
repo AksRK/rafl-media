@@ -76,8 +76,7 @@ function NewUser() {
                                     placeholder={'Имя пользователя'}
                                     name={'fullName'}
                                     id={'fullName'}
-                                    {...register("fullName",
-                                        {required: true, minLength: 5, maxLength: 80})}
+                                    {...register("fullName")}
                                     style={errors.title ? {borderColor: 'red', background: '#ffc8c8'} : {}}
                                 />
                             </div>
@@ -91,8 +90,7 @@ function NewUser() {
                                     placeholder={'Почта'}
                                     name={'email'}
                                     id={'email'}
-                                    {...register("email",
-                                        {required: true, minLength: 5, maxLength: 200})}
+                                    {...register("email")}
                                     style={errors.description ? {borderColor: 'red', background: '#ffc8c8'} : {}}
                                 />
                             </div>
@@ -108,8 +106,7 @@ function NewUser() {
                                     placeholder={'Пароль'}
                                     name={'password'}
                                     id={'password'}
-                                    {...register("password",
-                                        {required: true, minLength: 5, maxLength: 200})}
+                                    {...register("password")}
                                     style={errors.description ? {borderColor: 'red', background: '#ffc8c8'} : {}}
                                 />
                                 <div className={'btn'} style={{padding:'10px 15px'}}

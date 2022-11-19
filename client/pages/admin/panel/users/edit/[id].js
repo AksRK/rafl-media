@@ -63,8 +63,7 @@ function EditUser({id, user}) {
                                     placeholder={'Имя пользователя'}
                                     name={'fullName'}
                                     id={'fullName'}
-                                    {...register("fullName",
-                                        {required: true, minLength: 5, maxLength: 80})}
+                                    {...register("fullName")}
                                     style={errors.title ? {borderColor: 'red', background: '#ffc8c8'} : {}}
                                 />
                             </div>
@@ -78,8 +77,7 @@ function EditUser({id, user}) {
                                     placeholder={'Почта'}
                                     name={'email'}
                                     id={'email'}
-                                    {...register("email",
-                                        {required: true, minLength: 5, maxLength: 200})}
+                                    {...register("email")}
                                     style={errors.description ? {borderColor: 'red', background: '#ffc8c8'} : {}}
                                 />
                             </div>

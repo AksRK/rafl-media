@@ -157,8 +157,7 @@ function EditCreator({id, creator}) {
                                        name={'fullName'}
                                        id={'fullName'}
                                        placeholder={'ФИО'}
-                                       {...register("fullName",
-                                           {required: true, minLength: 5, maxLength: 80})}
+                                       {...register("fullName")}
                                        className={styles.newPostForm__input}
                                        style={errors.fullName ? {borderColor: 'red', background: '#ffc8c8'} : {}}
                                 />
@@ -173,8 +172,7 @@ function EditCreator({id, creator}) {
                                        name={'about'}
                                        id={'about'}
                                        placeholder={'Коротко о креаторе'}
-                                       {...register("about",
-                                           {required: true, minLength: 5, maxLength: 100})}
+                                       {...register("about")}
                                        className={styles.newPostForm__input}
                                        style={errors.about ? {borderColor: 'red', background: '#ffc8c8'} : {}}
                                 />
@@ -187,8 +185,7 @@ function EditCreator({id, creator}) {
                                 <input type="text"
                                        name={'kindActivity'}
                                        id={'kindActivity'}
-                                       {...register("kindActivity",
-                                           {required: true, minLength: 5, maxLength: 100})}
+                                       {...register("kindActivity")}
                                        className={styles.newPostForm__input}
                                        style={errors.kindActivity ? {borderColor: 'red', background: '#ffc8c8'} : {}}
                                 />
@@ -201,8 +198,7 @@ function EditCreator({id, creator}) {
                                 <input type="text"
                                        name={'viewsCount'}
                                        id={'viewsCount'}
-                                       {...register("viewsCount",
-                                           {required: true, valueAsNumber: true})}
+                                       {...register("viewsCount")}
                                        className={styles.newPostForm__input}
                                        style={errors.viewsCount ? {borderColor: 'red', background: '#ffc8c8'} : {}}
                                 />
@@ -220,8 +216,7 @@ function EditCreator({id, creator}) {
                             style={{minHeight: '103px'}}
                             name={'description'}
                             id={'description'}
-                            {...register("description",
-                                {required: true, minLength: 5, maxLength: 200})}
+                            {...register("description")}
                         />
                     </div>
                     <div className={styles.newPostForm__controller}>
