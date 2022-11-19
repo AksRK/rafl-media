@@ -33,7 +33,7 @@ export default function FullPost({post}) {
                 openGraph={{
                     title: `Rafl - ${post.title}`,
                     description: post.description,
-                    image: post?.imageUrl?.fullUrl
+                    images: [post?.imageUrl?.fullUrl]
                 }}
             />
             <section className={styles.fullPost}>

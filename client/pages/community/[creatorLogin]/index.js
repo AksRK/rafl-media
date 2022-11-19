@@ -38,7 +38,7 @@ export default function CreatorPage({posts, creator, next}) {
                 openGraph={{
                     title: `Rafl - Комьюнити ${creator.fullName}`,
                     description: creator.description,
-                    image: creator?.imageUrl?.fullUrl
+                    images: [creator?.imageUrl?.fullUrl]
                 }}
             />
             <div className={styles.creatorPage}>
