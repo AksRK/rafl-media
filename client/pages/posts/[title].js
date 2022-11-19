@@ -11,6 +11,7 @@ import {formatRuDate} from "../../core/utils";
 import {NextSeo} from "next-seo";
 import {useEffect, useState} from "react";
 import {useInView} from 'react-intersection-observer';
+import {useRouter} from "next/router";
 
 export default function FullPost({post}) {
     const [readAlso, setReadAlso] = useState([])
@@ -33,7 +34,12 @@ export default function FullPost({post}) {
                 openGraph={{
                     title: `Rafl - ${post.title}`,
                     description: post.description,
-                    images: [post?.imageUrl?.fullUrl]
+                    images: [{
+                        url: `/api${post?.imageUrl?.url}`,
+                        width: 300,
+                        height: 300,
+                        alt: `Rafl - ${post.title}`,
+                    }]
                 }}
             />
             <section className={styles.fullPost}>
