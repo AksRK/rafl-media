@@ -6,6 +6,8 @@ import axios from "axios";
 import AdminPanelLayout from "../../../../layouts/AdminPanelLayout";
 import {alert, formatRuDate} from "../../../../core/utils";
 import {ToastContainer} from "react-toastify";
+import {confirmAlert} from "react-confirm-alert";
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 
 function AdminPanel() {
@@ -48,6 +50,32 @@ function AdminPanel() {
         });
     };
 
+    const deleteCreator = (idCreator) => {
+        confirmAlert({
+            title: 'Подтвердить удаление',
+            message: 'Вы действительно хотите удалить креатора?',
+            buttons: [
+                {
+                    label: 'Да',
+                    onClick: () => {
+                        axios.delete(`/api/creator/${idCreator}`, {
+                            headers: {
+                                "Authorization": `Bearer ${localStorage.getItem('token')}`
+                            }
+                        }).then(r => {
+                            setDataSource(dataSource.filter((item) => item._id !== idCreator))
+                            alert('Креатор удален', 'success')
+                        })
+                    }
+                },
+                {
+                    label: 'Нет',
+                    onClick: () => alert('Вы отменили удаление', 'info')
+                }
+            ]
+        });
+    };
+
     const renderItems = (id) => {
         return [
             {
@@ -62,15 +90,7 @@ function AdminPanel() {
                 key: '2',
                 danger: true,
                 onClick: () => {
-                    axios.delete(`/api/creator/${id}`, {
-                        headers: {
-                            "Authorization": `Bearer ${localStorage.getItem('token')}`
-                        }
-                        // TODO сделать алерт
-                    }).then(r => {
-                        setDataSource(dataSource.filter((item) => item._id !== id))
-                        alert('Креатор удален', 'success')
-                    })
+                    deleteCreator(id)
                 },
                 label: 'Удалить креатора',
             },

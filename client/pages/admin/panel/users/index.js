@@ -6,6 +6,8 @@ import axios from "axios";
 import AdminPanelLayout from "../../../../layouts/AdminPanelLayout";
 import {alert, formatRuDate} from "../../../../core/utils";
 import {ToastContainer} from "react-toastify";
+import {confirmAlert} from "react-confirm-alert";
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 
 function Users() {
@@ -53,6 +55,32 @@ function Users() {
         });
     };
 
+    const deleteUser = (idUser) => {
+        confirmAlert({
+            title: 'Подтвердить удаление',
+            message: 'Вы действительно хотите удалить пользователя?',
+            buttons: [
+                {
+                    label: 'Да',
+                    onClick: () => {
+                        axios.delete(`/api/admin/users/${idUser}`, {
+                            headers: {
+                                "Authorization": `Bearer ${localStorage.getItem('token')}`
+                            }
+                        }).then(r => {
+                            setDataSource(dataSource.filter((item) => item._id !== idUser))
+                            alert('Пользователь удален', 'success')
+                        })
+                    }
+                },
+                {
+                    label: 'Нет',
+                    onClick: () => alert('Вы отменили удаление', 'info')
+                }
+            ]
+        });
+    };
+
     const renderItems = (id) => {
         return [
             {
@@ -67,14 +95,7 @@ function Users() {
                 key: '2',
                 danger: true,
                 onClick: () => {
-                    axios.delete(`/api/admin/users/${id}`, {
-                        headers: {
-                            "Authorization": `Bearer ${localStorage.getItem('token')}`
-                        }
-                    }).then(r => {
-                        setDataSource(dataSource.filter((item) => item._id !== id))
-                        alert('Пользователь удален', 'success')
-                    })
+                    deleteUser(id)
                 },
                 label: 'Удалить пользователя',
             },

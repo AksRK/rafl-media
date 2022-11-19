@@ -6,7 +6,8 @@ import axios from "axios";
 import AdminPanelLayout from "../../../../layouts/AdminPanelLayout";
 import {alert, formatRuDate} from "../../../../core/utils";
 import {ToastContainer} from "react-toastify";
-
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 function AdminPanel() {
     const [dataSource, setDataSource] = useState([])
@@ -21,6 +22,32 @@ function AdminPanel() {
             pageSize: 8,
         },
     });
+
+    const deletePost = (idPost) => {
+        confirmAlert({
+            title: 'Подтвердить удаление',
+            message: 'Вы действительно хотите удалить пост?',
+            buttons: [
+                {
+                    label: 'Да',
+                    onClick: () => {
+                        axios.delete(category === 'media'?`/api/posts/${idPost}`:`/api/creator/posts/${idPost}`, {
+                            headers: {
+                                "Authorization": `Bearer ${localStorage.getItem('token')}`
+                            }
+                        }).then(r => {
+                            setDataSource(dataSource.filter((item) => item._id !== idPost))
+                            alert('Статья удалена', 'success')
+                        })
+                    }
+                },
+                {
+                    label: 'Нет',
+                    onClick: () => alert('Вы отменили удаление', 'info')
+                }
+            ]
+        });
+    };
 
     useEffect(() => {
         setLoading(true)
@@ -66,16 +93,7 @@ function AdminPanel() {
             {
                 key: '2',
                 danger: true,
-                onClick: () => {
-                    axios.delete(category === 'media'?`/api/posts/${id}`:`/api/creator/posts/${id}`, {
-                        headers: {
-                            "Authorization": `Bearer ${localStorage.getItem('token')}`
-                        }
-                    }).then(r => {
-                        setDataSource(dataSource.filter((item) => item._id !== id))
-                        alert('Статья удалена', 'success')
-                    })
-                },
+                onClick: () => {deletePost(id)},
                 label: 'Удалить статью',
             },
         ]
