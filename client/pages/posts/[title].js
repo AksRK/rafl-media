@@ -1,6 +1,5 @@
 import Link from "next/link";
 import ShrinkText from "../../components/UI/ShrinkText/ShrinkText";
-import tstImg from '../../public/tstImg.jpg'
 import hand from '../../public/hand-black.svg'
 import SeeMore from "../../components/UI/SeeMore";
 import useWindowSize from "../../core/hooks/useWindowSize";
@@ -10,10 +9,8 @@ import Liked from "../../components/UI/Liked";
 import {Category} from "../../core/mock";
 import {formatRuDate} from "../../core/utils";
 import {NextSeo} from "next-seo";
-import {useEffect, useRef, useState} from "react";
-import { useInView } from 'react-intersection-observer';
-import axios from "axios";
-import logo from "../../components/UI/Logo";
+import {useEffect, useState} from "react";
+import {useInView} from 'react-intersection-observer';
 
 export default function FullPost({post}) {
     const [readAlso, setReadAlso] = useState([])
@@ -26,7 +23,6 @@ export default function FullPost({post}) {
     });
 
     useEffect(() => {
-        console.log(post.readAlsoList)
     }, [])
 
     return (
@@ -36,7 +32,8 @@ export default function FullPost({post}) {
                 description={post.description}
                 openGraph={{
                     title: `Rafl - ${post.title}`,
-                    description: post.description
+                    description: post.description,
+                    image: post?.imageUrl?.fullUrl
                 }}
             />
             <section className={styles.fullPost}>
