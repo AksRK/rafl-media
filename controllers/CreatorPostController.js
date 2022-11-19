@@ -90,8 +90,8 @@ export const getOne = async (req, res) => {
 
 export const getOneAdmin = async (req, res) => {
     try {
-        const postId = req.params
-        const post = await CreatorPostModel.findOne(postId)
+        const {id} = req.params
+        const post = await CreatorPostModel.findById(id)
         res.json(post)
     }catch (err) {
         console.log(err)
@@ -264,7 +264,7 @@ export const update = async (req, res) => {
         await CreatorPostModel.updateOne({
             _id: postId,
         }, {
-            creator: req.body.creator,
+            // creator: req.body.creator,
             title: req.body.title,
             titleUrl: req.body.titleUrl,
             description: req.body.description,
@@ -272,6 +272,7 @@ export const update = async (req, res) => {
             content: req.body.content,
             user: req.body.userId,
             likes: req.body.likes,
+            readAlso: req.body.readAlso,
             viewsCount: req.body.viewsCount
         })
 

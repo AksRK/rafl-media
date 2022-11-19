@@ -50,5 +50,16 @@ export const alert = (msg, type) => {
             progress: undefined,
             theme: "colored",
         });
+    }else  if (type === 'info') {
+        toast.info(msg, {
+            position: "bottom-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
     }
 }

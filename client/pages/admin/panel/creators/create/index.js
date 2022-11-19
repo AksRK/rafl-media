@@ -89,18 +89,19 @@ function NewCreator() {
                 }
             }).then((response) => {
             setTitleImage(response.data)
+            alert('Картинка загружена!', 'info')
         }).catch((error) => {
-            console.log(error)
+            alert('Ошибка загрузки, допустимые типы файлов png/jpg/jpeg, максимальный размер 5мб', 'error')
         })
     }
 
     const imgRemove = () => {
         axios.delete('/api' + titleImage.url)
             .then((response) => {
-                // TODO сделать алерт
+                alert('Картинка удалена!', 'info')
             })
             .catch((error) => {
-                console.log(error)
+                alert(error.msg || error.message, 'error')
             })
     }
 

@@ -11,13 +11,17 @@ export const registerValidation = [
     body('fullName', 'Укажите Имя').isLength({ min: 3 }),
 ]
 
+export const userUpdateValidation = [
+    body('email', 'Неверный формат почты').isEmail(),
+    body('fullName', 'Укажите Имя').isLength({ min: 3 }),
+]
+
 export const postCreateValidation = [
     body('category', 'Укажите креатора статьи').isLength({ min: 3}).isString(),
     body('title', 'Введите заголовок статьи').isLength({ min: 3}).isString(),
     body('description', 'Введите описание статьи').isLength({ min: 3}).isString(),
     body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 1}).isObject(),
     body('content', 'Статья не может быть пустой..').isLength({ min: 30 }).isString(),
-    body('readAlso', 'Не указаны рекомендованные статьи').isLength({ min: 1 }).isArray(),
 ]
 
 export const postUpdateValidation = [
@@ -25,7 +29,6 @@ export const postUpdateValidation = [
     body('description', 'Введите описание статьи').isLength({ min: 3}).isString(),
     body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 1}).isObject(),
     body('content', 'Статья не может быть пустой..').isLength({ min: 30 }).isString(),
-    body('readAlso', 'Не указаны рекомендованные статьи').isLength({ min: 1 }).isArray(),
 ]
 
 export const creatorPostCreateValidation = [
@@ -34,7 +37,6 @@ export const creatorPostCreateValidation = [
     body('creator', 'Укажите креатора статьи').isLength({ min: 3}).isString(),
     body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 1}).isObject(),
     body('content', 'Статья не может быть пустой..').isLength({ min: 30 }).isString(),
-    body('readAlso', 'Не указаны рекомендованные статьи').isLength({ min: 1 }).isArray(),
 ]
 
 export const creatorPostUpdateValidation = [
@@ -42,7 +44,6 @@ export const creatorPostUpdateValidation = [
     body('description', 'Введите описание статьи').isLength({ min: 3}).isString(),
     body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 1}).isObject(),
     body('content', 'Статья не может быть пустой..').isLength({ min: 30 }).isString(),
-    body('readAlso', 'Не указаны рекомендованные статьи').isLength({ min: 1 }).isArray(),
 ]
 
 export const creatorCreateValidation = [

@@ -38,8 +38,6 @@ const PostSchema = new mongoose.Schema({
     },
     readAlso : {
         type: Array,
-        length: 2,
-        required: true
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,

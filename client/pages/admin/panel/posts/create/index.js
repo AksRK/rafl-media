@@ -93,18 +93,19 @@ function NewPost() {
                 }
             }).then((response) => {
             setTitleImage(response.data)
+            alert('Картинка загружена!', 'info')
         }).catch((error) => {
-            console.log(error)
+            alert('Ошибка загрузки, допустимые типы файлов png/jpg/jpeg, максимальный размер 5мб', 'error')
         })
     }
 
     const imgRemove = () => {
         axios.delete('/api' + titleImage.url)
             .then((response) => {
-                // TODO сделать алерт
+                alert('Картинка удалена!', 'info')
             })
             .catch((error) => {
-            console.log(error)
+                alert(error.msg || error.message, 'error')
         })
     }
 
@@ -236,9 +237,8 @@ function NewPost() {
                         <label className={styles.newPostForm__label}>
                             Читайте также:
                         </label>
-                        <div>
+                        <div style={{display:'flex', flexWrap:'wrap', gap:'12px', marginTop:'20px'}}>
                             <div>
-                                1)
                                 <FetchSelect
                                     showSearch
                                     value={findReadAlsoPostPrimary}
@@ -253,7 +253,6 @@ function NewPost() {
                                 />
                             </div>
                             <div>
-                                2)
                                 <FetchSelect
                                     showSearch
                                     value={findReadAlsoPostSecondary}

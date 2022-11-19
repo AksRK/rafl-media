@@ -11,7 +11,8 @@ import {
     creatorCreateValidation,
     creatorUpdateValidation,
     creatorPostCreateValidation,
-    creatorPostUpdateValidation} from './validations/validations.js';
+    creatorPostUpdateValidation, userUpdateValidation
+} from './validations/validations.js';
 
 import checkAuth from './utils/checkAuth.js';
 import handleValidationErrors from "./utils/handleValidationErrors.js";
@@ -58,6 +59,11 @@ app.use('/uploads', express.static('uploads'))
 app.get('/', (req, res) => {
     res.send('Hi')
 })
+
+app.get('/admin/users/', checkAuth, UserController.getAll)
+app.get('/admin/users/:id', UserController.getOne)
+app.put('/admin/users/:id', checkAuth, userUpdateValidation,handleValidationErrors, UserController.update)
+app.delete('/admin/users/:id', checkAuth, UserController.remove)
 
 app.post('/auth/login', loginValidation, handleValidationErrors, UserController.login)
 app.post('/auth/register',checkAuth, registerValidation, handleValidationErrors, UserController.register)

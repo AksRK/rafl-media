@@ -10,6 +10,7 @@ function AdminPanelLayout({children}) {
 
     const privateRoutes = [
         // {link: '/admin/panel', name: 'Главная'},
+        {link: '/admin/panel/users', name: 'Пользователи'},
         {link: '/admin/panel/posts', name: 'Статьи'},
         {link: '/admin/panel/creators', name: 'Креаторы'},
         {

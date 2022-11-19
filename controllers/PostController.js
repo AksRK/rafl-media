@@ -111,16 +111,8 @@ export const getOne = async (req, res) => {
 
 export const getOneAdmin = async (req, res) => {
     try {
-        const postId = req.params
-        const post = await PostModel.findOne(postId)
-        const pathTst = './uploads/1668184247873-c8409f7d-bb83-4fc4-9c49-7c6a881752ea-Instagrampost-74.png'
-        try {
-            await fs.access(pathTst, constants.F_OK);
-            console.log('file exists');
-        } catch {
-            console.error('file does not exists');
-        }
-
+        const {id} = req.params
+        const post = await PostModel.findById(id)
         res.json(post)
     }catch (err) {
         console.log(err)

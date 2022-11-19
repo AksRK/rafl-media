@@ -2,6 +2,43 @@ import bcrypt from "bcrypt";
 import UserModel from "../models/User.js";
 import jwt from "jsonwebtoken";
 
+export const getAll = async (req, res) => {
+    try {
+        const {page} = req.query
+
+        const options = {
+            page: parseInt(page, 10) || 1,
+            limit: 10,
+            sort: {
+                createdAt: -1,
+            }
+        };
+
+        const users = await UserModel.paginate({}, options)
+        res.json(users)
+    }catch (err) {
+        res.status(500).json([{
+            message: 'Не удалось получить список пользователей'
+        }])
+    }
+}
+
+export const getOne = async (req, res) => {
+    try {
+        const {id} = req.params
+        const user = await UserModel.findById(id)
+        const { passwordHash, ...userData } = user._doc
+        res.json({
+            ...userData,
+        })
+    }catch (err) {
+        console.log(err)
+        res.status(500).json([{
+            message: 'Не удалось получить пользователя',
+        }])
+    }
+};
+
 export const register = async (req, res) => {
     try {
         const password = req.body.password;
@@ -33,9 +70,62 @@ export const register = async (req, res) => {
             token
         })
     } catch (err) {
-        res.status(500).json({
+        res.status(500).json([{
             message: 'Не удалось зарегистрироваться'
+        }])
+    }
+}
+
+export const update = async (req, res) => {
+
+    try {
+        const userId = req.params.id
+
+        await UserModel.updateOne({
+            _id: userId,
+        }, {
+            fullName: req.body.fullName,
+            email: req.body.email,
+
         })
+
+        res.json({
+            success: true
+        })
+    } catch (err) {
+        console.log(err)
+        res.status(500).json([{
+            message: 'Не удалось изменить пользователя'
+        }])
+    }
+}
+
+export const remove = async (req, res) => {
+    try {
+        const userId = req.params.id
+        UserModel.findOneAndDelete({
+            _id: userId,
+        }, async (err, doc) => {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Не удалось удалить пользователя'
+                })
+            }
+
+            if (!doc) {
+                return res.status(404).json({
+                    message: 'Пользователь не найден'
+                })
+            }
+
+            res.json({
+                success: true,
+            })
+        })
+    }catch (err) {
+        res.status(500).json([{
+            message: 'Не удалось удалить пользователя'
+        }])
     }
 }
 

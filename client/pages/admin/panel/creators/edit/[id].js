@@ -95,18 +95,19 @@ function EditCreator({id, creator}) {
                 }
             }).then((response) => {
             setTitleImage(response.data)
+            alert('Картинка загружена!', 'info')
         }).catch((error) => {
-            console.log(error)
+            alert('Ошибка загрузки, допустимые типы файлов png/jpg/jpeg, максимальный размер 5мб', 'error')
         })
     }
 
     const imgRemove = () => {
         axios.delete('/api' + titleImage.url)
             .then((response) => {
-                // TODO сделать алерт
+                alert('Картинка удалена!', 'info')
             })
             .catch((error) => {
-                console.log(error)
+                alert(error.msg || error.message, 'error')
             })
     }
 
@@ -163,21 +164,6 @@ function EditCreator({id, creator}) {
                                 />
                             </div>
 
-                            {/*<div className={styles.newPostForm__controller}>*/}
-                            {/*    <label className={styles.newPostForm__label}*/}
-                            {/*           htmlFor={'login'}>*/}
-                            {/*        Логин*/}
-                            {/*    </label>*/}
-                            {/*    <input type="text"*/}
-                            {/*           name={'login'}*/}
-                            {/*           id={'login'}*/}
-                            {/*           placeholder={'Введите логин'}*/}
-                            {/*           {...register("login",*/}
-                            {/*               {required: true, minLength: 3, maxLength: 80})}*/}
-                            {/*           className={styles.newPostForm__input}*/}
-                            {/*           style={errors.login ? {borderColor: 'red', background: '#ffc8c8'} : {}}*/}
-                            {/*    />*/}
-                            {/*</div>*/}
                             <div className={styles.newPostForm__controller}>
                                 <label className={styles.newPostForm__label}
                                        htmlFor={'about'}>
@@ -236,8 +222,6 @@ function EditCreator({id, creator}) {
                             id={'description'}
                             {...register("description",
                                 {required: true, minLength: 5, maxLength: 200})}
-                            // value={description}
-                            // onChange={(e) => setDescription(e.target.value)}
                         />
                     </div>
                     <div className={styles.newPostForm__controller}>
