@@ -1,9 +1,7 @@
 import style from './index.module.scss'
-import footerLogo from '../../public/footer-logo.svg'
-import Link from "next/link";
+import footerLogo from '../../public/footer-logo.png'
 import Image from 'next/image'
 import SocialLink from "../UI/SocialLink";
-import styles from "../Header/index.module.scss";
 import NavLink from "../UI/NavLink";
 
 function Footer({styled = {}}) {
