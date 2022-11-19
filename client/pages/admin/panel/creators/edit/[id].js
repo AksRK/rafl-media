@@ -52,7 +52,11 @@ function EditCreator({id, creator}) {
     };
     const handleInputConfirm = () => {
         if (inputValue && tags.indexOf(inputValue) === -1) {
-            setTags([...tags, inputValue]);
+            if (inputValue.toLowerCase().includes('http://' || 'https://')) {
+                setTags([...tags, inputValue]);
+            }else {
+                alert('Ссылка должна содержать http:// или https://', 'error')
+            }
         }
         setInputVisible(false);
         setInputValue('');
