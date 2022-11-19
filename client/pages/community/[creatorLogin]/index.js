@@ -39,7 +39,7 @@ export default function CreatorPage({posts, creator, next}) {
                     title: `Rafl - Комьюнити ${creator.fullName}`,
                     description: creator.description,
                     images: [{
-                        url: creator?.imageUrl?.fullUrl,
+                        url: `/api${creator?.imageUrl?.url}`,
                         width: 300,
                         height: 300,
                         alt: `Rafl - Комьюнити ${creator.fullName}`,

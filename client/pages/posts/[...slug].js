@@ -28,7 +28,7 @@ export default function FullPost({post}) {
                     title: `Rafl - ${post.title}`,
                     description: post.description,
                     images: [{
-                        url: post?.imageUrl?.fullUrl,
+                        url: `/api${post?.imageUrl?.url}`,
                         width: 300,
                         height: 300,
                         alt: `Rafl - ${post.title}`,
