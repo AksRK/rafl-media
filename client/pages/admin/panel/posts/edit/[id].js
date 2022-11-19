@@ -36,28 +36,29 @@ function EditPost({id, post, type = ''}) {
 
     const [findReadAlsoPostPrimary, setFindReadAlsoPostPrimary] = useState([])
     const [findReadAlsoPostSecondary, setFindReadAlsoPostSecondary] = useState([])
-
     useEffect(() => {
         scrollTo(top)
         setFullPost({...watchAllFields, post: postBody, titleImg: titleImage})
         post?.readAlso.map((el, index) => {
-            fetch(`/api/${category === 'community'?'creator/posts/edit/':'posts/edit/'}${el}`)
-                .then((response) => response.json())
-                .then((body) => {
-                        if (index === 0) {
-                            return setFindReadAlsoPostPrimary({
+            if (el !== null) {
+                fetch(`/api/${category === 'community'?'creator/posts/edit/':'posts/edit/'}${el}`)
+                    .then((response) => response.json())
+                    .then((body) => {
+                            if (index === 0) {
+                                return setFindReadAlsoPostPrimary({
+                                    key: body?._id,
+                                    label: body?.title,
+                                    value: body?.title,
+                                })
+                            }
+                            return setFindReadAlsoPostSecondary({
                                 key: body?._id,
                                 label: body?.title,
                                 value: body?.title,
                             })
                         }
-                        return setFindReadAlsoPostSecondary({
-                            key: body?._id,
-                            label: body?.title,
-                            value: body?.title,
-                        })
-                    }
-                );
+                    );
+            }
         })
     }, [previewState])
 

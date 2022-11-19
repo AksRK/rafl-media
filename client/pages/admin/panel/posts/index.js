@@ -53,6 +53,7 @@ function AdminPanel() {
     };
 
     const renderItems = (id) => {
+        console.log(id)
         return [
             {
                 key: id,
@@ -131,11 +132,14 @@ function AdminPanel() {
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 marginBottom: '20px',
+                flexWrap: 'wrap',
+                gap: '20px'
             }}>
                 <div style={{
                     display: 'flex',
                     gap: '20px',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    flexWrap: 'wrap'
                 }}>
                     <h1 style={{
                         marginBottom: 0,

@@ -18,7 +18,10 @@ function Header({routes, burgerState, setBurgerState, setBurgerStateZIndex = () 
     }, [router.asPath])
 
     return (
-        <header className={styles.header + ' container'}>
+        <header className={styles.header + ' container'} style={router.asPath.includes('posts/') ? {
+            maxWidth: '1200px',
+            margin: '0'
+        } : {}}>
             <div className={styles.header__logoWrp}>
                 <Link className={styles.header__img} href={'/'} style={{
                     color: burgerState ? '#000000' : '#ffffff'

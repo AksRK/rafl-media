@@ -130,7 +130,9 @@ function AdminPanel() {
             <div style={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                alignItems: 'center'
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: '20px'
             }}>
                 <h1>Креаторы</h1>
                 <Link href={'/admin/panel/creators/create'} className={'btn'}>

@@ -7,7 +7,7 @@ export default function NavLink({href, children, myClassName, myActiveClassName,
         if (href === router.asPath) {
             return myActiveClassName
         }
-        if ('/' + router.asPath.replaceAll('/', ' ').split(' ')[1] === href) {
+        if ('/' + router.asPath.replaceAll('/', ' ').split(' ')[1].split('#')[0] === href) {
             return myActiveClassName
         }
 
