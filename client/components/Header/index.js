@@ -18,7 +18,7 @@ function Header({routes, burgerState, setBurgerState, setBurgerStateZIndex = () 
     }, [router.asPath])
 
     return (
-        <header className={styles.header + ' container'} style={router.asPath.includes('posts/') ? {
+        <header className={styles.header + ' container'} style={router.asPath.includes('posts/') && !router.asPath.includes('admin/') ? {
             maxWidth: '1200px',
             margin: '0'
         } : {}}>

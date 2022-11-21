@@ -74,11 +74,9 @@ export default function Editor({ initialContent = '', name, onChange, props, con
                     }
                 ]
             }
-            console.log(res)
             uploadHandler(res)
         })
             .catch((error) => {
-                console.log(error)
             })
     }
 
@@ -92,7 +90,6 @@ export default function Editor({ initialContent = '', name, onChange, props, con
     ) => {
         if (state === 'create') imagesArr.push(info.src)
         if (state === 'update') {
-            console.log(imagesArr[index])
             imagesArr = imagesArr.map((image, i) => {
                 if (i === index) {
                     return info.src
@@ -119,7 +116,7 @@ export default function Editor({ initialContent = '', name, onChange, props, con
     }
 
     const handleImageUploadError = (errorMessage, result, core) => {
-        console.log(errorMessage, result)
+        // console.log(errorMessage, result)
     }
 
     return (

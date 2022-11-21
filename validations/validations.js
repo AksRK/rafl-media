@@ -17,7 +17,7 @@ export const userUpdateValidation = [
 ]
 
 export const postCreateValidation = [
-    body('category', 'Укажите креатора статьи').isLength({ min: 3}).isString(),
+    body('category', 'Укажите категорию статьи').isLength({ min: 3}).isString(),
     body('title', 'Введите заголовок статьи').isLength({ min: 3}).isString(),
     body('description', 'Введите описание статьи').isLength({ min: 3}).isString(),
     body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 1}).isObject(),

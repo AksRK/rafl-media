@@ -22,7 +22,7 @@ export default function CreatorPage({posts, creator, next}) {
             setPostList([...postList, ...result.data.docs])
             setNextPage(result.data.nextPage)
         }).catch((error) => {
-            console.log(error)
+
         })
     }
 

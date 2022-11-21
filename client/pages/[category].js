@@ -15,7 +15,7 @@ export default function Home({posts, category, next}) {
             setPostList([...postList, ...result.data.docs])
             setNextPage(result.data.nextPage)
         }).catch((error) => {
-            console.log(error)
+
         })
     }
 

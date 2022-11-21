@@ -30,7 +30,7 @@ function Auth() {
                 }
             })
             .catch(function (error) {
-                console.log(error);
+
             });
     }
 
@@ -44,7 +44,7 @@ function Auth() {
                 router.push('/admin/panel/posts')
             })
             .catch(function (error) {
-                console.log(error);
+
             });
     }, [])
 

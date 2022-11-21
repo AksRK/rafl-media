@@ -80,7 +80,7 @@ function AdminPanel() {
     };
 
     const renderItems = (id) => {
-        console.log(id)
+
         return [
             {
                 key: id,

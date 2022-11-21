@@ -25,7 +25,7 @@ function Liked({likes, postId, typePost = 'default', likeFix = true}) {
             setLikesTotal(likesTotal + 1)
             axios.put(`/api${typePost === 'creator'?'/creator':''}/posts/like/${postId}`,
             ).catch((error) => {
-                console.log(error)
+
             })
         }
     }

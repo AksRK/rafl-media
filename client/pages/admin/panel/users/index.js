@@ -147,7 +147,7 @@ function Users() {
                 }}>
                     <h1 style={{
                         marginBottom: 0,
-                    }}>Список Админинстраторов</h1>
+                    }}>Список пользователей</h1>
                 </div>
                 <Link href={'/admin/panel/users/create'} className={'btn'}>
                     Создать пользователя
