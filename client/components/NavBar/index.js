@@ -13,6 +13,7 @@ const NavBar = ({routes, setBurgerStateZIndex}) => {
                         if (r.handleClick) {
                             r.handleClick()
                         }
+                        document.querySelector('body').style.overflow = 'visible'
                         setTimeout(() => {
                             setBurgerStateZIndex('2')
                         }, 700)

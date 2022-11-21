@@ -200,6 +200,7 @@ nav::-webkit-scrollbar {
   &_column {
     display: flex;
     flex-direction: column;
+    line-height: 14px;
     gap: 6px 0;
   }
 
@@ -343,6 +344,15 @@ nav::-webkit-scrollbar {
   .myMobileContainer {
     width: 85vw;
   }
+}
+
+.backdrop {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: #0000008f;
+  left: 0;
+  top: 0;
 }
 
 //#main {

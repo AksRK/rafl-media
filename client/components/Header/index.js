@@ -22,6 +22,11 @@ function Header({routes, burgerState, setBurgerState, setBurgerStateZIndex = () 
             maxWidth: '1200px',
             margin: '0'
         } : {}}>
+            {
+                burgerState
+                    ? <div className="backdrop"></div>
+                    : <></>
+            }
             <div className={styles.header__logoWrp}>
                 <Link className={styles.header__img} href={'/'} style={{
                     color: burgerState ? '#000000' : '#ffffff'
@@ -37,11 +42,13 @@ function Header({routes, burgerState, setBurgerState, setBurgerStateZIndex = () 
                     ? <>
                         <button onClick={() => {
                             if (burgerState) {
+                                document.querySelector('body').style.overflow = 'visible'
                                 setBurgerState(false)
                                 setTimeout(() => {
                                     setBurgerStateZIndex('2')
                                 }, 200)
                             } else {
+                                document.querySelector('body').style.overflow = 'hidden'
                                 setBurgerStateZIndex('5')
                                 setBurgerState(true)
                             }
