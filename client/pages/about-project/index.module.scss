@@ -68,6 +68,12 @@
       width: 100%;
     }
   }
+
+  .aboutProject {
+    &__description {
+      font-size: 17px;
+    }
+  }
 }
 
 @media (max-width: 421px) {
