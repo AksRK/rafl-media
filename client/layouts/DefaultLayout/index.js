@@ -31,15 +31,6 @@ export default function DefaultLayout({children, bannerState = true}) {
         rootMargin: '1055px 1000px 100px 1000px'
     });
 
-
-    function setWidth() {
-        if (size.width <= 1600) {
-            return 96 + (scrollY / 200)
-        }
-
-        if (size.width <= 768) return 92 + (scrollY / 100);
-    }
-
     function noBanner(ifAction, elseAction) {
         if ( router.asPath.includes('contacts')
             || router.asPath.includes('user-license-agreement')
@@ -113,10 +104,7 @@ export default function DefaultLayout({children, bannerState = true}) {
                                 {children}
                             <span ref={ref} className="hidden_block"></span>
                         </div>
-                        : <div className="container" style={otherPages({}, {
-                            width: `${setWidth()}%`,
-                            maxWidth: '100vw'
-                        })}>
+                        : <div className="container">
                             <span ref={refSpan} className="hidden_block"></span>
                             {children}
                             <span ref={ref} className="hidden_block"></span>
