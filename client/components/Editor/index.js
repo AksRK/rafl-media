@@ -68,7 +68,7 @@ export default function Editor({ initialContent = '', name, onChange, props, con
                 result: [
                     {
                         // url: response.data.fullUrl,
-                        url: 'https://'+domainString+'/api'+response.data.url,
+                        url: process.env.NODE_ENV === 'development' ? '/api' + response.data.url :'http://185.26.96.139:3000/api'+response.data.url,
                         size: response.data.file_size,
                         name: response.data.public_id
                     }
@@ -81,7 +81,6 @@ export default function Editor({ initialContent = '', name, onChange, props, con
                 console.log(error)
             })
     }
-
     const handleImageUpload = (
         targetElement,
         index,

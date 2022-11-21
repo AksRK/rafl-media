@@ -199,8 +199,8 @@ nav::-webkit-scrollbar {
   &_column {
     display: flex;
     flex-direction: column;
-    line-height: 14px;
-    gap: 6px 0;
+    line-height: 18px;
+    gap: 5px 0;
   }
 
   &_white {
@@ -339,13 +339,7 @@ nav::-webkit-scrollbar {
   }
 
   .link_column {
-    gap: 5px;
-  }
-}
-
-@media (max-width: 1350px) {
-  .myMobileContainer {
-    width: 90vw;
+    gap: 4px;
   }
 }
 
