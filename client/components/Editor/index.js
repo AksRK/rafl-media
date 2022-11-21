@@ -54,7 +54,7 @@ export default function Editor({ initialContent = '', name, onChange, props, con
     const handleImageUploadBefore = (files, info, uploadHandler) => {
         const Data = new FormData()
         Data.append('image', files[0])
-
+        const domainString = document.domain
         axios.post(
             '/api/uploads',
             Data,
@@ -63,18 +63,18 @@ export default function Editor({ initialContent = '', name, onChange, props, con
                     'Content-Type': 'multipart/form-data'
                 }
             }).then((response) => {
-            // console.log(response)
             const res = {
-                // The response must have a "result" array.
                 errorMessage: response?.data?.message,
                 result: [
                     {
-                        url: response.data.fullUrl,
+                        // url: response.data.fullUrl,
+                        url: 'https://'+domainString+'/api/'+response.data.url,
                         size: response.data.file_size,
                         name: response.data.public_id
                     }
                 ]
             }
+            console.log(res)
             uploadHandler(res)
         })
             .catch((error) => {
