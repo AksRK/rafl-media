@@ -68,7 +68,7 @@ export default function Editor({ initialContent = '', name, onChange, props, con
                 result: [
                     {
                         // url: response.data.fullUrl,
-                        url: 'https://'+domainString+'/api/'+response.data.url,
+                        url: 'https://'+domainString+'/api'+response.data.url,
                         size: response.data.file_size,
                         name: response.data.public_id
                     }
@@ -104,13 +104,16 @@ export default function Editor({ initialContent = '', name, onChange, props, con
             // console.log(imagesArr[index])
             const regexUrl = new RegExp(/(\/uploads.*\.(?:png|jpg|jpeg))/, 'g')
             const url = imagesArr[index].match(regexUrl)
-            axios.delete('/api' + url[0])
-                .then((response) => {
-                    alert('Картинка удалена!', 'info')
-                })
-                .catch((error) => {
-                    alert(error.msg || error.message, 'error')
-                })
+            if (url) {
+                axios.delete('/api' + url[0])
+                    .then((response) => {
+                        alert('Картинка удалена!', 'info')
+                    })
+                    .catch((error) => {
+                        alert(error.msg || error.message, 'error')
+                    })
+            }
+
         }
         // console.log(editor.current.core.context.image._infoList[index].src)
     }
