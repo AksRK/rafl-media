@@ -338,6 +338,10 @@ nav::-webkit-scrollbar {
       max-width: 336px;
     }
   }
+
+  .link_column {
+    gap: 1px;
+  }
 }
 
 @media (max-width: 1350px) {
