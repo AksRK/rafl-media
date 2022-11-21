@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import axios from "axios";
 import {useRef, useState} from "react";
+import {alert} from "../../core/utils";
 
 const SunEditor = dynamic(() => import("suneditor-react"), {
     ssr: false
@@ -55,7 +56,7 @@ export default function Editor({ initialContent = '', name, onChange, props, con
         Data.append('image', files[0])
 
         axios.post(
-            'http://localhost:4444/uploads',
+            '/api/uploads',
             Data,
             {
                 headers: {
@@ -100,7 +101,16 @@ export default function Editor({ initialContent = '', name, onChange, props, con
             })
         }
         if (state === 'delete') {
-            console.log(imagesArr[index])
+            // console.log(imagesArr[index])
+            const regexUrl = new RegExp(/(\/uploads.*\.(?:png|jpg|jpeg))/, 'g')
+            const url = imagesArr[index].match(regexUrl)
+            axios.delete('/api' + url[0])
+                .then((response) => {
+                    alert('Картинка удалена!', 'info')
+                })
+                .catch((error) => {
+                    alert(error.msg || error.message, 'error')
+                })
         }
         // console.log(editor.current.core.context.image._infoList[index].src)
     }
