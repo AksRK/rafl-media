@@ -17,8 +17,7 @@ function Card({type, title, description, imgUrl, tag = null, path}) {
 
     return (
         <>
-            <Link href={path}
-                // scroll={false}
+            <Link href={type === 'creator' ? path + '#main' : path}
                   className={styles.card + ' ' + (type === 'creator' ? styles.card_creator : '') + ' ' +
                       (mobile >= size.width ? styles.card_mob : '')
                   }>
