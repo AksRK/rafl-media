@@ -125,7 +125,7 @@ export default function FullPost({post}) {
                                                     </div>
                                                 </div>
                                                 <div className={styles.readAlsoCard__img}>
-                                                    <img src={post.imageUrl.fullUrl} alt={post.title}/>
+                                                    <Image src={post.imageUrl.fullUrl} alt={post.title} width={150} height={100}/>
                                                 </div>
                                             </Link>
                                         )
