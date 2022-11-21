@@ -19,6 +19,7 @@ export default function FullPost({post}) {
     const mobile = 479;
     const { ref, inView, entry } = useInView({
         /* Optional options */
+        root: null,
         threshold: 1,
         rootMargin: '2000px 0px -18px 0px'
     });
@@ -98,9 +99,9 @@ export default function FullPost({post}) {
                                     Читайте также:
                                 </h4>
                                 {
-                                    post.readAlsoList?.map((post) => {
+                                    post.readAlsoList?.map((post,index) => {
                                         return (
-                                            <Link key={post._id} href={`/posts/${post.titleUrl}`} className={styles.readAlsoCard}>
+                                            <Link key={post.titleUrl} href={`/posts/${post.titleUrl}`} className={styles.readAlsoCard}>
                                                 <div className={styles.readAlsoCard__el}>
                                                     <div>
                                                         <h5 className={styles.readAlsoCard__title}>
