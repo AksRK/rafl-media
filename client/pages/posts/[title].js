@@ -19,9 +19,8 @@ export default function FullPost({post}) {
     const mobile = 479;
     const { ref, inView, entry } = useInView({
         /* Optional options */
-        root: null,
         threshold: 1,
-        rootMargin: '2000px 0px -18px 0px'
+        rootMargin: '1000px 0px -22px 0px'
     });
 
     useEffect(() => {
@@ -85,10 +84,13 @@ export default function FullPost({post}) {
                         </div>
                     </div>
                 </div>
+                <br/>
                 <div className={styles.btnBox} id={"likeBox"} ref={ref}>
                     <Liked likes={post.likes} postId={post._id} likeFix={inView}/>
                     {/*<button className={'share-btn'}>Поделиться статьей</button>*/}
                 </div>
+                <br/>
+                <hr/>
                 <div className={styles.fullPost__wrp}>
                     {
                         post.readAlsoList?.length >= 1
