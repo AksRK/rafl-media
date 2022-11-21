@@ -87,7 +87,18 @@
     height: 44px;
     justify-content: flex-end;
     gap: 0 4px;
+    position: sticky;
+    bottom: 20px;
   }
+}
+
+.btnBox {
+  display: flex;
+  height: 44px;
+  justify-content: flex-start;
+  gap: 0 4px;
+  position: sticky;
+  bottom: 20px;
 }
 
 .readAlso {

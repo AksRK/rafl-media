@@ -69,7 +69,6 @@ export default function FullPost({post}) {
                     <div className={styles.fullPost__content}>
                         <div className={'sun-editor-editable sun-editor-editable--content'}
                              dangerouslySetInnerHTML={{__html: post?.content}}/>
-
                     </div>
 
                     <div className={styles.fullPostFooter}>
@@ -84,13 +83,13 @@ export default function FullPost({post}) {
                                     </span>
                             </a>
                         </div>
-                        <div className={styles.fullPostFooter__btnBox} id={"likeBox"} ref={ref}>
-                            <Liked likes={post.likes} postId={post._id} likeFix={inView}/>
-                            {/*<button className={'share-btn'}>Поделиться статьей</button>*/}
-                        </div>
-
                     </div>
-
+                </div>
+                <div className={styles.btnBox} id={"likeBox"} ref={ref}>
+                    <Liked likes={post.likes} postId={post._id} likeFix={inView}/>
+                    {/*<button className={'share-btn'}>Поделиться статьей</button>*/}
+                </div>
+                <div className={styles.fullPost__wrp}>
                     {
                         post.readAlsoList?.length >= 1
                             ?<div className={styles.readAlso}>
@@ -135,8 +134,6 @@ export default function FullPost({post}) {
                             </div>
                             :''
                     }
-
-
                 </div>
             </section>
         </>

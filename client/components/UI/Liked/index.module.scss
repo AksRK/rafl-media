@@ -19,6 +19,8 @@
   align-items: center;
   gap: 0 12px;
   transition: transform 0.1s ease-in-out;
+  position: sticky;
+  bottom: 20px;
 
   &_plus_count {
     position: absolute;
@@ -27,12 +29,12 @@
     transform:translate(-50%, -50%);
   }
 
-  &_fix {
-    position: fixed;
-    bottom: 48px;
-    z-index: 1;
-    left: 814px;
-  }
+  //&_fix {
+  //  position: fixed;
+  //  bottom: 48px;
+  //  z-index: 1;
+  //  left: 814px;
+  //}
 
   @media (max-width: 1043px) {
     &_fix {
