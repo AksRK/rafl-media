@@ -38,47 +38,52 @@ function Header({routes, burgerState, setBurgerState, setBurgerStateZIndex = () 
                 </div>
             </div>
             {
-                mobile >= size.width
+                !!size.width
                     ? <>
-                        <button onClick={() => {
-                            if (burgerState) {
-                                document.querySelector('body').style.overflow = 'visible'
-                                setBurgerState(false)
-                                setTimeout(() => {
-                                    setBurgerStateZIndex('2')
-                                }, 200)
-                            } else {
-                                document.querySelector('body').style.overflow = 'hidden'
-                                setBurgerStateZIndex('5')
-                                setBurgerState(true)
-                            }
-                        }}
-                                className={styles.burgerButton}
-                                style={burgerState ? {background: '#000000', color: '#ffffff'} : {}}>
-                            {
-                                burgerState ? 'Закрыть' : 'Меню'
-                            }
-                        </button>
-                        <div style={burgerState ? {top: '0'} : {top: '-530px'}} className={styles.burgerMenu}>
-                            <div style={burgerState ? {opacity: '100%',} : {}} className={styles.burgerMenu__content}>
-                                <div style={!burgerState ? {opacity: '0'} : {}} className={styles.burgerMenu__navWrp}>
-                                    <NavBar routes={routes} setBurgerStateZIndex={setBurgerStateZIndex}/>
-                                </div>
+                        {
+                            mobile >= size.width
+                                ? <>
+                                    <button onClick={() => {
+                                        if (burgerState) {
+                                            document.querySelector('body').style.overflow = 'visible'
+                                            setBurgerState(false)
+                                            setTimeout(() => {
+                                                setBurgerStateZIndex('2')
+                                            }, 200)
+                                        } else {
+                                            document.querySelector('body').style.overflow = 'hidden'
+                                            setBurgerStateZIndex('5')
+                                            setBurgerState(true)
+                                        }
+                                    }}
+                                            className={styles.burgerButton}
+                                            style={burgerState ? {background: '#000000', color: '#ffffff'} : {}}>
+                                        {
+                                            burgerState ? 'Закрыть' : 'Меню'
+                                        }
+                                    </button>
+                                    <div style={burgerState ? {top: '0'} : {top: '-530px'}} className={styles.burgerMenu}>
+                                        <div style={burgerState ? {opacity: '100%',} : {}} className={styles.burgerMenu__content}>
+                                            <div style={!burgerState ? {opacity: '0'} : {}} className={styles.burgerMenu__navWrp}>
+                                                <NavBar routes={routes} setBurgerStateZIndex={setBurgerStateZIndex}/>
+                                            </div>
 
 
-                                <div className={styles.burgerMenu__socialWrp}>
-                                    <SocialLink url={'https://www.instagram.com/rafl.media/'} black={true}/>
-                                    <SocialLink url={'https://t.me/raflmedia'} black={true}/>
-                                    <SocialLink url={'https://vk.com/raflmedia'} black={true}/>
-                                    <SocialLink url={'https://www.youtube.com/channel/UC5qMpkZ_Di6whW9C88TF8Tw/videos'} black={true}/>
-                                </div>
+                                            <div className={styles.burgerMenu__socialWrp}>
+                                                <SocialLink url={'https://www.instagram.com/rafl.media/'} black={true}/>
+                                                <SocialLink url={'https://t.me/raflmedia'} black={true}/>
+                                                <SocialLink url={'https://vk.com/raflmedia'} black={true}/>
+                                                <SocialLink url={'https://www.youtube.com/channel/UC5qMpkZ_Di6whW9C88TF8Tw/videos'} black={true}/>
+                                            </div>
 
-                            </div>
-                        </div>
-                    </>
-                    : <NavBar routes={routes} setBurgerStateZIndex={setBurgerStateZIndex}/>
+                                        </div>
+                                    </div>
+                                </>
+                                : <NavBar routes={routes} setBurgerStateZIndex={setBurgerStateZIndex}/>
+                        }
+                        </>
+                    : <></>
             }
-
         </header>
     )
 }

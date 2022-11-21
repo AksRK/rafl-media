@@ -34,7 +34,7 @@ export default function CarouselBanner() {
                     disableOnInteraction: false,
                     pauseOnMouseEnter: true
                 }}
-                navigation={size.width <= 768?false:true}
+                navigation={!!size.width ? size.width <= 768 ? false : true : false}
                 modules={[Navigation, Autoplay]}
                 className="mySwiper mySwiper_border_radius"
             >
