@@ -21,13 +21,12 @@ export default function DefaultLayout({children, bannerState = true}) {
     const {scrollY} = useScroll()
     const size = useWindowSize()
     const { ref: refSpan, inView: inViewSpan } = useInView({
-        threshold: 1,
+        threshold: 0.1,
         initialInView: true,
         rootMargin: '55px 1000px 500px 1000px'
     });
-
     const { ref, inView } = useInView({
-        threshold: 1,
+        threshold: 0.1,
         rootMargin: '1055px 1000px 100px 1000px'
     });
 
