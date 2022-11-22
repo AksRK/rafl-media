@@ -249,7 +249,13 @@ function NewPost() {
                                         width: '300px',
                                     }}
                                 />
+                                <span style={{display: 'inline-block', padding: '5px 10px', marginLeft: '10px', userSelect: 'none'}}
+                                      className={'btn'}
+                                      onClick={()=> setFindReadAlsoPostPrimary([])}>
+                                    Очистить
+                                </span>
                             </div>
+                            <span style={{height:'30px', width:'1px', background:'#000000'}}></span>
                             <div>
                                 <FetchSelect
                                     showSearch
@@ -263,6 +269,11 @@ function NewPost() {
                                         width: '300px',
                                     }}
                                 />
+                                <span style={{display: 'inline-block', padding: '5px 10px', marginLeft: '10px', userSelect: 'none'}}
+                                      className={'btn'}
+                                      onClick={()=> setFindReadAlsoPostSecondary([])}>
+                                    Очистить
+                                </span>
                             </div>
 
                         </div>
