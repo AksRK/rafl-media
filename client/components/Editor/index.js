@@ -1,6 +1,5 @@
 import dynamic from "next/dynamic";
 import axios from "axios";
-import {useRef, useState} from "react";
 import {alert} from "../../core/utils";
 
 const SunEditor = dynamic(() => import("suneditor-react"), {
