@@ -46,7 +46,7 @@ function NewCreator() {
     };
     const handleInputConfirm = () => {
         if (inputValue && tags.indexOf(inputValue) === -1) {
-            if (inputValue.toLowerCase().includes('http://' || 'https://')) {
+            if (inputValue.toLowerCase().includes('http://') || inputValue.toLowerCase().includes('https://')) {
                 setTags([...tags, inputValue]);
             }else {
                 alert('Ссылка должна содержать http:// или https://', 'error')
