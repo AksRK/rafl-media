@@ -40,7 +40,6 @@ export default function Community({creators}) {
                                           path={`/community/${c.login}`}/>
                                 )
                             }
-                            <SkeletonComunity/>
                         </>
                 }
             </div>
