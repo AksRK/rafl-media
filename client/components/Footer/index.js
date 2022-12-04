@@ -3,6 +3,7 @@ import footerLogo from '../../public/footer-logo.png'
 import Image from 'next/image'
 import SocialLink from "../UI/SocialLink";
 import NavLink from "../UI/NavLink";
+import Link from 'next/link'
 
 function Footer({styled = {}}) {
 
@@ -10,7 +11,10 @@ function Footer({styled = {}}) {
         <footer className={style.footer + ' container'} style={styled}>
 
             <div className={style.footer__logo}>
-                <Image src={footerLogo} alt={'RAFL'}/>
+                <Link href={'/'}>
+                    <Image src={footerLogo} alt={'RAFL'}/>
+                </Link>
+
             </div>
             <div className={style.footerLinks}>
                <div className={style.footerLinks__el}>
