@@ -24,9 +24,9 @@ export default function Home({posts, next}) {
     return (
         <>
             <NextSeo
-                title={`Rafl - Медиа`}
+                title={`RAFL - Медиа`}
                 openGraph={{
-                    title: `Rafl - Медиа`,
+                    title: `RAFL - Медиа`,
                 }}
             />
             <CardList posts={postList}/>
