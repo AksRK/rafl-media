@@ -26,7 +26,9 @@ const NavBar = ({routes, setBurgerStateZIndex, setBurgerState}) => {
                                     r.handleClick()
                                 }
                                 document.querySelector('body').style.overflow = 'visible'
-                                setBurgerState(false)
+                                if (setBurgerState) {
+                                    setBurgerState(false)
+                                }
                                 setTimeout(() => {
                                     setBurgerStateZIndex('2')
                                 }, 700)
