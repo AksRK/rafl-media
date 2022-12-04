@@ -6,9 +6,9 @@ export default function Contacts() {
     return (
         <>
             <NextSeo
-                title={`Rafl - Контакты`}
+                title={`RAFL - Контакты`}
                 openGraph={{
-                    title: `Rafl - Контакты`,
+                    title: `RAFL - Контакты`,
                 }}
             />
             <div className={styles.contacts}>

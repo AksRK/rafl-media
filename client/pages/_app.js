@@ -48,10 +48,10 @@ function MyApp({Component, pageProps}) {
     return (
         <>
             <DefaultSeo
-                title='Rafl'
+                title='RAFL'
                 description='Независимое издание, освещающее эстетическую сторону российского футбола'
                 openGraph={{
-                    title: 'Rafl',
+                    title: 'RAFL',
                     description: 'Независимое издание, освещающее эстетическую сторону российского футбола'
                 }}
             />

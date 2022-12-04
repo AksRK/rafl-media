@@ -10,9 +10,9 @@ export default function AboutProject() {
     return (
         <>
             <NextSeo
-                title={`Rafl - О проекте`}
+                title={`RAFL - О проекте`}
                 openGraph={{
-                    title: `Rafl - О проекте`,
+                    title: `RAFL - О проекте`,
                 }}
             />
             <div className={styles.aboutProject}>

@@ -27,9 +27,9 @@ export default function Home({posts, category, next}) {
     return (
         <>
             <NextSeo
-                title={`Rafl - ${Category.find((c) => c.value === category)?.label}`}
+                title={`RAFL - ${Category.find((c) => c.value === category)?.label}`}
                 openGraph={{
-                    title: `Rafl - ${Category.find((c) => c.value === category)?.label}`,
+                    title: `RAFL - ${Category.find((c) => c.value === category)?.label}`,
                 }}
             />
             <CardList posts={postList}/>

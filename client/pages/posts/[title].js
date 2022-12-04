@@ -29,16 +29,16 @@ export default function FullPost({post}) {
     return (
         <>
             <NextSeo
-                title={`Rafl - ${post.title}`}
+                title={`RAFL - ${post.title}`}
                 description={post.description}
                 openGraph={{
-                    title: `Rafl - ${post.title}`,
+                    title: `RAFL - ${post.title}`,
                     description: post.description,
                     images: [{
                         url: `/api${post?.imageUrl?.url}`,
                         width: 300,
                         height: 300,
-                        alt: `Rafl - ${post.title}`,
+                        alt: `RAFL - ${post.title}`,
                     }]
                 }}
             />

@@ -6,9 +6,9 @@ export default function UserLicenseAgreement() {
     return (
         <>
             <NextSeo
-                title={`Rafl - Пользовательское соглашение`}
+                title={`RAFL - Пользовательское соглашение`}
                 openGraph={{
-                    title: `Rafl - Пользовательское соглашение`,
+                    title: `RAFL - Пользовательское соглашение`,
                 }}
             />
             <div className={styles.license}>

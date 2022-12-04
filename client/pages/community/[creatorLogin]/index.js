@@ -33,16 +33,16 @@ export default function CreatorPage({posts, creator, next}) {
     return (
         <>
             <NextSeo
-                title={`Rafl - Комьюнити ${creator.fullName}`}
+                title={`RAFL - Комьюнити ${creator.fullName}`}
                 description={creator.description}
                 openGraph={{
-                    title: `Rafl - Комьюнити ${creator.fullName}`,
+                    title: `RAFL - Комьюнити ${creator.fullName}`,
                     description: creator.description,
                     images: [{
                         url: `/api${creator?.imageUrl?.url}`,
                         width: 300,
                         height: 300,
-                        alt: `Rafl - Комьюнити ${creator.fullName}`,
+                        alt: `RAFL - Комьюнити ${creator.fullName}`,
                     }]
                 }}
             />

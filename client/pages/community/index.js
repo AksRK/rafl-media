@@ -18,10 +18,10 @@ export default function Community({creators}) {
     return (
         <>
             <NextSeo
-                title='Rafl - Комьюнити'
+                title='RAFL - Комьюнити'
                 description='Независимое издание, освещающее эстетическую сторону российского футбола'
                 openGraph={{
-                    title: 'Rafl - Комьюнити',
+                    title: 'RAFL - Комьюнити',
                     description: 'Независимое издание, освещающее эстетическую сторону российского футбола'
                 }}
             />
