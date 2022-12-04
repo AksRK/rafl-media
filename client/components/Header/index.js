@@ -1,5 +1,5 @@
 import styles from './index.module.scss'
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import Link from 'next/link'
 import useWindowSize from "../../core/hooks/useWindowSize";
 import SocialLink from "../UI/SocialLink";
@@ -12,10 +12,18 @@ function Header({routes, burgerState, setBurgerState, setBurgerStateZIndex = () 
     const size = useWindowSize()
     const router = useRouter()
     const mobile = 1220
+    const [btnState, setBtnState] = useState(false)
 
     useEffect(() => {
         setBurgerState(false)
     }, [router.asPath])
+
+    useEffect(() => {
+        setBtnState(true)
+        setTimeout(()=> {
+            setBtnState(false)
+        }, 250)
+    }, [burgerState])
 
     return (
         <header className={styles.header + ' container'} style={router.asPath.includes('posts/') && !router.asPath.includes('admin/') ? {
@@ -34,7 +42,7 @@ function Header({routes, burgerState, setBurgerState, setBurgerStateZIndex = () 
                     <Logo burgerState={burgerState}/>
                 </Link>
                 <div style={burgerState?{color:'#000000'}:{}} className={styles.header__text} >
-                    <p>— независимое издание, освещающее эстетическую сторону российского футбола</p>
+                    <p>независимое издание, освещающее эстетическую сторону российского футбола</p>
                 </div>
             </div>
             {
@@ -43,7 +51,7 @@ function Header({routes, burgerState, setBurgerState, setBurgerStateZIndex = () 
                         {
                             mobile >= size.width
                                 ? <>
-                                    <button onClick={() => {
+                                    <button disabled={btnState} onClick={() => {
                                         if (burgerState) {
                                             document.querySelector('body').style.overflow = 'visible'
                                             setBurgerState(false)
@@ -57,7 +65,7 @@ function Header({routes, burgerState, setBurgerState, setBurgerStateZIndex = () 
                                         }
                                     }}
                                             className={styles.burgerButton}
-                                            style={burgerState ? {background: '#000000', color: '#ffffff'} : {}}>
+                                            style={burgerState ? {background: '#000000', color: '#ffffff', width:'106px'} : {width:'85px'}}>
                                         {
                                             burgerState ? 'Закрыть' : 'Меню'
                                         }
@@ -65,7 +73,7 @@ function Header({routes, burgerState, setBurgerState, setBurgerStateZIndex = () 
                                     <div style={burgerState ? {top: '0'} : {top: '-530px'}} className={styles.burgerMenu}>
                                         <div style={burgerState ? {opacity: '100%',} : {}} className={styles.burgerMenu__content}>
                                             <div style={!burgerState ? {opacity: '0'} : {}} className={styles.burgerMenu__navWrp}>
-                                                <NavBar routes={routes} setBurgerStateZIndex={setBurgerStateZIndex}/>
+                                                <NavBar routes={routes} setBurgerState={setBurgerState} setBurgerStateZIndex={setBurgerStateZIndex}/>
                                             </div>
 
 
