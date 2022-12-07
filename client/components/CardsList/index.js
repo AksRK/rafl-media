@@ -15,7 +15,6 @@ export default function CardsList({typeCard, creatorLogin, posts}) {
             setLoading(false);
         }, 500)
     }, [router.asPath])
-
     return (
         <>
             {
@@ -44,7 +43,8 @@ export default function CardsList({typeCard, creatorLogin, posts}) {
                                                   description={el.description}
                                                   imgUrl={el.imageUrl.fullUrl}
                                                   tag={el.category}
-                                                  path={!!creatorLogin ? `/posts/${creatorLogin}/${CyrillicToTranslit().transform(el.title, "-").replaceAll('?', '').replaceAll('&', '').toLowerCase()}` : `/posts/${CyrillicToTranslit().transform(el.title, "-").replaceAll('?', '').replaceAll('&', '').toLowerCase()}`}
+                                                  // path={!!creatorLogin ? `/posts/${creatorLogin}/${CyrillicToTranslit().transform(el.title, "-").replaceAll('?', '').replaceAll('&', '').toLowerCase()}` : `/posts/${CyrillicToTranslit().transform(el.title, "-").replaceAll('?', '').replaceAll('&', '').toLowerCase()}`}
+                                                  path={el.creator ? `/posts/${el.creator}/${CyrillicToTranslit().transform(el.title, "-").replaceAll('?', '').replaceAll('&', '').toLowerCase()}` : `/posts/${CyrillicToTranslit().transform(el.title, "-").replaceAll('?', '').replaceAll('&', '').toLowerCase()}`}
                                             />
                                         )
                                     })
