@@ -1,6 +1,7 @@
 import PostModel from '../models/Post.js';
 import fs from "fs/promises";
 import constants from 'fs/promises';
+import CreatorPostModel from '../models/CreatorPost.js'
 
 export const getCategory = async (req, res) => {
     const {page, perPage} = req.query
@@ -37,7 +38,56 @@ export const getAll = async (req, res) => {
     };
 
     try {
-        const posts = await PostModel.paginate({}, options)
+        // const posts = await PostModel.paginate({}, options)
+        //
+        // const tst = await PostModel.aggregate([
+        //     {
+        //         "$unionWith": {coll: 'creatorpost'}
+        //     },
+        //
+        // ])
+        //
+        // console.log(tst.length)
+
+        const defPosts = await PostModel.find()
+        const creatorPosts = await CreatorPostModel.find()
+
+        const allPosts = [...defPosts, ...creatorPosts].sort((x, y) => y.viewsCount - x.viewsCount)
+        const limit = parseInt(perPage, 10) || 8
+        const currPage = parseInt(page, 10) || 1
+
+        const slicedPosts = []
+
+        for (let i = 0; i < allPosts.length; i+= 1) {
+            slicedPosts.push(allPosts.slice(i, i+= limit))
+        }
+
+        const goNext = () => {
+            if (slicedPosts.indexOf(slicedPosts[currPage]) !== -1) {
+                return true
+            }
+            return false
+        }
+
+        const goPrev = () => {
+            if (slicedPosts.indexOf(slicedPosts[currPage - 2]) !== -1) {
+                return true
+            }
+            return false
+        }
+
+        const posts = {
+            'docs' : slicedPosts[currPage - 1],
+            'totalDocs' : allPosts.length,
+            'totalPages':  slicedPosts.length,
+            'limit': 8,
+            'page': currPage,
+            'hasNextPage': goNext(),
+            'hasPrevPage': goPrev(),
+            "prevPage": slicedPosts.indexOf(slicedPosts[currPage -1]) || null,
+            "nextPage": slicedPosts.indexOf(slicedPosts[currPage])+1 || null
+        }
+
         res.json(posts)
     }catch (err) {
         console.log(err)
