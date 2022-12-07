@@ -38,6 +38,7 @@ export default function CardsList({typeCard, creatorLogin, posts}) {
                                     posts?.map((el, index) => {
                                         return (
                                             <Card key={el._id}
+                                                  creator={el.creator}
                                                   type={typeCard}
                                                   title={el.title}
                                                   description={el.description}

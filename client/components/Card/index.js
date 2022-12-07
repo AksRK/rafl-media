@@ -6,7 +6,7 @@ import {Category} from "../../core/mock";
 import ShrinkText from "../UI/ShrinkText/ShrinkText";
 import {useRouter} from "next/router";
 
-function Card({type, title, description, imgUrl, tag = null, path}) {
+function Card({type, title, description, imgUrl, tag = null, path, creator = null}) {
     const size = useWindowSize();
     const router = useRouter();
     const mobile = 479
@@ -14,7 +14,6 @@ function Card({type, title, description, imgUrl, tag = null, path}) {
         <path d="M12 10V1H3" stroke="black" strokeLinecap="round" strokeLinejoin="round"/>
         <path d="M1 12L12 1" stroke="black" strokeLinecap="round" strokeLinejoin="bevel"/>
     </svg>
-
     return (
         <>
             <Link href={type === 'creator' ? path + '#main' : path}
@@ -24,8 +23,15 @@ function Card({type, title, description, imgUrl, tag = null, path}) {
                 <div className={styles.card__img + ' ' + (type === 'creator' ? styles.card__img_creator : '')}>
                     <Image src={imgUrl} alt={title} width={378} height={512}/>
                     {
-                        type !== 'creator' && tag ?
-                            <div className={styles.card__tag}>{Category.find((c) => c.value === tag).label}</div> :
+                        type !== 'creator' && tag || creator ?
+                            <div className={styles.card__tag}>
+                                {/*{Category.find((c) => c.value === tag).label}*/}
+                                {
+                                    creator
+                                        ?'Комьюнити'
+                                        :Category.find((c) => c.value === tag).label
+                                }
+                            </div> :
                             ''
                     }
                     {
