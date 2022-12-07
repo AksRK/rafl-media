@@ -41,11 +41,12 @@ export default function CarouselBanner() {
                 {
                     banners.map(b => <SwiperSlide key={b._id}>
                         <div className={styles.card}
-                             onClick={() => {
-                                 router.push(`/posts/${CyrillicToTranslit().transform(b.title, "-").replaceAll('?', '').replaceAll('&', '').toLowerCase()}`)
+                             onClick={()=> {
+                                 b.creator
+                                     ?router.push(`/posts/${b.creator}/${CyrillicToTranslit().transform(b.title, "-").replaceAll('?', '').replaceAll('&', '').toLowerCase()}`)
+                                     :router.push(`/posts/${CyrillicToTranslit().transform(b.title, "-").replaceAll('?', '').replaceAll('&', '').toLowerCase()}`)
                              }}
                         >
-                            {/*<div className={styles.card__carouselBlur}/>*/}
                             <Image src={b.imageUrl.fullUrl} alt={b.title} width={533} height={500} priority={true}/>
                             <div className={styles.card__textWrp}>
                                 <h3 className={styles.card__title}>{b.title}</h3>
