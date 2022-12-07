@@ -84,16 +84,16 @@ export const getAll = async (req, res) => {
 export const getBannerCards = async (req, res) => {
     const {cardsLimit} = req.query
 
-    const options = {
-        limit: parseInt(cardsLimit, 10) || 5,
-        sort: {
-            createdAt: -1,
-        }
-    };
-
     try {
-        const posts = await PostModel.paginate({}, options)
-        res.json(posts)
+        const defPosts = await PostModel.find()
+        const creatorPosts = await CreatorPostModel.find()
+        const limit = parseInt(cardsLimit, 10) || 5
+
+        const posts = [...defPosts, ...creatorPosts].sort((x, y) => y.createdAt - x.createdAt).slice(0, limit)
+
+        res.json({
+            'docs': posts
+        })
     }catch (err) {
         console.log(err)
         res.status(500).json({
