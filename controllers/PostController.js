@@ -38,17 +38,6 @@ export const getAll = async (req, res) => {
     };
 
     try {
-        // const posts = await PostModel.paginate({}, options)
-        //
-        // const tst = await PostModel.aggregate([
-        //     {
-        //         "$unionWith": {coll: 'creatorpost'}
-        //     },
-        //
-        // ])
-        //
-        // console.log(tst.length)
-
         const defPosts = await PostModel.find()
         const creatorPosts = await CreatorPostModel.find()
 
