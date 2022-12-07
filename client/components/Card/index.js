@@ -23,28 +23,20 @@ function Card({type, title, description, imgUrl, tag = null, path, creator = nul
                 <div className={styles.card__img + ' ' + (type === 'creator' ? styles.card__img_creator : '')}>
                     <Image src={imgUrl} alt={title} width={378} height={512}/>
                     {
-                        type !== 'creator' && tag || creator ?
-                            <div className={styles.card__tag}>
-                                {/*{Category.find((c) => c.value === tag).label}*/}
-                                {
-                                    creator
-                                        ?'Комьюнити'
-                                        :Category.find((c) => c.value === tag).label
-                                }
-                            </div> :
-                            ''
-                    }
-                    {
-                        type !== 'creator' && tag
-                            ? <div onClick={(event) => {
-                                event.preventDefault()
-                                router.push(`/${tag}#main`, null, {scroll: false})
-                            }
-                            } className={styles.card__tag}>
-                                {Category.find((c) => c.value === tag).label}
-                            </div> :
-
-                            ''
+                        !router.asPath.includes('community')
+                            ?type !== 'creator' && tag || creator ?
+                                <div className={styles.card__tag}
+                                     onClick={(event) => {
+                                         event.preventDefault()
+                                         router.push(`/${creator?'community':tag}#main`, null, {scroll: false})}}>
+                                    {
+                                        creator
+                                            ?'Комьюнити'
+                                            :Category.find((c) => c.value === tag).label
+                                    }
+                                </div> :
+                                ''
+                            :''
                     }
 
                 </div>
