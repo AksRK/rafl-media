@@ -29,14 +29,6 @@ export const getCategory = async (req, res) => {
 export const getAll = async (req, res) => {
     const {page, perPage} = req.query
 
-    const options = {
-        page: parseInt(page, 10) || 1,
-        limit: parseInt(perPage, 10) || 8,
-        sort: {
-            viewsCount: -1
-        }
-    };
-
     try {
         const defPosts = await PostModel.find()
         const creatorPosts = await CreatorPostModel.find()
@@ -45,11 +37,14 @@ export const getAll = async (req, res) => {
         const limit = parseInt(perPage, 10) || 8
         const currPage = parseInt(page, 10) || 1
 
-        const slicedPosts = []
+        const slicedPosts = allPosts.reduce((p,c)=>{
+            if(p[p.length-1].length == limit){
+                p.push([]);
+            }
 
-        for (let i = 0; i < allPosts.length; i+= 1) {
-            slicedPosts.push(allPosts.slice(i, i+= limit))
-        }
+            p[p.length-1].push(c);
+            return p;
+        }, [[]]);
 
         const goNext = () => {
             if (slicedPosts.indexOf(slicedPosts[currPage]) !== -1) {
@@ -74,7 +69,7 @@ export const getAll = async (req, res) => {
             'hasNextPage': goNext(),
             'hasPrevPage': goPrev(),
             "prevPage": slicedPosts.indexOf(slicedPosts[currPage -1]) || null,
-            "nextPage": slicedPosts.indexOf(slicedPosts[currPage])+1 || null
+            "nextPage": slicedPosts.indexOf(slicedPosts[currPage])+1 || null,
         }
 
         res.json(posts)
