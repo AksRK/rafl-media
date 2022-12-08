@@ -4,14 +4,12 @@ import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 
 import {
-    registerValidation,
-    loginValidation,
-    postCreateValidation,
-    postUpdateValidation,
-    creatorCreateValidation,
-    creatorUpdateValidation,
-    creatorPostCreateValidation,
-    creatorPostUpdateValidation, userUpdateValidation
+    registerValidation, loginValidation, userUpdateValidation,
+    postCreateValidation, postUpdateValidation,
+    creatorCreateValidation, creatorUpdateValidation,
+    creatorPostCreateValidation, creatorPostUpdateValidation,
+    contactsCreateUpdateValidation
+
 } from './validations/validations.js';
 
 import checkAuth from './utils/checkAuth.js';
@@ -21,8 +19,8 @@ import * as UserController from "./controllers/UserController.js";
 import * as CreatorController from "./controllers/CreatorController.js";
 import * as CreatorPostController from "./controllers/CreatorPostController.js";
 import * as PostController from "./controllers/PostController.js";
+import * as ContactsController from "./controllers/ContactsController.js"
 import fss from 'fs/promises'
-
 
 import cors from 'cors'
 
@@ -119,6 +117,11 @@ app.put('/posts/like/:id', handleValidationErrors, PostController.like)
 app.post('/posts', checkAuth, postCreateValidation, handleValidationErrors, PostController.create)
 app.put('/posts/:id', checkAuth, postUpdateValidation, handleValidationErrors, PostController.update)
 app.delete('/posts/:id', checkAuth, PostController.remove);
+
+app.get('/project/contacts', ContactsController.getAll)
+app.post('/project/contacts', checkAuth, contactsCreateUpdateValidation , handleValidationErrors, ContactsController.create)
+app.put('/project/contacts/:id', checkAuth, contactsCreateUpdateValidation , handleValidationErrors, ContactsController.update)
+app.delete('/project/contacts/:id', checkAuth, ContactsController.remove);
 
 async function start() {
     try {
