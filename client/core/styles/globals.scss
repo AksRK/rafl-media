@@ -35,6 +35,15 @@ a {
   z-index: 3;
 }
 
+.ant-modal {
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.ant-modal-content {
+  border-radius: 20px;
+}
+
 .head {
   position: fixed;
   top: 0;
