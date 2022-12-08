@@ -64,3 +64,8 @@ export const creatorUpdateValidation = [
     body('imageUrl', 'Неверная ссылка на изображение').isLength({ min: 1}).isObject(),
     body('social', 'Не указаны соц. сети креатора').isLength({ min: 1}).isArray(),
 ]
+
+export const contactsCreateUpdateValidation = [
+    body('title', 'Укажите заголовок контакта').isLength({ min: 2}).isString(),
+    body('url', 'Введите корректно ссылку').isURL(),
+]
