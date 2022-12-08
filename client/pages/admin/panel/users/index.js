@@ -6,7 +6,6 @@ import axios from "axios";
 import AdminPanelLayout from "../../../../layouts/AdminPanelLayout";
 import {alert, formatRuDate} from "../../../../core/utils";
 import {ToastContainer} from "react-toastify";
-import 'react-confirm-alert/src/react-confirm-alert.css';
 
 
 function Users() {
