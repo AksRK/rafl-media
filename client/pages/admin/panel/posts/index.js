@@ -1,15 +1,15 @@
-import {Dropdown, Select, Table} from "antd";
+import {Dropdown, Modal, Select, Table} from "antd";
 import {useEffect, useState} from "react";
 import Link from "next/link";
-import {SettingOutlined} from "@ant-design/icons";
+import {ExclamationCircleFilled, SettingOutlined} from "@ant-design/icons";
 import axios from "axios";
 import AdminPanelLayout from "../../../../layouts/AdminPanelLayout";
 import {alert, formatRuDate} from "../../../../core/utils";
 import {ToastContainer} from "react-toastify";
-import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
 function AdminPanel() {
+    const { confirm } = Modal
     const [dataSource, setDataSource] = useState([])
     const [category, setCategory] = useState('media')
     const [loading, setLoading] = useState(false);
@@ -24,34 +24,34 @@ function AdminPanel() {
     });
 
     const deletePost = (idPost) => {
-        confirmAlert({
-            title: 'Подтвердить удаление',
-            message: 'Вы действительно хотите удалить пост?',
-            buttons: [
-                {
-                    label: 'Да',
-                    onClick: () => {
-                        axios.delete(category === 'media'?`/api/posts/${idPost}`:`/api/creator/posts/${idPost}`, {
-                            headers: {
-                                "Authorization": `Bearer ${localStorage.getItem('token')}`
-                            }
-                        }).then(r => {
-                            setDataSource(dataSource.filter((item) => item._id !== idPost))
-                            alert('Статья удалена', 'success')
-                        })
+        confirm({
+            title: 'Вы действительно хотите удалить пост?',
+            icon: <ExclamationCircleFilled />,
+            okText: 'Да',
+            okType: 'danger',
+            cancelText: 'Нет',
+            style: {
+                top:'40%'
+            },
+            onOk() {
+                axios.delete(category === 'media'?`/api/posts/${idPost}`:`/api/creator/posts/${idPost}`, {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem('token')}`
                     }
-                },
-                {
-                    label: 'Нет',
-                    onClick: () => alert('Вы отменили удаление', 'info')
-                }
-            ]
+                }).then(r => {
+                    setDataSource(dataSource.filter((item) => item._id !== idPost))
+                    alert('Статья удалена', 'success')
+                })
+            },
+            onCancel() {
+                alert('Вы отменили удаление', 'info')
+            },
         });
     };
 
     useEffect(() => {
         setLoading(true)
-        fetch(`/api/${category === 'community' ? 'creator/posts/admin/all' : 'posts'}?page=${tableParams.pagination.current}`)
+        fetch(`/api/${category === 'community' ? 'creator/posts/admin/all' : 'posts/admin/all'}?page=${tableParams.pagination.current}`)
             .then(res => res.json())
             .then(data => {
                 setDataSource(data.docs.map(p => ({...p, createdAt: formatRuDate(p.createdAt)})))

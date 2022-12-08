@@ -1,16 +1,16 @@
-import {Dropdown, Table} from "antd";
+import {Dropdown, Modal, Table} from "antd";
 import {useEffect, useState} from "react";
 import Link from "next/link";
-import {SettingOutlined} from "@ant-design/icons";
+import {ExclamationCircleFilled, SettingOutlined} from "@ant-design/icons";
 import axios from "axios";
 import AdminPanelLayout from "../../../../layouts/AdminPanelLayout";
 import {alert, formatRuDate} from "../../../../core/utils";
 import {ToastContainer} from "react-toastify";
-import {confirmAlert} from "react-confirm-alert";
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
 
 function AdminPanel() {
+    const { confirm } = Modal;
     const [dataSource, setDataSource] = useState([])
     const [loading, setLoading] = useState(false);
     const [tableParams, setTableParams] = useState({
@@ -51,28 +51,28 @@ function AdminPanel() {
     };
 
     const deleteCreator = (idCreator) => {
-        confirmAlert({
-            title: 'Подтвердить удаление',
-            message: 'Вы действительно хотите удалить креатора?',
-            buttons: [
-                {
-                    label: 'Да',
-                    onClick: () => {
-                        axios.delete(`/api/creator/${idCreator}`, {
-                            headers: {
-                                "Authorization": `Bearer ${localStorage.getItem('token')}`
-                            }
-                        }).then(r => {
-                            setDataSource(dataSource.filter((item) => item._id !== idCreator))
-                            alert('Креатор удален', 'success')
-                        })
+        confirm({
+            title: 'Удалить креатора?',
+            icon: <ExclamationCircleFilled />,
+            okText: 'Да',
+            okType: 'danger',
+            cancelText: 'Нет',
+            style: {
+                top:'40%'
+            },
+            onOk() {
+                axios.delete(`/api/creator/${idCreator}`, {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem('token')}`
                     }
-                },
-                {
-                    label: 'Нет',
-                    onClick: () => alert('Вы отменили удаление', 'info')
-                }
-            ]
+                }).then(r => {
+                    setDataSource(dataSource.filter((item) => item._id !== idCreator))
+                    alert('Креатор удален', 'success')
+                })
+            },
+            onCancel() {
+                alert('Вы отменили удаление', 'info')
+            },
         });
     };
 
