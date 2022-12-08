@@ -81,6 +81,29 @@ export const getAll = async (req, res) => {
     }
 }
 
+export const getAllAdmin = async (req, res) => {
+
+    const {page, perPage} = req.query
+    const options = {
+        page: parseInt(page, 10) || 1,
+        limit: parseInt(perPage, 10) || 8,
+        sort: {
+            viewsCount: -1
+        }
+    };
+
+    try {
+        const creator = req.params
+        const posts = await PostModel.paginate({...creator}, options)
+        res.json(posts)
+    }catch (err) {
+        console.log(err)
+        res.status(500).json({
+            message: 'Не удалось получить статьи',
+        })
+    }
+};
+
 export const getBannerCards = async (req, res) => {
     const {cardsLimit} = req.query
 
