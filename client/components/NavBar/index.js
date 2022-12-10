@@ -33,6 +33,7 @@ const NavBar = ({routes, setBurgerStateZIndex, setBurgerState}) => {
                                     setBurgerStateZIndex('2')
                                 }, 700)
                             }}
+                            scroll={r.scroll}
                             myClassName={styles.headerNav__link}
                             myActiveClassName={styles.headerNav__link_active}>
                             <span>{r.name}</span>

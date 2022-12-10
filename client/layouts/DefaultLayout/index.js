@@ -8,11 +8,11 @@ import useWindowSize from "../../core/hooks/useWindowSize";
 import {useInView} from "react-intersection-observer";
 
 export const publicRoutes = [
-    {link: '/', type:'internal', name: 'Медиа'},
-    {link: '/community', type:'internal', name: 'Комьюнити'},
-    {link: 'https://rafl.studio/', type:'external', name: 'Студия'},
-    {link: '/about-project', type:'internal', name: 'О проекте'},
-    {link: '/contacts', type:'internal', name: 'Контакты'},
+    {link: '/', type:'internal', name: 'Медиа', scroll: false},
+    {link: '/community', type:'internal', name: 'Комьюнити', scroll: false},
+    {link: 'https://rafl.studio/', type:'external', name: 'Студия', scroll: true},
+    {link: '/about-project', type:'internal', name: 'О проекте', scroll: true},
+    {link: '/contacts', type:'internal', name: 'Контакты', scroll: true},
 ]
 
 export default function DefaultLayout({children, bannerState = true}) {
