@@ -9,6 +9,7 @@ import Liked from "../../components/UI/Liked";
 import {formatRuDate} from "../../core/utils";
 import {NextSeo} from "next-seo";
 import {useInView} from "react-intersection-observer";
+import SeeMore from "../../components/UI/SeeMore";
 
 
 export default function FullPost({post}) {
@@ -36,6 +37,10 @@ export default function FullPost({post}) {
                 }}
             />
             <section className={styles.fullPost}>
+                    <div className={styles.fullPost__moreWrp}>
+                        <SeeMore category={'Комьюнити'}
+                                 authorName={post?.title} linksArray={post.postsAlso} activeTitle={post.title}/>
+                    </div>
                     <span className={styles.fullPost__date}>
                         {formatRuDate(post?.createdAt)}
                     </span>
