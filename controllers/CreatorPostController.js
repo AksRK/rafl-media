@@ -132,6 +132,18 @@ export const getOneByTitle = async (req, res) => {
 
                 const post = doc._doc
 
+                const seeMorePosts = await CreatorPostModel.find(
+                    {
+                        createdAt : {$lte: doc.createdAt }
+                    }).sort({createdAt:-1})
+                const seeMorePostsFiltered = seeMorePosts.slice(0, 4)
+                let resultSeeMorePosts = []
+
+                for (let post of seeMorePostsFiltered) {
+                    const {title, creator, titleUrl, _id} = post
+                    resultSeeMorePosts.push({_id,creator, title, titleUrl})
+                }
+
                 const {readAlso} = post
                 const readAlsoResult = []
                 for (let readAlsoId of readAlso) {
@@ -143,7 +155,7 @@ export const getOneByTitle = async (req, res) => {
                     }
                 }
 
-                res.json({readAlsoList:readAlsoResult,  ...post})
+                res.json({readAlsoList:readAlsoResult, postsAlso : resultSeeMorePosts, ...post})
             }
         )
 
