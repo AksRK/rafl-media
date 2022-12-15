@@ -146,12 +146,11 @@ export const getOneByTitle = async (req, res) => {
 
                 const {readAlso} = post
                 const readAlsoResult = []
+
                 for (let readAlsoId of readAlso) {
-                    try {
+                    if (readAlsoId) {
                         const {creator,title, titleUrl, description, imageUrl, likes} = await CreatorPostModel.findById(readAlsoId)
-                        readAlsoResult.push({creator, title, titleUrl, description, imageUrl, likes})
-                    }catch (err) {
-                        console.log(err)
+                        return readAlsoResult.push({creator, title, titleUrl, description, imageUrl, likes})
                     }
                 }
 

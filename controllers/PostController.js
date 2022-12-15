@@ -224,12 +224,11 @@ export const getOneByTitle = async (req, res) => {
 
                 const {readAlso} = post
                 const readAlsoResult = []
+
                 for (let readAlsoId of readAlso) {
-                    try {
+                    if (readAlsoId) {
                         const {title, titleUrl, description, imageUrl, likes} = await PostModel.findById(readAlsoId)
                         readAlsoResult.push({title, titleUrl, description, imageUrl, likes})
-                    }catch (err) {
-                        console.log(err)
                     }
                 }
 
