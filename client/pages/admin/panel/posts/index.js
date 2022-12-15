@@ -99,6 +99,14 @@ function AdminPanel() {
     }
 
     const columns = [
+        // {
+        //     title: 'Фото',
+        //     dataIndex: 'imageUrl',
+        //     key: 'imageUrl',
+        //     render: (imageUrl) => {
+        //         return <div style={{width:'100px', height:'100px'}}><img style={{width: '100%', height:'100%',objectFit:'cover'}} src={imageUrl.fullUrl} alt="#"/></div>
+        //     },
+        // },
         {
             title: 'Заголовок',
             dataIndex: 'title',
