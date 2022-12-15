@@ -41,24 +41,12 @@ function SeeMore({category, authorName, linksArray, activeTitle}) {
                                 return (
                                     <Link key={linksArray.indexOf(link)}
                                           className={'link' + (link.title === activeTitle?' link_active':'')}
-                                          href={'/posts/'+link.titleUrl}>
+                                          href={'/posts/'+(link.creator?link.creator+'/':'')+link.titleUrl}>
                                         {link.title.replace(':',':\n')}
                                     </Link>
                                 )
                             })
                         }
-                        {/*<Link className={'link link_active'} href={''}>*/}
-                        {/*    {'Ирина Подшибяина: на равных'.replace(':',':\n')}*/}
-                        {/*</Link>*/}
-                        {/*<Link className={'link'} href={''}>*/}
-                        {/*    {'Владимир Раевский: любить урал'.replace(':',':\n')}*/}
-                        {/*</Link>*/}
-                        {/*<Link className={'link'} href={''}>*/}
-                        {/*    {'Дарья Исаева: в центре внимания'.replace(':',':\n')}*/}
-                        {/*</Link>*/}
-                        {/*<Link className={'link'} href={''}>*/}
-                        {/*    {' Юрий Шаров: от игры к игре'.replace(':',':\n')}*/}
-                        {/*</Link>*/}
                     </div>
                 </div>
 
