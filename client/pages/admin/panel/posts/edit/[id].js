@@ -41,7 +41,7 @@ function EditPost({id, post, type = ''}) {
         setFullPost({...watchAllFields, post: postBody, titleImg: titleImage})
         post?.readAlso.map((el, index) => {
             if (el !== null) {
-                fetch(`/api/${category === 'community'?'creator/posts/edit/':'posts/edit/'}${el}`)
+                fetch('/api/'+ (category === 'community'?'creator/posts/edit/':'posts/admin/edit/') + el)
                     .then((response) => response.json())
                     .then((body) => {
                             if (index === 0) {
@@ -249,6 +249,7 @@ function EditPost({id, post, type = ''}) {
                             Читайте также:
                         </label>
                         <div style={{display:'flex', flexWrap:'wrap', gap:'12px', marginTop:'20px'}}>
+                            <div onClick={()=> console.log(findReadAlsoPostPrimary, findReadAlsoPostSecondary)}>QWE</div>
                             <div>
                                 <FetchSelect
                                     showSearch
