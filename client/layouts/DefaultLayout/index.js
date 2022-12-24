@@ -6,7 +6,6 @@ import CarouselBanner from "../../components/CarouselBanner";
 import Footer from "../../components/Footer";
 import useWindowSize from "../../core/hooks/useWindowSize";
 import {useInView} from "react-intersection-observer";
-import Scrollbars from "react-custom-scrollbars-2";
 
 export const publicRoutes = [
     {link: '/', type:'internal', name: 'Медиа', scroll: false},
@@ -76,15 +75,7 @@ export default function DefaultLayout({children, bannerState = true}) {
 
 
     return (
-        <Scrollbars
-            renderView={({ style, ...props }) => {
-                return (
-                <div
-                style={{ ...style}}
-            {...props}/>
-                );
-            }}
-        >
+        <>
             <div className="container">
                 <div className={'head' + (noBanner(!inViewSpan, !inViewSpan) ? ' head_hidden' : '')}
                      style={{
@@ -129,6 +120,6 @@ export default function DefaultLayout({children, bannerState = true}) {
                     } : {}}/>
                 </div>
             </div>
-        </Scrollbars>
+        </>
     )
 }
