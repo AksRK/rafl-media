@@ -128,7 +128,6 @@ function Users() {
     ];
     return (
         <AdminPanelLayout>
-            <ToastContainer/>
             <div style={{
                 display: 'flex',
                 justifyContent: 'space-between',

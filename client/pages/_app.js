@@ -16,6 +16,7 @@ import axios from "axios";
 import DefaultLayout from "../layouts/DefaultLayout";
 import MyMain from "../components/MyMain";
 import HomeLayout from "../layouts/HomeLayout";
+import {ToastContainer} from "react-toastify";
 
 export const AuthContext = createContext();
 export const SliderContext = createContext();
@@ -66,23 +67,23 @@ function MyApp({Component, pageProps}) {
                                 <MyMain>
                                     {
                                         (
-                                        router.asPath.includes('contacts')
-                                        ||  router.asPath.includes('user-license-agreement')
-                                        ||  router.asPath.includes('about-project')
-                                        ||  router.asPath.includes('posts')
-                                        ||  router.asPath.includes('admin')
+                                            router.asPath.includes('contacts')
+                                            || router.asPath.includes('user-license-agreement')
+                                            || router.asPath.includes('about-project')
+                                            || router.asPath.includes('posts')
+                                            || router.asPath.includes('admin')
                                         )
-                                        ? <Component {...pageProps} />
-                                        : <HomeLayout>
-                                        <Component {...pageProps} />
-                                        </HomeLayout>
+                                            ? <Component {...pageProps} />
+                                            : <HomeLayout>
+                                                <Component {...pageProps} />
+                                            </HomeLayout>
                                     }
                                 </MyMain>
-                            </DefaultLayout>
+                                </DefaultLayout>
                         }
-
                     </AuthContext.Provider>
                 </SliderContext.Provider>
+            <ToastContainer/>
         </>
   )
 }

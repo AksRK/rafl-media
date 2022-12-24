@@ -111,7 +111,6 @@ function NewCreator() {
 
     return (
         <AdminPanelLayout>
-            <ToastContainer/>
             <div className="container-admin">
                 <h1>Создать креатора</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>

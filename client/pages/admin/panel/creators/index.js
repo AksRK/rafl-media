@@ -145,7 +145,6 @@ function AdminPanel() {
     ];
     return (
         <AdminPanelLayout>
-            <ToastContainer/>
             <div style={{
                 display: 'flex',
                 justifyContent: 'space-between',

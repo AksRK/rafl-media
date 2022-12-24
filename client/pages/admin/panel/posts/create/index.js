@@ -128,8 +128,6 @@ function NewPost() {
 
     return (
         <AdminPanelLayout>
-            <ToastContainer/>
-
             <div className="container-admin">
                 <h1>Новая статья</h1>
                 <div className={styles.flexWrp}>

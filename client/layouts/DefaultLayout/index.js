@@ -9,7 +9,7 @@ import {useInView} from "react-intersection-observer";
 
 export const publicRoutes = [
     {link: '/', type:'internal', name: 'Медиа', scroll: false},
-    {link: '/community', type:'internal', name: 'Комьюнити', scroll: false},
+    {link: '/community#main', type:'internal', name: 'Комьюнити', scroll: false},
     {link: 'https://rafl.studio/', type:'external', name: 'Студия', scroll: true},
     {link: '/about-project', type:'internal', name: 'О проекте', scroll: true},
     {link: '/contacts', type:'internal', name: 'Контакты', scroll: true},

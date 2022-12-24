@@ -201,7 +201,6 @@ function Contacts() {
                     Добавить контакт
                 </button>
             </div>
-            <ToastContainer/>
             <Modal title={editContact?'Изменить контакт':'Новый контакт'}
                    open={isModalOpen}
                    onOk={handleOk}
@@ -229,9 +228,6 @@ function Contacts() {
                        id={'titleUrlContact'}
                        onChange={(e)=> setFormValue({...formValue, titleUrl: e.target.value})}
                        value={formValue.titleUrl}/>
-                {
-                    editContact?<ToastContainer/>:''
-                }
             </Modal>
 
             <Table dataSource={dataSource}

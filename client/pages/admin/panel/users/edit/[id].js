@@ -44,8 +44,6 @@ function EditUser({id, user}) {
 
     return (
         <AdminPanelLayout>
-            <ToastContainer/>
-
             <div className="container-admin">
                 <h1>Новый пользователь</h1>
 

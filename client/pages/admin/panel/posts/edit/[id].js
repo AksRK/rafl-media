@@ -140,7 +140,6 @@ function EditPost({id, post, type = ''}) {
 
     return (
         <AdminPanelLayout>
-            <ToastContainer/>
             <div className="container-admin">
                 <h1>Редактировать статью</h1>
                 <Select

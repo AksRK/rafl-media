@@ -117,7 +117,6 @@ function EditCreator({id, creator}) {
 
     return (
         <AdminPanelLayout>
-            <ToastContainer/>
             <div className="container-admin">
                 <h1>Изменения данных креатора</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>

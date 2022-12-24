@@ -48,7 +48,6 @@ function NewUser() {
 
     return (
         <AdminPanelLayout>
-            <ToastContainer/>
 
             <div className="container-admin">
                 <h1>Новый пользователь</h1>
