@@ -45,7 +45,6 @@ export default function Editor({ initialContent = '', name, onChange, props, con
                 "video",
                 'showBlocks',
                 'codeView',
-                'preview'
             ]
         ],
     }
