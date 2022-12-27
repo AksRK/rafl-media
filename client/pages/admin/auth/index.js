@@ -13,8 +13,8 @@ function Auth() {
     const { setIsAuth } = useContext(AuthContext)
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
-            email: 'test2@test.com',
-            password: '123456'
+            email: '',
+            password: ''
         }
     });
 
