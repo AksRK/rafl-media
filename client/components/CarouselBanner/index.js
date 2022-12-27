@@ -23,45 +23,46 @@ export default function CarouselBanner() {
         if (size.width <= 479) setPerView(1.1);
     }, [size.width])
 
-    return (
-        <div className={styles.carousel+ ' container'}>
-            <Swiper
-                slidesPerView={perView}
-                spaceBetween={16}
-                loop={true}
-                autoplay={{
-                    delay: 5000,
-                    disableOnInteraction: false,
-                    pauseOnMouseEnter: true
-                }}
-                navigation={!!size.width ? size.width <= 768 ? false : true : false}
-                modules={[Navigation, Autoplay]}
-                className="mySwiper mySwiper_border_radius"
-            >
-                {
-                    banners.map(b => <SwiperSlide key={b._id}>
-                        <div className={styles.card}
-                             onClick={()=> {
-                                 b.creator
-                                     ?router.push(`/posts/${b.creator}/${CyrillicToTranslit().transform(b.title, "-").replaceAll('?', '').replaceAll('&', '').toLowerCase()}`)
-                                     :router.push(`/posts/${CyrillicToTranslit().transform(b.title, "-").replaceAll('?', '').replaceAll('&', '').toLowerCase()}`)
-                             }}
-                        >
-                            <Image src={b.imageUrl.fullUrl} alt={b.title} width={533} height={500} priority={true}/>
-                            <div className={styles.card__textWrp}>
-                                <h3 className={styles.card__title}>{b.title}</h3>
-                                <span style={{
-                                    position: "relative",
-                                    zIndex: '1000'
-                                }}>
+    if (banners.length >= 1) {
+        return (
+            <div className={styles.carousel+ ' container'}>
+                <Swiper
+                    slidesPerView={perView}
+                    spaceBetween={16}
+                    loop={true}
+                    autoplay={{
+                        delay: 5000,
+                        disableOnInteraction: false,
+                        pauseOnMouseEnter: true
+                    }}
+                    navigation={!!size.width ? size.width <= 768 ? false : true : false}
+                    modules={[Navigation, Autoplay]}
+                    className="mySwiper mySwiper_border_radius"
+                >
+                    {
+                        banners.map(b => <SwiperSlide key={b._id}>
+                            <div className={styles.card}
+                                 onClick={()=> {
+                                     b.creator
+                                         ?router.push(`/posts/${b.creator}/${CyrillicToTranslit().transform(b.title, "-").replaceAll('?', '').replaceAll('&', '').toLowerCase()}`)
+                                         :router.push(`/posts/${CyrillicToTranslit().transform(b.title, "-").replaceAll('?', '').replaceAll('&', '').toLowerCase()}`)
+                                 }}
+                            >
+                                <Image src={b.imageUrl.fullUrl} alt={b.title} width={533} height={500} priority={true}/>
+                                <div className={styles.card__textWrp}>
+                                    <h3 className={styles.card__title}>{b.title}</h3>
+                                    <span style={{
+                                        position: "relative",
+                                        zIndex: '1000'
+                                    }}>
                                     <ShrinkText text={b.description} maxChar={95}/>
                                 </span>
+                                </div>
                             </div>
-                        </div>
-                    </SwiperSlide>)
-                }
-            </Swiper>
-        </div>
-
-    )
+                        </SwiperSlide>)
+                    }
+                </Swiper>
+            </div>
+        )
+    }
 }
