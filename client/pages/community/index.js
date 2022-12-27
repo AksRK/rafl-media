@@ -25,24 +25,30 @@ export default function Community({creators}) {
                     description: 'Независимое издание, освещающее эстетическую сторону российского футбола'
                 }}
             />
-            <div className={styles.cardsList}>
-                {
-                    loading
-                        ? <SkeletonComunity/>
-                        : <>
-                            {
-                                creators.docs.map(c =>
-                                    <Card type={'creator'}
-                                          key={c._id}
-                                          title={c.fullName}
-                                          description={c.description}
-                                          imgUrl={c.imageUrl.fullUrl}
-                                          path={`/community/${c.login}`}/>
-                                )
-                            }
-                        </>
-                }
-            </div>
+            {
+                creators.docs.length >= 1
+                    ?<div className={styles.cardsList}>
+                        {
+                            loading
+                                ? <SkeletonComunity/>
+                                : <>
+                                    {
+                                        creators.docs.map(c =>
+                                            <Card type={'creator'}
+                                                  key={c._id}
+                                                  title={c.fullName}
+                                                  description={c.description}
+                                                  imgUrl={c.imageUrl.fullUrl}
+                                                  path={`/community/${c.login}`}/>
+                                        )
+                                    }
+                                </>
+                        }
+                    </div>
+                    :<div style={{display:'flex', justifyContent:'center'}}>
+                        <h3 style={{width:'fit-content', marginTop:'150px'}} className={'page-title'}>Здесь пока пусто</h3>
+                    </div>
+            }
         </>
     )
 }
