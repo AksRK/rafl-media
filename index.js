@@ -127,7 +127,7 @@ app.delete('/project/contacts/:id', checkAuth, ContactsController.remove);
 async function start() {
     try {
         await mongoose
-            .connect('mongodb+srv://admin:wwwwww@cluster0.odjoyaf.mongodb.net/rafl-media?retryWrites=true&w=majority',)
+            .connect('mongodb+srv://Admin:Ctktyjd1994Sele62I0@cluster0.sbmoots.mongodb.net/RAFL?retryWrites=true&w=majority',)
             .then(() => {console.log('DB connect')})
             .catch((err) => {console.log('DB err', err)})
         app.listen(PORT, () => console.log(`Server started on port ${PORT}...`))
