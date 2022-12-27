@@ -10,16 +10,26 @@ import {formatRuDate} from "../../core/utils";
 import {NextSeo} from "next-seo";
 import {useInView} from "react-intersection-observer";
 import SeeMore from "../../components/UI/SeeMore";
+import {useEffect} from "react";
+import {useRouter} from "next/router";
 
 
 export default function FullPost({post}) {
     const size = useWindowSize()
     const mobile = 479;
+    const router = useRouter()
     const { ref, inView, entry } = useInView({
         /* Optional options */
         threshold: 1,
         rootMargin: '2000px 0px -18px 0px'
     });
+
+    useEffect(() => {
+        if (post.message) {
+            router.push('/')
+        }
+    }, [])
+
     return (
         <>
             <NextSeo

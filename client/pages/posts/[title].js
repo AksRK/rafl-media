@@ -14,6 +14,7 @@ import {useInView} from 'react-intersection-observer';
 import {useRouter} from "next/router";
 
 export default function FullPost({post}) {
+    const router = useRouter()
     const [readAlso, setReadAlso] = useState([])
     const size = useWindowSize()
     const mobile = 479;
@@ -24,7 +25,11 @@ export default function FullPost({post}) {
     });
 
     useEffect(() => {
+        if (post.message) {
+            router.push('/')
+        }
     }, [])
+
 
     return (
         <>
