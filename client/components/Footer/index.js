@@ -71,7 +71,7 @@ function Footer({styled = {}}) {
                 <div className={style.footer__copyright}>
                     <div className={style.footer__copyright__el}>
                         Сайт задизайнен и создан
-                        <a className={'link link_white'} href="rafl-media-backend/сlient/components/Footer/index#"><span>beans</span></a>
+                        <a className={'link link_white'} href="https://t.me/German_Bobnev" target={'_blank'} rel={'noreferrer'}><span>beans</span></a>
                     </div>
 
                 </div>
