@@ -17,6 +17,7 @@ import DefaultLayout from "../layouts/DefaultLayout";
 import MyMain from "../components/MyMain";
 import HomeLayout from "../layouts/HomeLayout";
 import {ToastContainer} from "react-toastify";
+import {YMInitializer} from "react-yandex-metrika";
 
 export const AuthContext = createContext();
 export const SliderContext = createContext();
@@ -84,6 +85,13 @@ function MyApp({Component, pageProps}) {
                     </AuthContext.Provider>
                 </SliderContext.Provider>
             <ToastContainer/>
+            <YMInitializer accounts={[91884114]} options={{
+                clickmap: true,
+                trackLinks: true,
+                accurateTrackBounce: true,
+                webvisor: true,
+                ecommerce: "dataLayer"
+            }}/>
         </>
   )
 }
