@@ -8,6 +8,9 @@ export const getAll = async (req, res) => {
     const options = {
         page: parseInt(page, 10) || 1,
         limit: parseInt(perPage, 10) || 8,
+        sort: {
+            viewsCount: -1
+        }
     };
 
     try {
