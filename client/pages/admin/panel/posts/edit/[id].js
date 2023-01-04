@@ -248,7 +248,6 @@ function EditPost({id, post, type = ''}) {
                             Читайте также:
                         </label>
                         <div style={{display:'flex', flexWrap:'wrap', gap:'12px', marginTop:'20px'}}>
-                            <div onClick={()=> console.log(findReadAlsoPostPrimary, findReadAlsoPostSecondary)}>QWE</div>
                             <div>
                                 <FetchSelect
                                     showSearch

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import ShrinkText from "../../components/UI/ShrinkText/ShrinkText";
-import tstImg from '../../public/tstImg.jpg'
 import hand from '../../public/hand-black.svg'
 import useWindowSize from "../../core/hooks/useWindowSize";
 import styles from './index.module.scss'
