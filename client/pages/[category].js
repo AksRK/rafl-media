@@ -43,12 +43,6 @@ export default function Home({posts, category, next}) {
 export async function getServerSideProps(context) {
     const posts = await fetch(`http://localhost:3000/api/posts/category/${context.params.category}`).then(r => r.json())
 
-    if (!Category.find((c) => c.value === context.params.category)) {
-        return {
-            notFound: true,
-        }
-    }
-
     return {
         props: {posts: posts.docs, next: posts.nextPage, category: context.params.category}, // will be passed to the page component as props
     }
