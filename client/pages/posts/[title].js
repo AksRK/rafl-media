@@ -24,11 +24,11 @@ export default function FullPost({post}) {
         rootMargin: '1000px 0px -22px 0px'
     });
 
-    // useEffect(() => {
-    //     if (post.message) {
-    //         router.push('/')
-    //     }
-    // }, [])
+    useEffect(() => {
+        if (post.message) {
+            router.push('/')
+        }
+    }, [])
 
 
     return (
@@ -150,7 +150,7 @@ export default function FullPost({post}) {
 
 export async function getServerSideProps(context) {
     const post = await fetch(`http://localhost:3000/api/posts/title/${context.params.title}`).then(r => r.json())
-
+    console.log(context.params.title)
     return {
         props: {post: post}
     }
