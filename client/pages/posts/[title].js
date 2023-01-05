@@ -24,11 +24,11 @@ export default function FullPost({post}) {
         rootMargin: '1000px 0px -22px 0px'
     });
 
-    useEffect(() => {
-        if (post.message) {
-            router.push('/')
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (post.message) {
+    //         router.push('/')
+    //     }
+    // }, [])
 
 
     return (
